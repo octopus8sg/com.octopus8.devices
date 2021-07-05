@@ -4,14 +4,7 @@
   <base>CRM/Healthmonitor</base>
   <class>HealthMonitor</class>
   <name>civicrm_health_monitor</name>
-  <comment>The app will collect and send the following data:
-    1. Unique ID
-    2. Date
-    3. Time
-    4. Location
-    5. Heart Rate
-    6. Blood Pressure
-    7. Temperature</comment>
+  <comment>The app will collect and send health data</comment>
   <log>true</log>
 
   <field>
@@ -59,7 +52,7 @@
   </field>
 
   <field>
-    <name>value</name>
+    <name>health_value</name>
     <type>varchar</type>
     <length>255</length>
     <required>true</required>
