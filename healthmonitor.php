@@ -159,14 +159,14 @@ function healthmonitor_civicrm_themes(&$themes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-//function healthmonitor_civicrm_navigationMenu(&$menu) {
-//  _healthmonitor_civix_insert_navigation_menu($menu, 'Mailings', array(
-//    'label' => E::ts('New subliminal message'),
-//    'name' => 'mailing_subliminal_message',
-//    'url' => 'civicrm/mailing/subliminal',
-//    'permission' => 'access CiviMail',
-//    'operator' => 'OR',
-//    'separator' => 0,
-//  ));
-//  _healthmonitor_civix_navigationMenu($menu);
-//}
+function healthmonitor_civicrm_navigationMenu(&$menu) {
+  _healthmonitor_civix_insert_navigation_menu($menu, 'Search', array(
+    'label' => E::ts('Search Health Monitoring'),
+    'name' => 'search_health_monitor',
+    'url' => 'civicrm/healthmonitor/search',
+    'permission' => 'access CiviCRM',
+    'operator' => 'OR',
+    'separator' => 0,
+  ));
+  _healthmonitor_civix_navigationMenu($menu);
+}

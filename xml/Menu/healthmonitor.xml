@@ -6,4 +6,10 @@
     <title>HealthMonitor</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/healthmonitor/search</path>
+    <page_callback>CRM_Healthmonitor_Form_Search</page_callback>
+    <title>Search</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
