@@ -1,27 +1,46 @@
-{* HEADER *}
-
-<div class="crm-submit-buttons">
-{include file="CRM/common/formButtons.tpl" location="top"}
-</div>
-
-{* FIELD EXAMPLE: OPTION 1 (AUTOMATIC LAYOUT) *}
-
-{foreach from=$elementNames item=elementName}
-  <div class="crm-section">
-    <div class="label">{$form.$elementName.label}</div>
-    <div class="content">{$form.$elementName.html}</div>
-    <div class="clear"></div>
-  </div>
-{/foreach}
-
-{* FIELD EXAMPLE: OPTION 2 (MANUAL LAYOUT)
-
-  <div>
-    <span>{$form.favorite_color.label}</span>
-    <span>{$form.favorite_color.html}</span>
+{crmScope extensionKey='healthmonitor'}
+{if $action eq 8}
+  {* Are you sure to delete form *}
+  <h3>{ts}Delete Entity{/ts}</h3>
+  <div class="crm-block crm-form-block">
+    <div class="crm-section">{ts 1=$healthmonitor.title}Are you sure you wish to delete the entity for device: %1?{/ts}</div>
   </div>
 
-{* FOOTER *}
-<div class="crm-submit-buttons">
-{include file="CRM/common/formButtons.tpl" location="bottom"}
-</div>
+  <div class="crm-submit-buttons">
+    {include file="CRM/common/formButtons.tpl" location="bottom"}
+  </div>
+{else}
+
+  <div class="crm-block crm-form-block">
+
+    <div class="crm-section">
+      <div class="label">{$form.device_id.label}</div>
+      <div class="content">{$form.device_id.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="label">{$form.contact_id.label}</div>
+      <div class="content">{$form.contact_id.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="label">{$form.date.label}</div>
+      <div class="content">{$form.date.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="label">{$form.health_value.label}</div>
+      <div class="content">{$form.health_value.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-submit-buttons">
+      {include file="CRM/common/formButtons.tpl" location="bottom"}
+    </div>
+
+  </div>
+{/if}
+{/crmScope}
