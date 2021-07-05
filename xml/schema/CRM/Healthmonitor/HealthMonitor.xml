@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Healthmonitor</base>
+  <class>HealthMonitor</class>
+  <name>civicrm_health_monitor</name>
+  <comment>The app will collect and send the following data:
+    1. Unique ID
+    2. Date
+    3. Time
+    4. Location
+    5. Heart Rate
+    6. Blood Pressure
+    7. Temperature</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique HealthMonitor ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>device_id</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>true</required>
+  </field>
+
+  <field>
+    <name>date</name>
+    <type>datetime</type>
+    <comment>Health Monitor Time</comment>
+    <html>
+      <type>Select Date</type>
+      <formatType>activityDateTime</formatType>
+    </html>
+    <required>true</required>
+  </field>
+
+  <field>
+    <name>value</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>true</required>
+  </field>
+
+
+</table>
