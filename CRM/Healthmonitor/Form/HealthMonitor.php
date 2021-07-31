@@ -13,19 +13,23 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
 
     protected $_healthmonitor;
 
-    public function getDefaultEntity() {
+    public function getDefaultEntity()
+    {
         return 'HealthMonitor';
     }
 
-    public function getDefaultEntityTable() {
+    public function getDefaultEntityTable()
+    {
         return 'civicrm_health_monitor';
     }
 
-    public function getEntityId() {
+    public function getEntityId()
+    {
         return $this->_id;
     }
 
-    public function preProcess() {
+    public function preProcess()
+    {
         parent::preProcess();
 
         $this->_action = CRM_Utils_Request::retrieve('action', 'String', $this);
@@ -44,12 +48,13 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         }
     }
 
-    public function buildQuickForm() {
+    public function buildQuickForm()
+    {
         $this->assign('id', $this->getEntityId());
         $this->add('hidden', 'id');
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
-            $this->add('timestamp', 'date', E::ts('Date'), null, FALSE);
+            $this->add('date', 'date', E::ts('Date'), CRM_Core_SelectValues::date(NULL, 'Y-m-d H:i:s'), TRUE);
             $this->add('text', 'device_id', E::ts('Device ID'), null, FALSE);
             $this->add('text', 'health_value', E::ts('Value'), null, FALSE);
 
@@ -69,25 +74,37 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         parent::buildQuickForm();
     }
 
-    public function setDefaultValues() {
+    public function setDefaultValues()
+    {
         if ($this->_healthmonitor) {
             $defaults = $this->_healthmonitor;
         }
         return $defaults;
     }
 
-    public function postProcess() {
+    public function postProcess()
+    {
         if ($this->_action == CRM_Core_Action::DELETE) {
             civicrm_api4('HealthMonitor', 'delete', ['where' => [['id', '=', $this->_id]]]);
             CRM_Core_Session::setStatus(E::ts('Removed Health Monitor Value'), E::ts('Health Monitor'), 'success');
         } else {
             $values = $this->controller->exportValues();
+//            CRM_Core_Error::debug_var('values', $values);
             $action = 'create';
             if ($this->getEntityId()) {
                 $params['id'] = $this->getEntityId();
                 $action = 'update';
             }
-            $params['title'] = $values['title'];
+            $params['device_id'] = $values['device_id'];
+            $params['health_value'] = $values['health_value'];
+            $date = $values['date'];
+            $strdate = implode("-", $date);
+            $valdate = CRM_Utils_Date::format($date);
+//            CRM_Core_Error::debug_var('strdate', $strdate);
+//            CRM_Core_Error::debug_var('valdate', $valdate);
+//            CRM_Core_Error::debug_var('dvaldate', date($valdate));
+            $params['date'] = $valdate;
+//            CRM_Core_Error::debug_var('params', $params);
             $params['contact_id'] = $values['contact_id'];
             civicrm_api4('HealthMonitor', $action, ['values' => $params]);
         }

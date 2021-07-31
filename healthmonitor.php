@@ -1,8 +1,10 @@
 <?php
 
 require_once 'healthmonitor.civix.php';
+
 // phpcs:disable
 use CRM_Healthmonitor_ExtensionUtil as E;
+
 // phpcs:enable
 
 /**
@@ -10,8 +12,9 @@ use CRM_Healthmonitor_ExtensionUtil as E;
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
-function healthmonitor_civicrm_config(&$config) {
-  _healthmonitor_civix_civicrm_config($config);
+function healthmonitor_civicrm_config(&$config)
+{
+    _healthmonitor_civix_civicrm_config($config);
 }
 
 /**
@@ -19,8 +22,9 @@ function healthmonitor_civicrm_config(&$config) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_xmlMenu
  */
-function healthmonitor_civicrm_xmlMenu(&$files) {
-  _healthmonitor_civix_civicrm_xmlMenu($files);
+function healthmonitor_civicrm_xmlMenu(&$files)
+{
+    _healthmonitor_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -28,8 +32,9 @@ function healthmonitor_civicrm_xmlMenu(&$files) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_install
  */
-function healthmonitor_civicrm_install() {
-  _healthmonitor_civix_civicrm_install();
+function healthmonitor_civicrm_install()
+{
+    _healthmonitor_civix_civicrm_install();
 }
 
 /**
@@ -37,8 +42,9 @@ function healthmonitor_civicrm_install() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_postInstall
  */
-function healthmonitor_civicrm_postInstall() {
-  _healthmonitor_civix_civicrm_postInstall();
+function healthmonitor_civicrm_postInstall()
+{
+    _healthmonitor_civix_civicrm_postInstall();
 }
 
 /**
@@ -46,8 +52,9 @@ function healthmonitor_civicrm_postInstall() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_uninstall
  */
-function healthmonitor_civicrm_uninstall() {
-  _healthmonitor_civix_civicrm_uninstall();
+function healthmonitor_civicrm_uninstall()
+{
+    _healthmonitor_civix_civicrm_uninstall();
 }
 
 /**
@@ -55,8 +62,9 @@ function healthmonitor_civicrm_uninstall() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_enable
  */
-function healthmonitor_civicrm_enable() {
-  _healthmonitor_civix_civicrm_enable();
+function healthmonitor_civicrm_enable()
+{
+    _healthmonitor_civix_civicrm_enable();
 }
 
 /**
@@ -64,8 +72,9 @@ function healthmonitor_civicrm_enable() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_disable
  */
-function healthmonitor_civicrm_disable() {
-  _healthmonitor_civix_civicrm_disable();
+function healthmonitor_civicrm_disable()
+{
+    _healthmonitor_civix_civicrm_disable();
 }
 
 /**
@@ -73,8 +82,9 @@ function healthmonitor_civicrm_disable() {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_upgrade
  */
-function healthmonitor_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _healthmonitor_civix_civicrm_upgrade($op, $queue);
+function healthmonitor_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL)
+{
+    return _healthmonitor_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -85,8 +95,9 @@ function healthmonitor_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
  */
-function healthmonitor_civicrm_managed(&$entities) {
-  _healthmonitor_civix_civicrm_managed($entities);
+function healthmonitor_civicrm_managed(&$entities)
+{
+    _healthmonitor_civix_civicrm_managed($entities);
 }
 
 /**
@@ -98,8 +109,9 @@ function healthmonitor_civicrm_managed(&$entities) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_caseTypes
  */
-function healthmonitor_civicrm_caseTypes(&$caseTypes) {
-  _healthmonitor_civix_civicrm_caseTypes($caseTypes);
+function healthmonitor_civicrm_caseTypes(&$caseTypes)
+{
+    _healthmonitor_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -112,8 +124,9 @@ function healthmonitor_civicrm_caseTypes(&$caseTypes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_angularModules
  */
-function healthmonitor_civicrm_angularModules(&$angularModules) {
-  _healthmonitor_civix_civicrm_angularModules($angularModules);
+function healthmonitor_civicrm_angularModules(&$angularModules)
+{
+    _healthmonitor_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -121,8 +134,9 @@ function healthmonitor_civicrm_angularModules(&$angularModules) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_alterSettingsFolders
  */
-function healthmonitor_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _healthmonitor_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function healthmonitor_civicrm_alterSettingsFolders(&$metaDataFolders = NULL)
+{
+    _healthmonitor_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 /**
@@ -132,15 +146,17 @@ function healthmonitor_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_entityTypes
  */
-function healthmonitor_civicrm_entityTypes(&$entityTypes) {
-  _healthmonitor_civix_civicrm_entityTypes($entityTypes);
+function healthmonitor_civicrm_entityTypes(&$entityTypes)
+{
+    _healthmonitor_civix_civicrm_entityTypes($entityTypes);
 }
 
 /**
  * Implements hook_civicrm_themes().
  */
-function healthmonitor_civicrm_themes(&$themes) {
-  _healthmonitor_civix_civicrm_themes($themes);
+function healthmonitor_civicrm_themes(&$themes)
+{
+    _healthmonitor_civix_civicrm_themes($themes);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
@@ -159,14 +175,45 @@ function healthmonitor_civicrm_themes(&$themes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-function healthmonitor_civicrm_navigationMenu(&$menu) {
-  _healthmonitor_civix_insert_navigation_menu($menu, 'Search', array(
-    'label' => E::ts('Search Health Monitoring'),
-    'name' => 'search_health_monitor',
-    'url' => 'civicrm/healthmonitor/search',
-    'permission' => 'access CiviCRM',
-    'operator' => 'OR',
-    'separator' => 0,
-  ));
-  _healthmonitor_civix_navigationMenu($menu);
+function healthmonitor_civicrm_navigationMenu(&$menu)
+{
+    _healthmonitor_civix_insert_navigation_menu($menu, 'Search', array(
+        'label' => E::ts('Search Health Monitoring'),
+        'name' => 'search_health_monitor',
+        'url' => 'civicrm/healthmonitor/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _healthmonitor_civix_navigationMenu($menu);
+}
+
+/**
+ * Implementation of hook_civicrm_tabset
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_tabset
+ */
+function healthmonitor_civicrm_tabset($path, &$tabs, $context)
+{
+    if ($path === 'civicrm/contact/view') {
+        // add a tab to the contact summary screen
+        $contactId = $context['contact_id'];
+        $url = CRM_Utils_System::url('civicrm/healthmonitor/contacttab', ['cid' => $contactId]);
+
+        $myEntities = \Civi\Api4\HealthMonitor::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+
+        $tabs[] = array(
+            'id' => 'contact_healthmonitor',
+            'url' => $url,
+            'count' => $myEntities->count(),
+            'title' => E::ts('Health Monitor'),
+            'weight' => 1,
+            'icon' => 'crm-i fa-envelope-open',
+            'rows' => [
+                ['id' => 1],
+                ['id' => 2]]
+        );
+    }
 }

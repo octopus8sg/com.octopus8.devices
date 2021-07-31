@@ -42,16 +42,22 @@ SET FOREIGN_KEY_CHECKS=1;
 -- *
 -- * civicrm_health_monitor
 -- *
--- * The app will collect and send the following data:
+-- * The app will collect and send health data
 -- *
 -- *******************************************************/
 CREATE TABLE `civicrm_health_monitor` (
+
+
      `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique HealthMonitor ID',
      `contact_id` int unsigned    COMMENT 'FK to Contact',
      `device_id` varchar(255) NOT NULL   ,
      `date` datetime NOT NULL   COMMENT 'Health Monitor Time',
-     `health_value` varchar(255) NOT NULL,
-    PRIMARY KEY (`id`),   CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
+     `health_value` varchar(255) NOT NULL    
+,
+        PRIMARY KEY (`id`)
+ 
+ 
+,          CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE  
 )  ENGINE=InnoDB  ;
 
  

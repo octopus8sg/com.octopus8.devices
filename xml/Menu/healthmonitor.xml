@@ -12,4 +12,10 @@
     <title>Search</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/healthmonitor/contacttab</path>
+    <page_callback>CRM_Healthmonitor_Page_ContactTab</page_callback>
+    <title>ContactTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
