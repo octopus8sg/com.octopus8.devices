@@ -58,6 +58,20 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $this->add('date', 'date', E::ts('Date'), CRM_Core_SelectValues::date(NULL, 'Y-m-d H:i:s'), TRUE);
+
+            $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
+            $this->add('select', 'device_type_id', 
+                E::ts('Device Type'), 
+                $types, 
+                TRUE, ['class' => 'huge crm-select2', 
+                    'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type']);
+            $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
+            $this->add('select', 'sensor_id', 
+                E::ts('Sensor'),
+                $sensors,
+                TRUE, ['class' => 'huge crm-select2', 
+                    'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor']);
+
             $this->add('text', 'device_id', E::ts('Device ID'), null, FALSE);
             $this->add('text', 'health_value', E::ts('Value'), null, FALSE);
 
@@ -82,6 +96,12 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         if ($this->_healthmonitor) {
             $defaults = $this->_healthmonitor;
         }
+        if (empty($defaults['device_type_id'])) {
+            $defaults['device_type_id'] = CRM_Core_OptionGroup::getDefaultValue('health_monitor_sensor');
+        }
+        if (empty($defaults['sensor_id'])) {
+            $defaults['sensor_id'] = CRM_Core_OptionGroup::getDefaultValue('health_monitor_sensor');
+        }
         return $defaults;
     }
 
@@ -100,6 +120,8 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
             }
             $params['device_id'] = $values['device_id'];
             $params['health_value'] = $values['health_value'];
+            $params['device_type_id'] = $values['device_type_id'];
+            $params['sensor_id'] = $values['sensor_id'];
             $date = $values['date'];
             $strdate = implode("-", $date);
             $valdate = CRM_Utils_Date::format($date);

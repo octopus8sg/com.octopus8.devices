@@ -50,8 +50,10 @@ CREATE TABLE `civicrm_health_monitor` (
 
      `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique HealthMonitor ID',
      `contact_id` int unsigned    COMMENT 'FK to Contact',
-     `device_id` varchar(255) NOT NULL   ,
      `date` datetime NOT NULL   COMMENT 'Health Monitor Time',
+     `device_type_id` int   DEFAULT NULL ,
+     `device_id` varchar(255) NOT NULL   ,
+     `sensor_id` int   DEFAULT NULL ,
      `health_value` varchar(255) NOT NULL    
 ,
         PRIMARY KEY (`id`)

@@ -26,8 +26,20 @@
     </div>
 
     <div class="crm-section">
+      <div class="label">{$form.device_type_id.label}</div>
+      <div class="content">{$form.device_type_id.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-section">
       <div class="label">{$form.date.label}</div>
       <div class="content">{$form.date.html}</div>
+      <div class="clear"></div>
+    </div>
+
+    <div class="crm-section">
+      <div class="label">{$form.sensor_id.label}</div>
+      <div class="content">{$form.sensor_id.html}</div>
       <div class="clear"></div>
     </div>
 

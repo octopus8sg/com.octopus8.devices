@@ -26,19 +26,13 @@
     <type>int unsigned</type>
     <comment>FK to Contact</comment>
   </field>
+
   <foreignKey>
     <name>contact_id</name>
     <table>civicrm_contact</table>
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>
-
-  <field>
-    <name>device_id</name>
-    <type>varchar</type>
-    <length>255</length>
-    <required>true</required>
-  </field>
 
   <field>
     <name>date</name>
@@ -50,6 +44,42 @@
     </html>
     <required>true</required>
   </field>
+
+  <field>
+    <name>device_type_id</name>
+    <title>Device Type</title>
+    <type>int</type>
+    <length>3</length>
+    <default>NULL</default>
+    <pseudoconstant>
+      <optionGroupName>health_monitor_device_type</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
+  <field>
+    <name>device_id</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>true</required>
+  </field>
+
+  <field>
+    <name>sensor_id</name>
+    <title>Sensor</title>
+    <type>int</type>
+    <length>3</length>
+    <default>NULL</default>
+    <pseudoconstant>
+      <optionGroupName>health_monitor_sensor</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
 
   <field>
     <name>health_value</name>
