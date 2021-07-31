@@ -87,6 +87,11 @@ function healthmonitor_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL)
     return _healthmonitor_civix_civicrm_upgrade($op, $queue);
 }
 
+function healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
+{
+    return _healthmonitor_civicrm_pre($op, $objectName, $id, $params);
+}
+
 /**
  * Implements hook_civicrm_managed().
  *
@@ -226,3 +231,78 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
         );
     }
 }
+
+function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
+{
+//    CRM_Core_Error::debug_var('op', $op);
+//    CRM_Core_Error::debug_var('objectName', $objectName);
+//    CRM_Core_Error::debug_var('id', $id);
+//    CRM_Core_Error::debug_var('params', $params);
+    if ($op == 'create' && $objectName == 'HealthMonitor') {
+        if (!isset($params['contact_id']) or !isset($params['device_type_id'])) {
+            $devices = civicrm_api4('Device', 'get', [
+                'select' => [
+                    'contact_id',
+                    'device_type_id',
+                ],
+                'where' => [
+                    ['id', '=', 3],
+                ],
+                'limit' => 2,
+            ]);
+            if (!empty($devices)) {
+                if (!isset($params['contact_id'])) {
+                    $client_id = $devices[0]['contact_id'];
+                }
+                if (!isset($params['device_type_id'])) {
+                    $device_type_id = $devices[0]['device_type_id'];
+                }
+            }
+//            CRM_Core_Error::debug_var('results', $devices);
+//            CRM_Core_Error::debug_var('results0', $devices[0]);
+//            CRM_Core_Error::debug_var('client_id', $client_id);
+            $params['contact_id'] = $client_id;
+            $params['device_type_id'] = $device_type_id;
+//            CRM_Core_Error::debug_var('params2', $params);
+
+        }
+    }
+}
+
+//function _healthmonitor_civicrm_post($op, $objectName, $objectId, &$objectRef)
+//{
+//    CRM_Core_Error::debug_var('op', $op);
+//    CRM_Core_Error::debug_var('objectName', $objectName);
+//    CRM_Core_Error::debug_var('id', $objectId);
+//    CRM_Core_Error::debug_var('params', $objectRef);
+//    if ($op == 'create' && $objectName == 'HealthMonitor') {
+//        if (!isset($objectRef['contact_id']) or !isset($objectRef['device_type_id'])) {
+//            $devices = civicrm_api4('Device', 'get', [
+//                'select' => [
+//                    'contact_id',
+//                    'device_type_id',
+//                ],
+//                'where' => [
+//                    ['id', '=', 3],
+//                ],
+//                'limit' => 2,
+//            ]);
+//            if (!empty($devices)) {
+//                if (!isset($objectRef['contact_id'])) {
+//                    $client_id = $devices[0]['contact_id'];
+//                }
+//                if (!isset($objectRef['device_type_id'])) {
+//                    $device_type_id = $devices[0]['device_type_id'];
+//                }
+//            }
+////            CRM_Core_Error::debug_var('results', $devices);
+////            CRM_Core_Error::debug_var('results0', $devices[0]);
+////            CRM_Core_Error::debug_var('client_id', $client_id);
+//            $objectRef['contact_id'] = $client_id;
+//            $objectRef['device_type_id'] = $device_type_id;
+//            CRM_Core_Error::debug_var('params2', $objectRef);
+//            $objectRef->save();
+//
+//        }
+//    }
+//}
