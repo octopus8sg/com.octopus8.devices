@@ -122,7 +122,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form {
             $this->rows[] = $row;
 
         }
-        CRM_Core_Error::debug_var('tabrows', $this->rows);
+//        CRM_Core_Error::debug_var('tabrows', $this->rows);
 
     }
 }
