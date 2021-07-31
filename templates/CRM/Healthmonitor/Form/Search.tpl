@@ -48,10 +48,10 @@
               {ts}Contact{/ts}
             </th>
             <th scope="col">
-              {ts}Device ID{/ts}
+              {ts}Device Type{/ts}
             </th>
             <th scope="col">
-              {ts}Device Type{/ts}
+              {ts}Device ID{/ts}
             </th>
             <th scope="col">
               {ts}Date{/ts}

@@ -17,7 +17,14 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
             ->execute();
         $rows = array();
         foreach ($healthMonitors as $healthMonitor) {
+
             $row = $healthMonitor;
+            if (!empty($row['device_type_id'])) {
+                $row['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $healthMonitor['device_type_id']);
+            }
+            if (!empty($row['sensor_id'])) {
+                $row['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $healthMonitor['sensor_id']);
+            }
             if (!empty($row['contact_id'])) {
                 $row['contact'] = '<a href="' . CRM_Utils_System::url('civicrm/contact/view', ['reset' => 1, 'cid' => $row['contact_id']]) . '">' . CRM_Contact_BAO_Contact::displayName($row['contact_id']) . '</a>';
 

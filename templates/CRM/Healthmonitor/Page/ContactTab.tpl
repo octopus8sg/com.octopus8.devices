@@ -23,10 +23,16 @@
                             {ts}Contact{/ts}
                         </th>
                         <th scope="col">
+                            {ts}Device Type{/ts}
+                        </th>
+                        <th scope="col">
                             {ts}Device ID{/ts}
                         </th>
                         <th scope="col">
                             {ts}Date{/ts}
+                        </th>
+                        <th scope="col">
+                            {ts}Sensor{/ts}
                         </th>
                         <th scope="col">
                             {ts}Value{/ts}
