@@ -97,7 +97,7 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
             $defaults = $this->_healthmonitor;
         }
         if (empty($defaults['device_type_id'])) {
-            $defaults['device_type_id'] = CRM_Core_OptionGroup::getDefaultValue('health_monitor_sensor');
+            $defaults['device_type_id'] = CRM_Core_OptionGroup::getDefaultValue('health_monitor_device_type');
         }
         if (empty($defaults['sensor_id'])) {
             $defaults['sensor_id'] = CRM_Core_OptionGroup::getDefaultValue('health_monitor_sensor');

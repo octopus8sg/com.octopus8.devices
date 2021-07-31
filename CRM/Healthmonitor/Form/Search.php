@@ -80,7 +80,10 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form {
     SELECT SQL_CALC_FOUND_ROWS
       `civicrm_health_monitor`.`id`,
       `civicrm_health_monitor`.`device_id`,
+      `civicrm_health_monitor`.`device_type_id`,
+      `civicrm_health_monitor`.`device_id`,
       `civicrm_health_monitor`.`contact_id`,
+      `civicrm_health_monitor`.`sensor_id`,
       `civicrm_health_monitor`.`date`,
       `civicrm_health_monitor`.`health_value`
     FROM `civicrm_health_monitor`
@@ -101,15 +104,25 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form {
         while($dao->fetch()) {
             $row = [
                 'id' => $dao->id,
+//                'device_type_id' => $dao->device_type_id,
+
                 'contact_id' => $dao->contact_id,
                 'device_id' => $dao->device_id,
+//                'sensor_id' => $dao->sensor_id,
                 'date' => $dao->date,
                 'health_value' => $dao->health_value,
             ];
+                $row['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+                $row['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
             if (!empty($row['contact_id'])) {
-                $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view', ['reset' => 1, 'cid' => $dao->contact_id]).'">'.CRM_Contact_BAO_Contact::displayName($dao->contact_id).'</a>';
+                $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->contact_id]).'">'.
+                    CRM_Contact_BAO_Contact::displayName($dao->contact_id).'</a>';
             }
             $this->rows[] = $row;
+
         }
+        CRM_Core_Error::debug_var('tabrows', $this->rows);
+
     }
 }

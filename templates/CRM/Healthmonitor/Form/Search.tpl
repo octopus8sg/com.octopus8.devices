@@ -51,7 +51,13 @@
               {ts}Device ID{/ts}
             </th>
             <th scope="col">
+              {ts}Device Type{/ts}
+            </th>
+            <th scope="col">
               {ts}Date{/ts}
+            </th>
+            <th scope="col">
+              {ts}Sensor{/ts}
             </th>
             <th scope="col">
               {ts}Value{/ts}
@@ -63,8 +69,10 @@
             <tr>
               <td>{$row.id}</td>
               <td>{$row.contact}</td>
+              <td>{$row.device_type_id}</td>
               <td>{$row.device_id}</td>
               <td>{$row.date}</td>
+              <td>{$row.sensor_id}</td>
               <td>{$row.health_value}</td>
               <td class="right nowrap">
                   <span>
