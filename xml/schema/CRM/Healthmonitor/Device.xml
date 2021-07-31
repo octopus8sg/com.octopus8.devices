@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Healthmonitor</base>
+  <class>Device</class>
+  <name>civicrm_device</name>
+  <comment>CiviCRM Health Monitor Device</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique Device ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+    <required>true</required>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>name</name>
+    <type>varchar</type>
+    <length>255</length>
+    <required>false</required>
+  </field>
+
+  <field>
+    <name>device_type_id</name>
+    <title>Device Type</title>
+    <type>int</type>
+    <length>3</length>
+    <default>NULL</default>
+    <pseudoconstant>
+      <optionGroupName>health_monitor_device_type</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
+  <field>
+    <name>default_client</name>
+    <type>boolean</type>
+    <default>true</default>
+    <html>
+      <type>CheckBox</type>
+    </html>
+    <required>false</required>
+  </field>
+
+
+</table>
