@@ -1,4 +1,8 @@
 {crmScope extensionKey='healthmonitor'}
+{*{debug}*}
+{literal}
+  <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+{/literal}
   <div class="crm-content-block">
 
     <div class="crm-block crm-form-block crm-basic-criteria-form-block">
@@ -10,10 +14,20 @@
             <tr>
               <td class="label">{$form.contact_id.label}</td>
               <td>{$form.contact_id.html}</td>
+              <td class="label">{$form.device_id.label}</td>
+              <td>{$form.device_id.html}</td>
             </tr>
             <tr>
-              <td class="label">{$form.title.label}</td>
-              <td>{$form.title.html}</td>
+              <td class="label">{$form.dateselect_from.label}</td>
+              <td>{$form.dateselect_from.html}</td>
+              <td class="label">{$form.dateselect_to.label}</td>
+              <td>{$form.dateselect_to.html}</td>
+            </tr>
+            <tr>
+              <td class="label">{$form.device_type_id.label}</td>
+              <td>{$form.device_type_id.html}</td>
+              <td class="label">{$form.sensor_id.label}</td>
+              <td>{$form.sensor_id.html}</td>
             </tr>
             </tbody>
           </table>
@@ -90,3 +104,14 @@
     </div>
   </div>
 {/crmScope}
+
+{literal}
+  <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
+  <script type="text/javascript">
+    CRM.$(function($) {
+      $.extend( $.fn.datepicker.defaults, {format: 'yyyy-mm-dd'} );
+      $("input[name='dateselect_to']").datepicker();
+      $("input[name='dateselect_from']").datepicker();
+    });
+  </script>
+{/literal}

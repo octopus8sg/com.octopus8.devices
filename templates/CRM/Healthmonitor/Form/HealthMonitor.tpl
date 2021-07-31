@@ -20,12 +20,14 @@
     </div>
 
     <div class="crm-section">
+
       <div class="label">{$form.device_type_id.label}</div>
       <div class="content">{$form.device_type_id.html}</div>
       <div class="clear"></div>
     </div>
 
     <div class="crm-section">
+{*      device id*}
       <div class="label">{$form.device_id.label}</div>
       <div class="content">{$form.device_id.html}</div>
       <div class="clear"></div>

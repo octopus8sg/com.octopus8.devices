@@ -2,77 +2,137 @@
 
 use CRM_Healthmonitor_ExtensionUtil as E;
 
+
 /**
  * Form controller class
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
 class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
-  public function buildQuickForm() {
+    protected $formValues;
 
-    // add form elements
-    $this->add(
-      'select', // field type
-      'favorite_color', // field name
-      'Favorite Color', // field label
-      $this->getColorOptions(), // list of options
-      TRUE // is required
-    );
-    $this->addButtons(array(
-      array(
-        'type' => 'submit',
-        'name' => E::ts('Submit'),
-        'isDefault' => TRUE,
-      ),
-    ));
+    protected $pageId = false;
 
-    // export form elements
-    $this->assign('elementNames', $this->getRenderableElementNames());
-    parent::buildQuickForm();
-  }
+    protected $offset = 0;
 
-  public function postProcess() {
-    $values = $this->exportValues();
-    $options = $this->getColorOptions();
-    CRM_Core_Session::setStatus(E::ts('You picked color "%1"', array(
-      1 => $options[$values['favorite_color']],
-    )));
-    parent::postProcess();
-  }
+    protected $limit = false;
 
-  public function getColorOptions() {
-    $options = array(
-      '' => E::ts('- select -'),
-      '#f00' => E::ts('Red'),
-      '#0f0' => E::ts('Green'),
-      '#00f' => E::ts('Blue'),
-      '#f0f' => E::ts('Purple'),
-    );
-    foreach (array('1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e') as $f) {
-      $options["#{$f}{$f}{$f}"] = E::ts('Grey (%1)', array(1 => $f));
+    public $count = 0;
+
+    public $rows = [];
+
+
+    public function preProcess() {
+        parent::preProcess();
+
+
+        $this->formValues = $this->getSubmitValues();
+        $this->setTitle(E::ts('Search Devices'));
+
+        $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
+        $this->pageId = CRM_Utils_Request::retrieveValue('crmPID', 'Positive', 1);
+        if ($this->limit !== false) {
+            $this->offset = ($this->pageId - 1) * $this->limit;
+        }
+        $this->query();
+        $this->assign('entities', $this->rows);
+
+        $pagerParams = [];
+        $pagerParams['total'] = 0;
+        $pagerParams['status'] =E::ts('%%StatusMessage%%');
+        $pagerParams['csvString'] = NULL;
+        $pagerParams['rowCount'] =  50;
+        $pagerParams['buttonTop'] = 'PagerTopButton';
+        $pagerParams['buttonBottom'] = 'PagerBottomButton';
+        $pagerParams['total'] = $this->count;
+        $pagerParams['pageID'] = $this->pageId;
+        $this->pager = new CRM_Utils_Pager($pagerParams);
+        $this->assign('pager', $this->pager);
     }
-    return $options;
-  }
 
-  /**
-   * Get the fields/elements defined in this form.
-   *
-   * @return array (string)
-   */
-  public function getRenderableElementNames() {
-    // The _elements list includes some items which should not be
-    // auto-rendered in the loop -- such as "qfKey" and "buttons".  These
-    // items don't have labels.  We'll identify renderable by filtering on
-    // the 'label'.
-    $elementNames = array();
-    foreach ($this->_elements as $element) {
-      /** @var HTML_QuickForm_Element $element */
-      $label = $element->getLabel();
-      if (!empty($label)) {
-        $elementNames[] = $element->getName();
-      }
+
+    public function buildQuickForm() {
+        parent::buildQuickForm();
+
+        $this->add('text', 'device_name', E::ts('Device Name'), array('class' => 'huge'));
+        $this->addEntityRef('contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+        $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
+        $this->add('select', 'device_type_id',
+            E::ts('Device Type'),
+            $types,
+            FALSE, ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type']);
+
+
+        $this->addButtons(array(
+            array(
+                'type' => 'refresh',
+                'name' => E::ts('Search'),
+                'isDefault' => TRUE,
+            ),
+        ));
     }
-    return $elementNames;
-  }
+
+    public function postProcess() {
+        parent::postProcess();
+    }
+
+    /**
+     * Runs the query
+     *
+     * @throws \CRM_Core_Exception
+     */
+    protected function query() {
+        $sql = "
+    SELECT SQL_CALC_FOUND_ROWS
+      `civicrm_device`.`id`,
+      `civicrm_device`.`name`,
+      `civicrm_device`.`device_type_id`,
+      `civicrm_device`.`default_client`,
+      `civicrm_device`.`contact_id`
+    FROM `civicrm_device`
+    WHERE 1";
+        if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
+            $sql .= " AND `civicrm_device`.`name` LIKE '%".$this->formValues['device_name']."%'";
+        }
+        if (isset($this->formValues['contact_id']) && is_array($this->formValues['contact_id']) && count($this->formValues['contact_id'])) {
+            $sql  .= " AND `civicrm_device`.`contact_id` IN (".implode(", ", $this->formValues['contact_id']).")";
+        }
+        if (isset($this->formValues['device_type_id']) && is_array($this->formValues['device_type_id']) && count($this->formValues['device_type_id'])) {
+            $sql  .= " AND `civicrm_device`.`device_type_id` IN (".implode(", ", $this->formValues['device_type_id']).")";
+        }
+
+        if ($this->limit !== false) {
+            $sql .= " LIMIT {$this->offset}, {$this->limit}";
+        }
+        $dao = CRM_Core_DAO::executeQuery($sql);
+        $this->count = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
+        $this->rows = array();
+        while($dao->fetch()) {
+            $default_client = "";
+            if($dao->default_client){
+                $default_client = "checked";
+            }
+            $row = [
+                'id' => $dao->id,
+                'device_type_id' => $dao->device_type_id,
+                'contact_id' => $dao->contact_id,
+                'name' => $dao->name,
+                'default_client' => $dao->default_client,
+            ];
+            $row['default'] = "<input type='checkbox' $default_client disabled>";
+            $row['device_type'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            if (!empty($row['contact_id'])) {
+                $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->contact_id]).'">'.
+                    CRM_Contact_BAO_Contact::displayName($dao->contact_id).'</a>';
+            }
+            $this->rows[] = $row;
+
+        }
+        CRM_Core_Error::debug_var('tabrows', $this->rows);
+
+    }
+
 
 }

@@ -14,8 +14,8 @@
   <div class="crm-block crm-form-block">
 
     <div class="crm-section">
-      <div class="label">{$form.device.label}</div>
-      <div class="content">{$form.device.html}</div>
+      <div class="label">{$form.name.label}</div>
+      <div class="content">{$form.name.html}</div>
       <div class="clear"></div>
     </div>
 

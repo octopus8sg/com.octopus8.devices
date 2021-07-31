@@ -178,9 +178,18 @@ function healthmonitor_civicrm_themes(&$themes)
 function healthmonitor_civicrm_navigationMenu(&$menu)
 {
     _healthmonitor_civix_insert_navigation_menu($menu, 'Search', array(
-        'label' => E::ts('Search Health Monitoring'),
+        'label' => E::ts('Search Health Monitoring Data'),
         'name' => 'search_health_monitor',
         'url' => 'civicrm/healthmonitor/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _healthmonitor_civix_navigationMenu($menu);
+    _healthmonitor_civix_insert_navigation_menu($menu, 'Search', array(
+        'label' => E::ts('Search Devices'),
+        'name' => 'search_devices',
+        'url' => 'civicrm/device/search',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,

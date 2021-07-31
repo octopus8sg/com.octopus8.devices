@@ -89,7 +89,7 @@
   </field>
 
   <field>
-    <name>health_value</name>
+    <name>sensor_value</name>
     <type>varchar</type>
     <length>255</length>
     <required>true</required>

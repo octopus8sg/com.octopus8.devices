@@ -77,7 +77,7 @@ CREATE TABLE `civicrm_health_monitor` (
      `device_type_id` int   DEFAULT NULL ,
      `device_id` int unsigned NOT NULL   COMMENT 'FK to Device',
      `sensor_id` int   DEFAULT NULL ,
-     `health_value` varchar(255) NOT NULL    
+     `sensor_value` varchar(255) NOT NULL    
 ,
         PRIMARY KEY (`id`)
  

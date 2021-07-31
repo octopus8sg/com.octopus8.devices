@@ -72,8 +72,11 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
                 TRUE, ['class' => 'huge crm-select2', 
                     'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor']);
 
-            $this->addEntityRef('device_id', E::ts('Device'), [], TRUE);
-            $this->add('text', 'title', E::ts('Title'), ['class' => 'huge'], FALSE);
+            $this->addEntityRef('device_id', E::ts('Device'), [
+                'entity' => 'device',
+                'placeholder' => ts('- Select Device -'),
+                'select' => ['minimumInputLength' => 0],
+            ], TRUE);
             $this->add('text', 'sensor_value', E::ts('Value'), null, FALSE);
 
             $this->addButtons([
