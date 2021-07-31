@@ -46,8 +46,8 @@
     </div>
 
     <div class="crm-section">
-      <div class="label">{$form.health_value.label}</div>
-      <div class="content">{$form.health_value.html}</div>
+      <div class="label">{$form.sensor_value.label}</div>
+      <div class="content">{$form.sensor_value.html}</div>
       <div class="clear"></div>
     </div>
 

@@ -65,7 +65,7 @@
               {ts}Device Type{/ts}
             </th>
             <th scope="col">
-              {ts}Device ID{/ts}
+              {ts}Device{/ts}
             </th>
             <th scope="col">
               {ts}Date{/ts}
@@ -84,10 +84,10 @@
               <td>{$row.id}</td>
               <td>{$row.contact}</td>
               <td>{$row.device_type_id}</td>
-              <td>{$row.device_id}</td>
+              <td>{$row.device}</td>
               <td>{$row.date}</td>
               <td>{$row.sensor_id}</td>
-              <td>{$row.health_value}</td>
+              <td>{$row.sensor_value}</td>
               <td class="right nowrap">
                   <span>
                     <a class="action-item crm-hover-button" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
@@ -109,9 +109,17 @@
   <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript">
     CRM.$(function($) {
-      $.extend( $.fn.datepicker.defaults, {format: 'yyyy-mm-dd'} );
-      $("input[name='dateselect_to']").datepicker();
-      $("input[name='dateselect_from']").datepicker();
+
+      $("input[name='dateselect_to']").datepicker({
+        format: "yy-mm-dd",
+        altFormat: "yy-mm-dd",
+        dateFormat: "yy-mm-dd"
+      });
+      $("input[name='dateselect_from']").datepicker({
+        format: "yy-mm-dd",
+        altFormat: "yy-mm-dd",
+        dateFormat: "yy-mm-dd"
+      });
     });
   </script>
 {/literal}

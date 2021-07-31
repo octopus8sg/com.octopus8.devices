@@ -64,13 +64,15 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             E::ts('Device Type'),
             $types,
             FALSE, ['class' => 'huge crm-select2',
-                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type']);
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type','placeholder' => ts('- Select Device Type -'),
+                'select' => ['minimumInputLength' => 0]]);
         $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
         $this->add('select', 'sensor_id',
             E::ts('Sensor'),
             $sensors,
             FALSE, ['class' => 'huge crm-select2',
-                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor']);
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]]);
         $this->addEntityRef('contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
         $this->addEntityRef('device_id', E::ts('Device'), [
             'entity' => 'device',
@@ -78,7 +80,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             'select' => ['minimumInputLength' => 0],
         ], false);
 
-        $this->addDateRange('dateselect');
+        $this->addDateRange('dateselect', '_from', '_to', 'From:', 'yyyy-mm-dd');
 
         $this->addButtons(array(
             array(
@@ -113,22 +115,39 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
       `civicrm_health_monitor`.`sensor_value`
     FROM `civicrm_health_monitor`
     WHERE 1";
-        if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
-            $sql .= " AND `civicrm_health_monitor`.`device_id` LIKE '%" . $this->formValues['device_id'] . "%'";
+//        CRM_Core_Error::debug_var('formValues', $this->formValues);
+        
+        if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
+            $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
         }
-        if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
-            $sql .= " AND `civicrm_health_monitor`.`device_id` LIKE '%" . $this->formValues['device_id'] . "%'";
+        
+        if (isset($this->formValues['sensor_id']) && !empty($this->formValues['sensor_id'])) {
+            $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $this->formValues['sensor_id'] . " ";
         }
+        
         if (isset($this->formValues['contact_id']) && is_array($this->formValues['contact_id']) && count($this->formValues['contact_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`contact_id` IN (" . implode(", ", $this->formValues['contact_id']) . ")";
         }
+        
         if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
         }
 
+        if (isset($this->formValues['dateselect_from']) && !empty($this->formValues['dateselect_from'])) {
+            $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $this->formValues['dateselect_from'] . "'";
+        }
+
+        if (isset($this->formValues['dateselect_to']) && !empty($this->formValues['dateselect_to'])) {
+            $sql .= " AND `civicrm_health_monitor`.`date` <= '" . $this->formValues['dateselect_to'] . "'";
+        }
+
+
         if ($this->limit !== false) {
             $sql .= " LIMIT {$this->offset}, {$this->limit}";
         }
+
+//        CRM_Core_Error::debug_var('sql', $sql);
+
         $dao = CRM_Core_DAO::executeQuery($sql);
         $this->count = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $this->rows = array();
@@ -149,6 +168,11 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
                 $row['contact'] = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
                         ['reset' => 1, 'cid' => $dao->contact_id]) . '">' .
                     CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
+            }
+            if (!empty($row['device_id'])) {
+                $row['device'] = '<a href="' . CRM_Utils_System::url('civicrm/device/form',
+                        ['reset' => 1, 'id' => $dao->device_id]) . '">' .
+                    CRM_Healthmonitor_DAO_Device::getFieldValue('CRM_Healthmonitor_DAO_Device', $dao->device_id) . '</a>';
             }
             $this->rows[] = $row;
 
