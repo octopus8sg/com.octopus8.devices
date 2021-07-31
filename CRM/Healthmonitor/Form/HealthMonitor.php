@@ -40,7 +40,10 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Health Monitor Value');
             $entities = civicrm_api4('HealthMonitor', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
-            $this->_healthmonitor = reset($entities);
+            $this->_healthmonitor = false;
+            if(!empty($entities)){
+            $this->_healthmonitor = $entities[0];
+            }
             $this->assign('healthmonitor', $this->_healthmonitor);
 
             $session = CRM_Core_Session::singleton();
