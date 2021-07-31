@@ -72,8 +72,9 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
                 TRUE, ['class' => 'huge crm-select2', 
                     'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor']);
 
-            $this->add('text', 'device_id', E::ts('Device ID'), null, FALSE);
-            $this->add('text', 'health_value', E::ts('Value'), null, FALSE);
+            $this->addEntityRef('device_id', E::ts('Device'), [], TRUE);
+            $this->add('text', 'title', E::ts('Title'), ['class' => 'huge'], FALSE);
+            $this->add('text', 'sensor_value', E::ts('Value'), null, FALSE);
 
             $this->addButtons([
                 [
@@ -119,7 +120,7 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
                 $action = 'update';
             }
             $params['device_id'] = $values['device_id'];
-            $params['health_value'] = $values['health_value'];
+            $params['sensor_value'] = $values['sensor_value'];
             $params['device_type_id'] = $values['device_type_id'];
             $params['sensor_id'] = $values['sensor_id'];
             $date = $values['date'];

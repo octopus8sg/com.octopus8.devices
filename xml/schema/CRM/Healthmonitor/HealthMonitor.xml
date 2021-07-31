@@ -59,12 +59,20 @@
     </html>
   </field>
 
+
   <field>
     <name>device_id</name>
-    <type>varchar</type>
-    <length>255</length>
+    <type>int unsigned</type>
+    <comment>FK to Device</comment>
     <required>true</required>
   </field>
+
+  <foreignKey>
+    <name>device_id</name>
+    <table>civicrm_device</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
 
   <field>
     <name>sensor_id</name>
@@ -79,7 +87,6 @@
       <type>Select</type>
     </html>
   </field>
-
 
   <field>
     <name>health_value</name>

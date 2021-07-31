@@ -30,6 +30,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_health_monitor`;
+DROP TABLE IF EXISTS `civicrm_device`;
 
 SET FOREIGN_KEY_CHECKS=1;
 -- /*******************************************************
@@ -37,6 +38,28 @@ SET FOREIGN_KEY_CHECKS=1;
 -- * Create new tables
 -- *
 -- *******************************************************/
+
+-- /*******************************************************
+-- *
+-- * civicrm_device
+-- *
+-- * CiviCRM Health Monitor Device
+-- *
+-- *******************************************************/
+CREATE TABLE `civicrm_device` (
+
+
+     `id` int unsigned NOT NULL AUTO_INCREMENT  COMMENT 'Unique Device ID',
+     `contact_id` int unsigned NOT NULL   COMMENT 'FK to Contact',
+     `name` varchar(255) NULL   ,
+     `device_type_id` int   DEFAULT NULL ,
+     `default_client` tinyint NULL  DEFAULT true  
+,
+        PRIMARY KEY (`id`)
+ 
+ 
+,          CONSTRAINT FK_civicrm_device_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE  
+)  ENGINE=InnoDB  ;
 
 -- /*******************************************************
 -- *
@@ -52,14 +75,14 @@ CREATE TABLE `civicrm_health_monitor` (
      `contact_id` int unsigned    COMMENT 'FK to Contact',
      `date` datetime NOT NULL   COMMENT 'Health Monitor Time',
      `device_type_id` int   DEFAULT NULL ,
-     `device_id` varchar(255) NOT NULL   ,
+     `device_id` int unsigned NOT NULL   COMMENT 'FK to Device',
      `sensor_id` int   DEFAULT NULL ,
      `health_value` varchar(255) NOT NULL    
 ,
         PRIMARY KEY (`id`)
  
  
-,          CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE  
+,          CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,          CONSTRAINT FK_civicrm_health_monitor_device_id FOREIGN KEY (`device_id`) REFERENCES `civicrm_device`(`id`) ON DELETE CASCADE  
 )  ENGINE=InnoDB  ;
 
  

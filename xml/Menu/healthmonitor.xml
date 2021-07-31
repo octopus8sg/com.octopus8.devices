@@ -18,4 +18,16 @@
     <title>ContactTab</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/device/form</path>
+    <page_callback>CRM_Healthmonitor_Form_Device</page_callback>
+    <title>Device</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/device/search</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceSearch</page_callback>
+    <title>DeviceSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

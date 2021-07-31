@@ -85,7 +85,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form {
       `civicrm_health_monitor`.`contact_id`,
       `civicrm_health_monitor`.`sensor_id`,
       `civicrm_health_monitor`.`date`,
-      `civicrm_health_monitor`.`health_value`
+      `civicrm_health_monitor`.`sensor_value`
     FROM `civicrm_health_monitor`
     WHERE 1";
         if (isset($this->formValues['device_id']) && !empty($this->formValues['device_id'])) {
@@ -110,7 +110,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form {
                 'device_id' => $dao->device_id,
 //                'sensor_id' => $dao->sensor_id,
                 'date' => $dao->date,
-                'health_value' => $dao->health_value,
+                'sensor_value' => $dao->sensor_value,
             ];
                 $row['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
                 $row['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);

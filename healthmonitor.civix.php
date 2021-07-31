@@ -450,6 +450,11 @@ function _healthmonitor_civix_civicrm_alterSettingsFolders(&$metaDataFolders = N
  */
 function _healthmonitor_civix_civicrm_entityTypes(&$entityTypes) {
   $entityTypes = array_merge($entityTypes, [
+    'CRM_Healthmonitor_DAO_Device' => [
+      'name' => 'Device',
+      'class' => 'CRM_Healthmonitor_DAO_Device',
+      'table' => 'civicrm_device',
+    ],
     'CRM_Healthmonitor_DAO_HealthMonitor' => [
       'name' => 'HealthMonitor',
       'class' => 'CRM_Healthmonitor_DAO_HealthMonitor',
