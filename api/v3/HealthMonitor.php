@@ -24,8 +24,12 @@ function _civicrm_api3_health_monitor_create_spec(&$spec) {
  * @throws API_Exception
  */
 function civicrm_api3_health_monitor_create($params) {
-    CRM_Core_Error::debug_var('params5', $params);
-  return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'HealthMonitor');
+//    hide contact_id in api3 return
+    $newparams = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'HealthMonitor');
+    $id = $newparams['id'];
+    unset($newparams['values'][$id]['contact_id']);
+    CRM_Core_Error::debug_var('paramsnew', $newparams);
+  return $newparams;
 }
 
 /**
