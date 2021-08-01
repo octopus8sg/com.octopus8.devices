@@ -56,16 +56,17 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
 
 
     public function buildQuickForm() {
+        $this->registerRule('deviceExists', 'callback', 'deviceExists', 'CRM_Utils_Rule');
         $this->assign('id', $this->getEntityId());
         $this->add('hidden', 'id');
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $this->add('text', 'name', E::ts('Name'), ['class' => 'huge'], TRUE);
-            $this->addRule('name', ts('Name already exists in Database.'), 'objectExists', [
+            $this->addRule('name', ts('Name already exists in Database.'), 'deviceExists', [
                 'CRM_Healthmonitor_DAO_Healthmonitor',
-                $this->_id,
+                $this->getEntityId(),
             ]);
-            $this->add('checkbox', 'default_client', E::ts('Default User'), ['class' => 'huge'], FALSE);
+//            $this->add('checkbox', 'default_client', E::ts('Default User'), ['class' => 'huge'], FALSE);
             $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
             $this->add('select', 'device_type_id',
                 E::ts('Device Type'),
@@ -90,6 +91,42 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
     }
 
     /**
+     * Check if there is a record with the same name in the db.
+     *
+     * @param string $value
+     *   The value of the field we are checking.
+     * @param string $daoName
+     *   The dao object name.
+     * @param string $daoID
+     *   The id of the object being updated. u can change your name.
+     *                          as long as there is no conflict
+     * @param string $fieldName
+     *   The name of the field in the DAO.
+     *
+     * @param string $domainID
+     *   The id of the domain.  Object exists only for the given domain.
+     *
+     * @return bool
+     *   true if object exists
+     */
+    public static function deviceExists($value, $daoName, $daoID, $fieldName = 'name', $domainID = NULL) {
+
+        $object = new $daoName();
+        $object->$fieldName = $value;
+        if ($domainID) {
+            $object->domain_id = $domainID;
+        }
+
+        if ($object->find(TRUE)) {
+            return $daoID && $object->id == $daoID;
+        }
+        else {
+            return TRUE;
+        }
+    }
+
+
+    /**
      * This virtual function is used to set the default values of various form
      * elements.
      *
@@ -100,12 +137,12 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         if ($this->_device) {
             $defaults = $this->_device;
         }
-        if (empty($defaults['default_client'])) {
-            $defaults['default_client'] = true;
-        }
-        if($this->_device['default_client'] === FALSE){
-            $defaults['default_client'] = false;
-        }
+//        if (empty($defaults['default_client'])) {
+//            $defaults['default_client'] = true;
+//        }
+//        if($this->_device['default_client'] === FALSE){
+//            $defaults['default_client'] = false;
+//        }
         return $defaults;
     }
 
@@ -121,7 +158,7 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
                 $action = 'update';
             }
             $params['name'] = $values['name'];
-            $params['default_client'] = boolval($values['default_client']);
+//            $params['default_client'] = boolval($values['default_client']);
             $params['contact_id'] = $values['contact_id'];
             $params['device_type_id'] = $values['device_type_id'];
             // todo many-to-many device-client
