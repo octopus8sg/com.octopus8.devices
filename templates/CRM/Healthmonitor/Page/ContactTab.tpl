@@ -48,7 +48,7 @@
                             <td>{$row.device_id}</td>
                             <td>{$row.date}</td>
                             <td>{$row.sensor_id}</td>
-                            <td>{$row.health_value}</td>
+                            <td>{$row.sensor_value}</td>
                             <td class="right nowrap">
                   <span>
                     <a class="action-item crm-hover-button" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
