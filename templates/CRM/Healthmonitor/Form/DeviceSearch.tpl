@@ -52,13 +52,10 @@
               {ts}Device Name{/ts}
             </th>
             <th scope="col">
-              {ts}Contact{/ts}
-            </th>
-            <th scope="col">
               {ts}Device Type{/ts}
             </th>
             <th scope="col">
-              {ts}Default User{/ts}
+              {ts}Contact{/ts}
             </th>
             <th>&nbsp;</th>
           </tr>
@@ -67,9 +64,8 @@
             <tr>
               <td>{$row.id}</td>
               <td>{$row.name}</td>
-              <td>{$row.contact}</td>
               <td>{$row.device_type}</td>
-              <td>{$row.default}</td>
+              <td>{$row.contact}</td>
               <td class="right nowrap">
                   <span>
                     <a class="action-item crm-hover-button" href="{crmURL p='civicrm/device/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>

@@ -31,12 +31,6 @@
       <div class="clear"></div>
     </div>
 
-    <div class="crm-section">
-      <div class="label">{$form.default_client.label}</div>
-      <div class="content">{$form.default_client.html}</div>
-      <div class="clear"></div>
-    </div>
-
     <div class="crm-submit-buttons">
       {include file="CRM/common/formButtons.tpl" location="bottom"}
     </div>

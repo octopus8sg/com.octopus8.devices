@@ -20,16 +20,13 @@
                             {ts}ID{/ts}
                         </th>
                         <th scope="col">
-                            {ts}Contact{/ts}
+                            {ts}Date{/ts}
                         </th>
                         <th scope="col">
                             {ts}Device Type{/ts}
                         </th>
                         <th scope="col">
                             {ts}Device ID{/ts}
-                        </th>
-                        <th scope="col">
-                            {ts}Date{/ts}
                         </th>
                         <th scope="col">
                             {ts}Sensor{/ts}
@@ -43,10 +40,9 @@
                     {foreach from=$rows item=row}
                         <tr>
                             <td>{$row.id}</td>
-                            <td>{$row.contact}</td>
+                            <td>{$row.date}</td>
                             <td>{$row.device_type_id}</td>
                             <td>{$row.device_id}</td>
-                            <td>{$row.date}</td>
                             <td>{$row.sensor_id}</td>
                             <td>{$row.sensor_value}</td>
                             <td class="right nowrap">

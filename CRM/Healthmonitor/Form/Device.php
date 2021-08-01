@@ -61,6 +61,10 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $this->add('text', 'name', E::ts('Name'), ['class' => 'huge'], TRUE);
+            $this->addRule('name', ts('Name already exists in Database.'), 'objectExists', [
+                'CRM_Healthmonitor_DAO_Healthmonitor',
+                $this->_id,
+            ]);
             $this->add('checkbox', 'default_client', E::ts('Default User'), ['class' => 'huge'], FALSE);
             $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
             $this->add('select', 'device_type_id',
