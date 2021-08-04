@@ -273,7 +273,7 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
             'id' => 'contact_healthmonitor',
             'url' => $url,
             'count' => $myEntities->count(),
-            'title' => E::ts('Health Monitor'),
+            'title' => E::ts('Devices'),
             'weight' => 310,
             'icon' => 'crm-i fa-heartbeat',
             'rows' => [
@@ -281,6 +281,7 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
                 ['id' => 2]]
         );
     }
+
 }
 
 function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
