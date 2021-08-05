@@ -462,4 +462,3 @@ function _healthmonitor_civix_civicrm_entityTypes(&$entityTypes) {
     ],
   ]);
 }
-

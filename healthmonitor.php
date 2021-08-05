@@ -273,6 +273,25 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
             'id' => 'contact_healthmonitor',
             'url' => $url,
             'count' => $myEntities->count(),
+            'title' => E::ts('HM Data Entries'),
+            'weight' => 310,
+            'icon' => 'crm-i fa-heartbeat',
+            'rows' => [
+                ['id' => 1],
+                ['id' => 2]]
+        );
+
+        $url = CRM_Utils_System::url('civicrm/healthmonitor/dashboardtab', ['cid' => $contactId]);
+
+        $myEntities = \Civi\Api4\Device::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+
+        $tabs[] = array(
+            'id' => 'contact_hm_dashboard',
+            'url' => $url,
+            'count' => $myEntities->count(),
             'title' => E::ts('Devices'),
             'weight' => 310,
             'icon' => 'crm-i fa-heartbeat',

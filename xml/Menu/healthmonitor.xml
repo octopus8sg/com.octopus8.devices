@@ -30,4 +30,10 @@
     <title>DeviceSearch</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/healthmonitor/dashboardtab</path>
+    <page_callback>CRM_Healthmonitor_Form_DashboardTab</page_callback>
+    <title>DashboardTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
