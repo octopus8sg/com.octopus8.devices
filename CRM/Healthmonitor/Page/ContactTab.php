@@ -15,6 +15,23 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
     public $count = 0;
 
     public $rows = [];
+    public function browse()
+    {
+        $this->assign('admin', FALSE);
+        $this->assign('context', 'healthmonitor');
+
+        // also create the form element for the activity filter box
+        $controller = new CRM_Core_Controller_Simple(
+            'CRM_Healthmonitor_Form_HealthMonitorFilter',
+            ts('Health Monitor Filter'),
+            NULL,
+            FALSE, FALSE, TRUE
+        );
+        $controller->set('contactId', $this->_contactId);
+        $controller->setEmbedded(TRUE);
+        $controller->run();
+//        $this->ajaxResponse['tabCount'] = CRM_Contact_BAO_Contact::getCountComponent('healthmonitor', $this->_contactId);
+    }
 
     public function run()
     {
@@ -58,7 +75,11 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $session = CRM_Core_Session::singleton();
         $userContext = CRM_Utils_System::url('civicrm/contact/view', 'cid=' . $contactId . '&selectedChild=contact_health_monitor&reset=1');
         $session->pushUserContext($userContext);
-
+        $context = CRM_Utils_Request::retrieve('context', 'Alphanumeric', $this);
+        $contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this);
+        $action = CRM_Utils_Request::retrieve('action', 'String', $this);
+        $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this);
+        $this->browse();
         parent::run();
     }
 

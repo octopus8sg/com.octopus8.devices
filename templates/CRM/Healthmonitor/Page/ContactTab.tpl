@@ -94,7 +94,8 @@
                 {ts}Add Health Monitor{/ts}
             </a>
         </div>
-
+        <div class="clear"></div>
+        {include file="CRM/Healthmonitor/Form/HealthMonitorFilter.tpl"}
         <div class="clear"></div>
         <div class="crm-results-block">
             <div class="crm-search-results">

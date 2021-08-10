@@ -33,7 +33,7 @@ class CRM_Healthmonitor_Page_Tab extends CRM_Core_Page
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this);
         $action = CRM_Utils_Request::retrieve('action', 'String', $this);
         $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this);
-
+        $this->browse();
         // Do check for view/edit operation.
 //        if ($this->_id &&
 //            in_array($action, [CRM_Core_Action::UPDATE, CRM_Core_Action::VIEW])
