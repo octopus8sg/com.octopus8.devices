@@ -2,8 +2,19 @@
 
 use CRM_Healthmonitor_ExtensionUtil as E;
 
+
 class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
 {
+
+    protected $pageId = false;
+
+    protected $offset = 0;
+
+    protected $limit = false;
+
+    public $count = 0;
+
+    public $rows = [];
 
     public function run()
     {
@@ -16,6 +27,8 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
             ->addWhere('contact_id', '=', $contactId)
             ->execute();
         $rows = array();
+
+
         foreach ($healthMonitors as $healthMonitor) {
 
             $row = $healthMonitor;
@@ -32,7 +45,13 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
             $rows[] = $row;
         }
         $this->assign('contactId', $contactId);
-        $this->assign('rows', $rows);
+//        $this->assign('rows', $rows);
+        $this->assign('useAjax', true);
+        $urlQry['snippet'] = 4;
+        $urlQry['cid'] = $contactId;
+
+        $this->assign('sourceUrl', CRM_Utils_System::url('civicrm/healthmonitor/ajax', $urlQry, FALSE, NULL, FALSE));
+
 //        CRM_Core_Error::debug_var('tabrows', $rows);
 
         // Set the user context

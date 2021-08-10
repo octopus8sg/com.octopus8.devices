@@ -42,4 +42,15 @@
     <title>Tab</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/healthmonitor/ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_Search::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/healthmonitor/healthmonitorfilter</path>
+    <page_callback>CRM_Healthmonitor_Form_HealthMonitorFilter</page_callback>
+    <title>HealthMonitorFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

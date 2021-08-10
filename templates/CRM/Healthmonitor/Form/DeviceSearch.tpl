@@ -40,12 +40,14 @@
 
     <div class="crm-results-block">
       {include file="CRM/common/pager.tpl" location="top"}
+      {include file="CRM/common/enableDisableApi.tpl"}
+      {include file="CRM/common/jsortable.tpl"}
 
       <div class="crm-search-results">
-        <table class="selector row-highlight">
+        <table class="selector row-highlight display">
           <thead class="sticky">
           <tr>
-            <th scope="col">
+            <th id="sortable" scope="col">
               {ts}ID{/ts}
             </th>
             <th scope="col">
@@ -57,7 +59,7 @@
             <th scope="col">
               {ts}Contact{/ts}
             </th>
-            <th>&nbsp;</th>
+            <th  id="nosort">&nbsp;</th>
           </tr>
           </thead>
           {foreach from=$entities item=row}

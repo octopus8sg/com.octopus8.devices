@@ -52,6 +52,140 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         $this->pager = new CRM_Utils_Pager($pagerParams);
         $this->assign('pager', $this->pager);
     }
+    public function getAjax()
+    {
+
+        CRM_Core_Error::debug_var('request', $_REQUEST);
+        CRM_Core_Error::debug_var('post', $_POST);
+
+        $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
+        CRM_Core_Error::debug_var('contact', $contactId);
+
+
+        $offset = CRM_Utils_Request::retrieveValue('iDisplayStart', 'Positive', 0);
+        CRM_Core_Error::debug_var('offset', $offset);
+
+        $limit = CRM_Utils_Request::retrieveValue('iDisplayLength', 'Positive', 10);
+        CRM_Core_Error::debug_var('limit', $limit);
+
+        $sortMapper = [
+            0 => 'id',
+            1 => 'date',
+            2 => 'device_type_id',
+            3 => 'device_id',
+            4 => 'sensor_id',
+            5 => 'sensor_value',
+        ];
+
+        $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
+        $sortOrder = isset($_REQUEST['sSortDir_0']) ? CRM_Utils_Type::escape($_REQUEST['sSortDir_0'], 'String') : 'asc';
+
+
+//        $searchParams = self::getSearchOptionsFromRequest();
+        $queryParams = [];
+
+        $join  = '';
+        $where = [];
+
+//        $isOrQuery = self::isOrQuery();
+
+        $nextParamKey = 3;
+        $sql = "
+    SELECT SQL_CALC_FOUND_ROWS
+      `civicrm_health_monitor`.`id`,
+      `civicrm_health_monitor`.`date`,
+      `civicrm_health_monitor`.`device_type_id`,
+      `civicrm_health_monitor`.`device_id`,
+      `civicrm_health_monitor`.`sensor_id`,
+      `civicrm_health_monitor`.`sensor_value`
+    FROM `civicrm_health_monitor` 
+    WHERE 1";
+        // LEFT JOIN civicrm_option_group option_group_case_status ON ( option_group_case_status.name = 'case_status' )
+        // LEFT JOIN civicrm_option_value case_status ON ( civicrm_case.status_id = case_status.value
+//        CRM_Core_Error::debug_var('formValues', $this->formValues);
+
+//        if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
+//            $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
+//        }
+//
+//        if (isset($this->formValues['sensor_id']) && !empty($this->formValues['sensor_id'])) {
+//            $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $this->formValues['sensor_id'] . " ";
+//        }
+//
+        if (isset($contactId)) {
+            $sql .= " AND `civicrm_health_monitor`.`contact_id` = " . $contactId . " ";
+        }
+//
+//        if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
+//            $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
+//        }
+//
+//        if (isset($this->formValues['dateselect_from']) && !empty($this->formValues['dateselect_from'])) {
+//            $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $this->formValues['dateselect_from'] . "'";
+//        }
+//
+//        if (isset($this->formValues['dateselect_to']) && !empty($this->formValues['dateselect_to'])) {
+//            $sql .= " AND `civicrm_health_monitor`.`date` <= '" . $this->formValues['dateselect_to'] . "'";
+//        }
+//
+//
+        if ($sort !== NULL) {
+            $sql .= " ORDER BY {$sort} {$sortOrder}";
+        }
+
+        if ($limit !== false) {
+            $sql .= " LIMIT {$offset}, {$limit}";
+        }
+
+
+        CRM_Core_Error::debug_var('sql', $sql);
+
+        $dao = CRM_Core_DAO::executeQuery($sql);
+        $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
+        $rows = array();
+        $count = 0;
+        while ($dao->fetch()) {
+//            $rows[$count]['id'] = $dao->id;
+//            $rows[$count]['date'] = $dao->date;
+//            $rows[$count]['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+//            $rows[$count]['device_id'] = $dao->device_id;
+//            $rows[$count]['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
+//            $rows[$count]['sensor_value'] = $dao->sensor_value;
+//            $rows[$count]['action'] = 'action';
+            $rows[$count][] = $dao->id;
+            $rows[$count][] = $dao->date;
+            $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            $rows[$count][] = $dao->device_id;
+            $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
+            $rows[$count][] = $dao->sensor_value;
+            $rows[$count][] = 'action';
+
+//            if (!empty($rows[$count]['contact_id'])) {
+//                $rows[$count]['contact'] = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+//                        ['reset' => 1, 'cid' => $dao->contact_id]) . '">' .
+//                    CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
+//            }
+//            if (!empty($rows[$count]['device_id'])) {
+//                $rows[$count]['device'] = $rows[$count]['device_id'];
+//            }
+        $count++;
+        }
+
+        $searchRows = $rows;
+        $iTotal = 0;
+        if(is_countable($searchRows)){
+            $iTotal = sizeof($searchRows);
+        }
+        $hmdatas = [
+            'data'            => $searchRows,
+            'recordsTotal'    => $iTotal,
+            'recordsFiltered' => $iFilteredTotal,
+        ];
+        if (!empty($_REQUEST['is_unit_test'])) {
+            return $hmdatas;
+        }
+        CRM_Utils_JSON::output($hmdatas);
+    }
 
 
     public function buildQuickForm()
