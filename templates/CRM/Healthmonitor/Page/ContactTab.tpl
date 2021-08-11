@@ -7,7 +7,7 @@
                 <ul class="ui-tabs-nav ui-corner-all ui-helper-reset ui-helper-clearfix ui-widget-header">
                     <li id="tab_data" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab ui-tabs-active ui-state-active">
                         <a href="#data-subtab" title="{ts}Data{/ts}">
-                            {ts}Data{/ts} <em>{$tabCount}</em>
+                            {ts}Data{/ts} <em>{$dataCount}</em>
                         </a>
                     </li>
                     <li id="tab_devices" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">

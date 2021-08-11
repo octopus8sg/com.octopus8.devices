@@ -172,20 +172,6 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         }
 
 
-        //
-//        if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
-//            $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
-//        }
-//
-//        if (isset($this->formValues['dateselect_from']) && !empty($this->formValues['dateselect_from'])) {
-//            $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $this->formValues['dateselect_from'] . "'";
-//        }
-//
-//        if (isset($this->formValues['dateselect_to']) && !empty($this->formValues['dateselect_to'])) {
-//            $sql .= " AND `civicrm_health_monitor`.`date` <= '" . $this->formValues['dateselect_to'] . "'";
-//        }
-//
-//
         if ($sort !== NULL) {
             $sql .= " ORDER BY {$sort} {$sortOrder}";
         }
@@ -208,29 +194,20 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-//            $rows[$count]['id'] = $dao->id;
-//            $rows[$count]['date'] = $dao->date;
-//            $rows[$count]['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
-//            $rows[$count]['device_id'] = $dao->device_id;
-//            $rows[$count]['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
-//            $rows[$count]['sensor_value'] = $dao->sensor_value;
-//            $rows[$count]['action'] = 'action';
+            $r_update =  CRM_Utils_System::url('civicrm/healthmonitor/form',
+                                    ['action' => 'update', 'id' => $dao->id]);
+            $r_delete =  CRM_Utils_System::url('civicrm/healthmonitor/form',
+                                    ['action' => 'delete', 'id' => $dao->id]);
+            $update = '<a class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
+            $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->date;
             $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
             $rows[$count][] = $dao->device_id;
             $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
             $rows[$count][] = $dao->sensor_value;
-            $rows[$count][] = 'action';
-
-//            if (!empty($rows[$count]['contact_id'])) {
-//                $rows[$count]['contact'] = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
-//                        ['reset' => 1, 'cid' => $dao->contact_id]) . '">' .
-//                    CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
-//            }
-//            if (!empty($rows[$count]['device_id'])) {
-//                $rows[$count]['device'] = $rows[$count]['device_id'];
-//            }
+            $rows[$count][] = $action;
             $count++;
         }
 

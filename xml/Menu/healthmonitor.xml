@@ -48,6 +48,16 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
+    <path>civicrm/healthmonitor/data_ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_Search::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/healthmonitor/device_ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
     <path>civicrm/healthmonitor/healthmonitorfilter</path>
     <page_callback>CRM_Healthmonitor_Form_HealthMonitorFilter</page_callback>
     <title>HealthMonitorFilter</title>
