@@ -62,10 +62,16 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $this->add('text', 'name', E::ts('Name'), ['class' => 'huge'], TRUE);
-            $this->addRule('name', ts('Name already exists in Database.'), 'deviceExists', [
-                'CRM_Healthmonitor_DAO_Healthmonitor',
-                $this->getEntityId(),
+            $this->addRule('name', ts('Device Name already exists in Database.'), 'objectExists', [
+                'CRM_Healthmonitor_DAO_Device',
+                $this->_id,
+                'name',
+                CRM_Core_Config::domainID(),
             ]);
+            //            $this->addRule('name', ts('Name already exists in Database.'), 'deviceExists', [
+//                'CRM_Healthmonitor_DAO_Device',
+//                $this->getEntityId(),
+//            ]);
 //            $this->add('checkbox', 'default_client', E::ts('Default User'), ['class' => 'huge'], FALSE);
             $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
             $this->add('select', 'device_type_id',
@@ -110,7 +116,9 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
      *   true if object exists
      */
     public static function deviceExists($value, $daoName, $daoID, $fieldName = 'name', $domainID = NULL) {
-
+        CRM_Core_Error::debug_var('$value', $value);
+        CRM_Core_Error::debug_var('$daoName', $daoName);
+        CRM_Core_Error::debug_var('$daoID', $daoID);
         $object = new $daoName();
         $object->$fieldName = $value;
         if ($domainID) {
@@ -118,9 +126,11 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         }
 
         if ($object->find(TRUE)) {
+            CRM_Core_Error::debug_var('object', $object->toArray());
             return $daoID && $object->id == $daoID;
         }
         else {
+            CRM_Core_Error::debug_var('no_object', $object->toArray());
             return TRUE;
         }
     }
