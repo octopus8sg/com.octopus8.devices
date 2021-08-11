@@ -29,6 +29,7 @@
         </div><!- /.crm-accordion-body -->
       </div><!-- /.crm-accordion-wrapper -->
     </div><!-- /.crm-form-block -->
+ </div>
   {literal}
   <script src="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/js/bootstrap-datepicker.min.js"></script>
   <script type="text/javascript">

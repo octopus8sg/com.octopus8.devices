@@ -299,27 +299,10 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
 //                ['id' => 1],
 //                ['id' => 2]]
 //        );
-        $url = CRM_Utils_System::url('civicrm/healthmonitor/tab', ['cid' => $contactId]);
-
-        $myEntities = \Civi\Api4\HealthMonitor::get()
-            ->selectRowCount()
-            ->addWhere('contact_id', '=', $contactId)
-            ->execute();
-
-        $tabs[] = array(
-            'id' => 'hm_tab',
-            'url' => $url,
-            'count' => $myEntities->count(),
-            'title' => E::ts('HM Tab'),
-            'weight' => 320,
-            'icon' => 'crm-i fa-heartbeat',
-            'rows' => [
-                ['id' => 1],
-                ['id' => 2]]
-        );
     }
 
 }
+
 
 function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
 {

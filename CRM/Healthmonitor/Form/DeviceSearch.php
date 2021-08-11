@@ -81,8 +81,8 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
     public function getAjax()
     {
 
-//        CRM_Core_Error::debug_var('request', $_REQUEST);
-//        CRM_Core_Error::debug_var('post', $_POST);
+//        CRM_Core_Error::debug_var('device_request', $_REQUEST);
+//        CRM_Core_Error::debug_var('device_post', $_POST);
 
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
 //        CRM_Core_Error::debug_var('contact', $contactId);
@@ -97,32 +97,11 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'Positive', null);
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'Positive', null);
-//        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
-
-        $dateselect_to = CRM_Utils_Request::retrieveValue('dateselect_to', 'String', null);
-        try {
-            $dateselectto = new DateTime($dateselect_to);
-        } catch (Exception $e) {
-            $dateselect_to = null;
-        }
-//        CRM_Core_Error::debug_var('dateselect_to', $dateselect_to);
-
-        $dateselect_from = CRM_Utils_Request::retrieveValue('dateselect_from', 'String', null);
-        try {
-            $dateselectto = new DateTime($dateselect_from);
-        } catch (Exception $e) {
-            $dateselect_from = null;
-        }
-//        CRM_Core_Error::debug_var('dateselect_from', $dateselect_from);
 
         $sortMapper = [
             0 => 'id',
-            1 => 'date',
+            1 => 'name',
             2 => 'device_type_id',
-            3 => 'device_id',
-            4 => 'sensor_id',
-            5 => 'sensor_value',
         ];
 
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
@@ -140,13 +119,10 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $nextParamKey = 3;
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS
-      `civicrm_health_monitor`.`id`,
-      `civicrm_health_monitor`.`date`,
-      `civicrm_health_monitor`.`device_type_id`,
-      `civicrm_health_monitor`.`device_id`,
-      `civicrm_health_monitor`.`sensor_id`,
-      `civicrm_health_monitor`.`sensor_value`
-    FROM `civicrm_health_monitor` 
+      `civicrm_device`.`id`,
+      `civicrm_device`.`name`,
+      `civicrm_device`.`device_type_id`
+    FROM `civicrm_device` 
     WHERE 1";
         // LEFT JOIN civicrm_option_group option_group_case_status ON ( option_group_case_status.name = 'case_status' )
         // LEFT JOIN civicrm_option_value case_status ON ( civicrm_case.status_id = case_status.value
@@ -161,37 +137,15 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
 //        }
 //
         if (isset($contactId)) {
-            $sql .= " AND `civicrm_health_monitor`.`contact_id` = " . $contactId . " ";
+            $sql .= " AND `civicrm_device`.`contact_id` = " . $contactId . " ";
         }
 
         if (isset($device_type_id)) {
             if ($device_type_id > 0) {
-                $sql .= " AND `civicrm_health_monitor`.`device_type_id` = " . $device_type_id . " ";
+                $sql .= " AND `civicrm_device`.`device_type_id` = " . $device_type_id . " ";
             }
         }
 
-        if (isset($sensor_id)) {
-            if ($sensor_id > 0) {
-                $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $sensor_id . " ";
-            }
-        }
-
-
-        if (isset($dateselect_from)) {
-            if ($dateselect_from != null) {
-                if ($dateselect_from != '') {
-                    $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $dateselect_from . "' ";
-                }
-            }
-        }
-
-        if (isset($dateselect_to)) {
-            if ($dateselect_to != null) {
-                if ($dateselect_to != '') {
-                    $sql .= " AND `civicrm_health_monitor`.`date` <= '" . $dateselect_to . "' ";
-                }
-            }
-        }
 
 
         if ($sort !== NULL) {
@@ -216,19 +170,16 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update =  CRM_Utils_System::url('civicrm/healthmonitor/form',
+            $r_update =  CRM_Utils_System::url('civicrm/device/form',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete =  CRM_Utils_System::url('civicrm/healthmonitor/form',
+            $r_delete =  CRM_Utils_System::url('civicrm/device/form',
                 ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
-            $rows[$count][] = $dao->date;
+            $rows[$count][] = $dao->name;
             $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
-            $rows[$count][] = $dao->device_id;
-            $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
-            $rows[$count][] = $dao->sensor_value;
             $rows[$count][] = $action;
             $count++;
         }

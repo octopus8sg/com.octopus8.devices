@@ -19,6 +19,12 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
           FALSE, ['class' => 'huge crm-select2',
               'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type','placeholder' => ts('- Select Device Type -'),
               'select' => ['minimumInputLength' => 0]]);
+      $this->add('select', 'device_device_type_id',
+          E::ts('Device Type'),
+          $types,
+          FALSE, ['class' => 'huge crm-select2',
+              'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type','placeholder' => ts('- Select Device Type -'),
+              'select' => ['minimumInputLength' => 0]]);
       $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
       $this->add('select', 'sensor_id',
           E::ts('Sensor'),
