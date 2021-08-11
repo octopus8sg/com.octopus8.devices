@@ -59,24 +59,24 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
     public function getAjax()
     {
 
-        CRM_Core_Error::debug_var('request', $_REQUEST);
-        CRM_Core_Error::debug_var('post', $_POST);
+//        CRM_Core_Error::debug_var('request', $_REQUEST);
+//        CRM_Core_Error::debug_var('post', $_POST);
 
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
-        CRM_Core_Error::debug_var('contact', $contactId);
+//        CRM_Core_Error::debug_var('contact', $contactId);
 
 
         $offset = CRM_Utils_Request::retrieveValue('iDisplayStart', 'Positive', 0);
-        CRM_Core_Error::debug_var('offset', $offset);
+//        CRM_Core_Error::debug_var('offset', $offset);
 
         $limit = CRM_Utils_Request::retrieveValue('iDisplayLength', 'Positive', 10);
-        CRM_Core_Error::debug_var('limit', $limit);
+//        CRM_Core_Error::debug_var('limit', $limit);
 
         $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'Positive', null);
-        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
+//        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
         $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'Positive', null);
-        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
+//        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
         $dateselect_to = CRM_Utils_Request::retrieveValue('dateselect_to', 'String', null);
         try {
@@ -84,7 +84,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         } catch (Exception $e) {
             $dateselect_to = null;
         }
-        CRM_Core_Error::debug_var('dateselect_to', $dateselect_to);
+//        CRM_Core_Error::debug_var('dateselect_to', $dateselect_to);
 
         $dateselect_from = CRM_Utils_Request::retrieveValue('dateselect_from', 'String', null);
         try {
@@ -92,7 +92,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         } catch (Exception $e) {
             $dateselect_from = null;
         }
-        CRM_Core_Error::debug_var('dateselect_from', $dateselect_from);
+//        CRM_Core_Error::debug_var('dateselect_from', $dateselect_from);
 
         $sortMapper = [
             0 => 'id',
@@ -128,7 +128,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
     WHERE 1";
         // LEFT JOIN civicrm_option_group option_group_case_status ON ( option_group_case_status.name = 'case_status' )
         // LEFT JOIN civicrm_option_value case_status ON ( civicrm_case.status_id = case_status.value
-//        CRM_Core_Error::debug_var('formValues', $this->formValues);
+////        CRM_Core_Error::debug_var('formValues', $this->formValues);
 
 //        if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
 //            $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
@@ -201,7 +201,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         }
 
 
-        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
@@ -312,7 +312,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
       `civicrm_health_monitor`.`sensor_value`
     FROM `civicrm_health_monitor`
     WHERE 1";
-//        CRM_Core_Error::debug_var('formValues', $this->formValues);
+////        CRM_Core_Error::debug_var('formValues', $this->formValues);
 
         if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
@@ -343,7 +343,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             $sql .= " LIMIT {$this->offset}, {$this->limit}";
         }
 
-//        CRM_Core_Error::debug_var('sql', $sql);
+////        CRM_Core_Error::debug_var('sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $this->count = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
@@ -374,7 +374,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             $this->rows[] = $row;
 
         }
-//        CRM_Core_Error::debug_var('tabrows', $this->rows);
+////        CRM_Core_Error::debug_var('tabrows', $this->rows);
 
     }
 }

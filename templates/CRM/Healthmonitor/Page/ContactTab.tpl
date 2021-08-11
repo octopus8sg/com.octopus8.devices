@@ -178,4 +178,4 @@
 
 </script>
 {/literal}
-{debug}
+
