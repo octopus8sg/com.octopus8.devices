@@ -63,4 +63,10 @@
     <title>HealthMonitorFilter</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/healthmonitor/devicefilter</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceFilter</page_callback>
+    <title>DeviceFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
