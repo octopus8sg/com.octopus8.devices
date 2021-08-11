@@ -37,6 +37,9 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         if ($this->limit !== false) {
             $this->offset = ($this->pageId - 1) * $this->limit;
         }
+        if (!is_int($this->offset)) {
+            $this->offset = 0;
+        }
         $this->query();
         $this->assign('entities', $this->rows);
 
@@ -52,6 +55,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         $this->pager = new CRM_Utils_Pager($pagerParams);
         $this->assign('pager', $this->pager);
     }
+
     public function getAjax()
     {
 
@@ -67,6 +71,28 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
 
         $limit = CRM_Utils_Request::retrieveValue('iDisplayLength', 'Positive', 10);
         CRM_Core_Error::debug_var('limit', $limit);
+
+        $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'Positive', null);
+        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
+
+        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'Positive', null);
+        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
+
+        $dateselect_to = CRM_Utils_Request::retrieveValue('dateselect_to', 'String', null);
+        try {
+            $dateselectto = new DateTime($dateselect_to);
+        } catch (Exception $e) {
+            $dateselect_to = null;
+        }
+        CRM_Core_Error::debug_var('dateselect_to', $dateselect_to);
+
+        $dateselect_from = CRM_Utils_Request::retrieveValue('dateselect_from', 'String', null);
+        try {
+            $dateselectto = new DateTime($dateselect_from);
+        } catch (Exception $e) {
+            $dateselect_from = null;
+        }
+        CRM_Core_Error::debug_var('dateselect_from', $dateselect_from);
 
         $sortMapper = [
             0 => 'id',
@@ -84,7 +110,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
 //        $searchParams = self::getSearchOptionsFromRequest();
         $queryParams = [];
 
-        $join  = '';
+        $join = '';
         $where = [];
 
 //        $isOrQuery = self::isOrQuery();
@@ -115,7 +141,38 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         if (isset($contactId)) {
             $sql .= " AND `civicrm_health_monitor`.`contact_id` = " . $contactId . " ";
         }
-//
+
+        if (isset($device_type_id)) {
+            if ($device_type_id > 0) {
+                $sql .= " AND `civicrm_health_monitor`.`device_type_id` = " . $device_type_id . " ";
+            }
+        }
+
+        if (isset($sensor_id)) {
+            if ($sensor_id > 0) {
+                $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $sensor_id . " ";
+            }
+        }
+
+
+        if (isset($dateselect_from)) {
+            if ($dateselect_from != null) {
+                if ($dateselect_from != '') {
+                    $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $dateselect_from . "' ";
+                }
+            }
+        }
+
+        if (isset($dateselect_to)) {
+            if ($dateselect_to != null) {
+                if ($dateselect_to != '') {
+                    $sql .= " AND `civicrm_health_monitor`.`date` <= '" . $dateselect_to . "' ";
+                }
+            }
+        }
+
+
+        //
 //        if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
 //            $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
 //        }
@@ -134,7 +191,13 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         }
 
         if ($limit !== false) {
-            $sql .= " LIMIT {$offset}, {$limit}";
+            if ($limit !== NULL) {
+                if ($offset !== false) {
+                    if ($offset !== NULL) {
+                        $sql .= " LIMIT {$offset}, {$limit}";
+                    }
+                }
+            }
         }
 
 
@@ -168,17 +231,17 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
 //            if (!empty($rows[$count]['device_id'])) {
 //                $rows[$count]['device'] = $rows[$count]['device_id'];
 //            }
-        $count++;
+            $count++;
         }
 
         $searchRows = $rows;
         $iTotal = 0;
-        if(is_countable($searchRows)){
+        if (is_countable($searchRows)) {
             $iTotal = sizeof($searchRows);
         }
         $hmdatas = [
-            'data'            => $searchRows,
-            'recordsTotal'    => $iTotal,
+            'data' => $searchRows,
+            'recordsTotal' => $iTotal,
             'recordsFiltered' => $iFilteredTotal,
         ];
         if (!empty($_REQUEST['is_unit_test'])) {
@@ -198,14 +261,14 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             E::ts('Device Type'),
             $types,
             FALSE, ['class' => 'huge crm-select2',
-                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type','placeholder' => ts('- Select Device Type -'),
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type', 'placeholder' => ts('- Select Device Type -'),
                 'select' => ['minimumInputLength' => 0]]);
         $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
         $this->add('select', 'sensor_id',
             E::ts('Sensor'),
             $sensors,
             FALSE, ['class' => 'huge crm-select2',
-                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor', 'placeholder' => ts('- Select Sensor -'),
                 'select' => ['minimumInputLength' => 0]]);
         $this->addEntityRef('contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
         $this->addEntityRef('device_id', E::ts('Device'), [
@@ -250,19 +313,19 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
     FROM `civicrm_health_monitor`
     WHERE 1";
 //        CRM_Core_Error::debug_var('formValues', $this->formValues);
-        
+
         if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
         }
-        
+
         if (isset($this->formValues['sensor_id']) && !empty($this->formValues['sensor_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $this->formValues['sensor_id'] . " ";
         }
-        
+
         if (isset($this->formValues['contact_id']) && is_array($this->formValues['contact_id']) && count($this->formValues['contact_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`contact_id` IN (" . implode(", ", $this->formValues['contact_id']) . ")";
         }
-        
+
         if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
             $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
         }

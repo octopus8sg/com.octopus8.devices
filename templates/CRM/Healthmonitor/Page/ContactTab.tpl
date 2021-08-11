@@ -101,7 +101,7 @@
             <div class="crm-search-results">
                 {include file="CRM/common/enableDisableApi.tpl"}
                 {include file="CRM/common/jsortable.tpl"}
-                <table class="selector row-highlight display pagerDisplay">
+                <table class="selector selector-{$context} row-highlight pagerDisplay" id="myTable" name="myTable">
                     <thead class="sticky">
                     <tr>
                         <th id="sortable" scope="col">
@@ -122,7 +122,7 @@
                         <th scope="col">
                             {ts}Value{/ts}
                         </th>
-                        <th  id="nosort">&nbsp;Action </th>
+                        <th id="nosort">&nbsp;Action</th>
                     </tr>
                     </thead>
                 </table>
@@ -130,4 +130,52 @@
         </div>
     </div>
 {/crmScope}
+{literal}
+<script type="text/javascript">
+    (function ($, _) {
+        var context = {/literal}"{$context}"{literal};
+
+        $(document).ready(function () {
+            //Reset Table, add Filter and Search Possibility
+            var tab = $('.selector-' + context);
+            var table = tab.DataTable();
+            var dtsettings = table.settings().init();
+            dtsettings.bFilter = true;
+            //turn on search
+
+            dtsettings.sDom = '<"crm-datatable-pager-top"lp>rt<"crm-datatable-pager-bottom"ip>';
+            //turn of search field
+
+            dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
+                aoData.push({ "name": "dateselect_from", "value": $('#dateselect_from').val() });
+                aoData.push({ "name": "dateselect_to", "value": $('#dateselect_to').val() });
+                aoData.push({ "name": "device_type_id", "value": $('#device_type_id').val() });
+                aoData.push({ "name": "sensor_id", "value": $('#sensor_id').val() });
+                $.ajax( {
+                    "dataType": 'json',
+                    "type": "POST",
+                    "url": sSource,
+                    "data": aoData,
+                    "success": fnCallback
+                });
+            };
+            table.destroy();
+            var newtable = tab.DataTable(dtsettings);
+            //End Reset Table
+            $('.healthmonitor-filter :input').change(function(){
+                console.log( 'change input' );
+                console.log( this.id );
+                console.log( this.name );
+                console.log( this.value );
+                newtable.draw();
+            });
+
+        });
+
+
+    })(CRM.$, CRM._);
+
+
+</script>
+{/literal}
 {debug}

@@ -1,4 +1,5 @@
 {crmScope extensionKey='healthmonitor'}
+
 {if $action eq 8}
   {* Are you sure to delete form *}
   <h3>{ts}Delete Entity{/ts}</h3>

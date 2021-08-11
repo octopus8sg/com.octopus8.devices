@@ -35,7 +35,7 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
 
       $this->addDateRange('dateselect', '_from', '_to', 'From:', 'yyyy-mm-dd');
 
-      $this->assign('suppressForm', TRUE);
+      $this->assign('suppressForm', FALSE);
   }
 
 
