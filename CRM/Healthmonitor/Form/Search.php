@@ -123,8 +123,9 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
       `civicrm_health_monitor`.`device_type_id`,
       `civicrm_health_monitor`.`device_id`,
       `civicrm_health_monitor`.`sensor_id`,
-      `civicrm_health_monitor`.`sensor_value`
-    FROM `civicrm_health_monitor` 
+      `civicrm_health_monitor`.`sensor_value`,
+      `civicrm_device`.`name`
+    FROM `civicrm_health_monitor` LEFT JOIN `civicrm_device` on `civicrm_health_monitor`.`device_id` = `civicrm_device`.`id`
     WHERE 1";
         // LEFT JOIN civicrm_option_group option_group_case_status ON ( option_group_case_status.name = 'case_status' )
         // LEFT JOIN civicrm_option_value case_status ON ( civicrm_case.status_id = case_status.value
@@ -204,7 +205,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->date;
             $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
-            $rows[$count][] = $dao->device_id;
+            $rows[$count][] = $dao->name;
             $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
             $rows[$count][] = $dao->sensor_value;
             $rows[$count][] = $action;

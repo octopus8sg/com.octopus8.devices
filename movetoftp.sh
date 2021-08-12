@@ -32,3 +32,35 @@ D	templates/CRM/Healthmonitor/Page/Tabs/Data.tpl
 D	templates/CRM/Healthmonitor/Page/Tabs/Devices.tpl
 M	xml/Menu/healthmonitor.xml
 ===============
+
+M	CRM/Healthmonitor/Form/Device.php
+M	CRM/Healthmonitor/Form/DeviceFilter.php
+M	CRM/Healthmonitor/Form/DeviceSearch.php
+M	CRM/Healthmonitor/Form/HealthMonitorFilter.php
+D	CRM/Healthmonitor/Page/ChartPage.php
+M	CRM/Healthmonitor/Page/ContactTab.php
+M	healthmonitor.php
+D	js/Chart.bundle.min.js
+D	js/analytics.js
+D	movetoftp.sh
+M	templates/CRM/Healthmonitor/Form/DeviceFilter.tpl
+M	templates/CRM/Healthmonitor/Form/HealthMonitorFilter.tpl
+D	templates/CRM/Healthmonitor/Page/ChartPage.tpl
+M	templates/CRM/Healthmonitor/Page/ContactTab.tpl
+D	templates/CRM/Healthmonitor/Page/Tabs/Analytics.tpl
+M	templates/CRM/Healthmonitor/Page/Tabs/Data.tpl
+D	templates/CRM/Healthmonitor/Page/Tabs/Devices.tpl
+A	templates/CRM/Healthmonitor/Selector/Selector.tpl
+M	xml/schema/CRM/Healthmonitor/Device.xml
+================
+
+M	CRM/Healthmonitor/Form/Device.php
+M	CRM/Healthmonitor/Form/DeviceSearch.php
+M	healthmonitor.php
+D	movetoftp.sh
+M	templates/CRM/Healthmonitor/Page/Tabs/Data.tpl
+M	templates/CRM/Healthmonitor/Page/Tabs/Devices.tpl
+M	xml/Menu/healthmonitor.xml
+M	xml/schema/CRM/Healthmonitor/Device.xml
+=================
+
