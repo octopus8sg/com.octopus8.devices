@@ -24,13 +24,13 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
 
     public function preProcess() {
         $this->formValues = $this->getSubmitValues();
-        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
 
         parent::preProcess();
 
 
         $this->formValues = $this->getSubmitValues();
-        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
         $this->setTitle(E::ts('Search Devices'));
 
         $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
@@ -214,7 +214,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
      * @throws \CRM_Core_Exception
      */
     protected function query() {
-        CRM_Core_Error::debug_var('formvalues', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues', $this->formValues);
 
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS

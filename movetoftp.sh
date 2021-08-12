@@ -69,3 +69,12 @@ M	movetoftp.sh
 M	templates/CRM/Healthmonitor/Form/DeviceSearch.tpl
 
 =================
+
+=================
+M	CRM/Healthmonitor/Form/DeviceSearch.php
+M	movetoftp.sh
+M	templates/CRM/Healthmonitor/Form/HealthMonitorFilter.tpl
+M	templates/CRM/Healthmonitor/Page/Tabs/Devices.tpl
+
+=================
+

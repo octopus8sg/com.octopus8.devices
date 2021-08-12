@@ -278,6 +278,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
      */
     protected function query()
     {
+        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS
       `civicrm_health_monitor`.`id`,
@@ -300,12 +301,12 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $this->formValues['sensor_id'] . " ";
         }
 
-        if (isset($this->formValues['contact_id']) && is_array($this->formValues['contact_id']) && count($this->formValues['contact_id'])) {
-            $sql .= " AND `civicrm_health_monitor`.`contact_id` IN (" . implode(", ", $this->formValues['contact_id']) . ")";
+        if (isset($this->formValues['contact_id']) && !empty($this->formValues['contact_id'])) {
+            $sql .= " AND `civicrm_health_monitor`.`contact_id` IN (" . $this->formValues['contact_id'] . ")";
         }
 
-        if (isset($this->formValues['device_id']) && is_array($this->formValues['device_id']) && count($this->formValues['device_id'])) {
-            $sql .= " AND `civicrm_health_monitor`.`device_id` IN (" . implode(", ", $this->formValues['device_id']) . ")";
+        if (isset($this->formValues['device_id']) && !empty($this->formValues['device_id'])) {
+            $sql .= " AND `civicrm_health_monitor`.`device_id` = " . $this->formValues['device_id'] . " ";
         }
 
         if (isset($this->formValues['dateselect_from']) && !empty($this->formValues['dateselect_from'])) {
