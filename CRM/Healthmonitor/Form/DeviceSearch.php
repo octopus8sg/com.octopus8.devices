@@ -54,7 +54,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
     public function buildQuickForm() {
         parent::buildQuickForm();
 
-        $this->add('text', 'device_name', E::ts('Device Name'), array('class' => 'huge'));
+        $this->add('text', 'device_name', E::ts('Device Unique Code'), array('class' => 'huge'));
         $this->addEntityRef('contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
         $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
         $this->add('select', 'device_type_id',

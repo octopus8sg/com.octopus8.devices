@@ -39,7 +39,8 @@
     <name>name</name>
     <type>varchar</type>
     <length>255</length>
-    <required>false</required>
+    <comment>Unique Device Code</comment>
+    <required>true</required>
   </field>
 
   <field>

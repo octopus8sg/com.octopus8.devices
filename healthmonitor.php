@@ -272,8 +272,8 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
         $tabs[] = array(
             'id' => 'contact_healthmonitor',
             'url' => $url,
-            'count' => $myEntities->count(),
-            'title' => E::ts('HM Data Entries'),
+//            'count' => $myEntities->count(),
+            'title' => E::ts('Devices'),
             'weight' => 310,
             'icon' => 'crm-i fa-heartbeat',
             'rows' => [
@@ -311,7 +311,22 @@ function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
 //    CRM_Core_Error::debug_var('id', $id);
 //    CRM_Core_Error::debug_var('params', $params);
     if ($op == 'create' && $objectName == 'HealthMonitor') {
-        if (!isset($params['contact_id']) or !isset($params['device_type_id'])) {
+        if (!isset($params['device_id']) and isset($params['device_name'])) {
+            $devices = civicrm_api4('Device', 'get', [
+                'select' => [
+                    'id',
+                ],
+                'where' => [
+                    ['name', '=', $params['device_name']],
+                ],
+                'limit' => 2,
+            ]);
+            if (!empty($devices)) {
+                $device_id = $devices[0]['id'];
+                $params['device_id'] = $device_id;
+            }
+        }
+        if ((!isset($params['contact_id']) or !isset($params['device_type_id'])) and isset($params['device_id'])) {
             $devices = civicrm_api4('Device', 'get', [
                 'select' => [
                     'contact_id',
@@ -330,13 +345,8 @@ function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
                     $device_type_id = $devices[0]['device_type_id'];
                 }
             }
-//            CRM_Core_Error::debug_var('results', $devices);
-//            CRM_Core_Error::debug_var('results0', $devices[0]);
-//            CRM_Core_Error::debug_var('client_id', $client_id);
             $params['contact_id'] = $client_id;
             $params['device_type_id'] = $device_type_id;
-//            CRM_Core_Error::debug_var('params2', $params);
-
         }
     }
 }

@@ -69,10 +69,4 @@
     <title>DeviceFilter</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
-  <item>
-    <path>civicrm/healthmonitor/chartpage</path>
-    <page_callback>CRM_Healthmonitor_Page_ChartPage</page_callback>
-    <title>ChartPage</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
 </menu>

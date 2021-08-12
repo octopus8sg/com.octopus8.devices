@@ -25,7 +25,7 @@
                         {ts}Device Type{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Device ID{/ts}
+                        {ts}Device Unique Code{/ts}
                     </th>
                     <th scope="col">
                         {ts}Sensor{/ts}

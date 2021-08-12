@@ -61,13 +61,14 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         $this->add('hidden', 'id');
         if ($this->_action != CRM_Core_Action::DELETE) {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
-            $this->add('text', 'name', E::ts('Name'), ['class' => 'huge'], TRUE);
-            $this->addRule('name', ts('Device Name already exists in Database.'), 'objectExists', [
+            $this->add('text', 'name', E::ts('Device Unique Code'), ['class' => 'huge'], TRUE);
+            $this->addRule('name', ts('Device Unique Code already exists in Database.'), 'objectExists', [
                 'CRM_Healthmonitor_DAO_Device',
                 $this->_id,
                 'name',
                 CRM_Core_Config::domainID(),
             ]);
+            $this->addRule('name', ts('Device Unique Code should consist of numbers and letters'), 'alphanumeric', null, 'client');
             //            $this->addRule('name', ts('Name already exists in Database.'), 'deviceExists', [
 //                'CRM_Healthmonitor_DAO_Device',
 //                $this->getEntityId(),
