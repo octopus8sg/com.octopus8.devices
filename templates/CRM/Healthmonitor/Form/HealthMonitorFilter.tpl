@@ -1,4 +1,4 @@
-{literal}
+$urlQry{literal}
   <link id="bsdp-css" href="https://unpkg.com/bootstrap-datepicker@1.9.0/dist/css/bootstrap-datepicker3.min.css" rel="stylesheet">
 {/literal}
  <div class="crm-content-block">

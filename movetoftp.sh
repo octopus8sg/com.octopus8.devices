@@ -64,3 +64,8 @@ M	xml/Menu/healthmonitor.xml
 M	xml/schema/CRM/Healthmonitor/Device.xml
 =================
 
+M	CRM/Healthmonitor/Form/Search.php
+M	movetoftp.sh
+M	templates/CRM/Healthmonitor/Form/DeviceSearch.tpl
+
+=================

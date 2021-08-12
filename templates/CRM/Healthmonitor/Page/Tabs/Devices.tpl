@@ -12,7 +12,7 @@
         <div class="crm-search-results">
             {include file="CRM/common/enableDisableApi.tpl"}
             {include file="CRM/common/jsortable.tpl"}
-            <table class="selector selector-devices row-highlight pagerDisplay" id="myDevices" name="myDevices">
+            <table class="selector selector-devices row-highlight pagerDisplay" id="allDevices" name="allDevices">
                 <thead class="sticky">
                 <tr>
                     <th id="sortable" scope="col">
@@ -20,6 +20,9 @@
                     </th>
                     <th scope="col">
                         {ts}Unique Code{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}User{/ts}
                     </th>
                     <th scope="col">
                         {ts}Device Type{/ts}

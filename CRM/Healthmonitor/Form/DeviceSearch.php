@@ -23,10 +23,14 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
 
 
     public function preProcess() {
+        $this->formValues = $this->getSubmitValues();
+        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
+
         parent::preProcess();
 
 
         $this->formValues = $this->getSubmitValues();
+        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
         $this->setTitle(E::ts('Search Devices'));
 
         $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
@@ -55,13 +59,17 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         parent::buildQuickForm();
 
         $this->add('text', 'device_name', E::ts('Device Unique Code'), array('class' => 'huge'));
-        $this->addEntityRef('contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+        $this->addEntityRef('contact_id',
+            E::ts('Contact'),
+            ['create' => false, 'multiple' => true],
+            false, array('class' => 'huge'));
         $types = CRM_Core_OptionGroup::values('health_monitor_device_type');
         $this->add('select', 'device_type_id',
             E::ts('Device Type'),
             $types,
             FALSE, ['class' => 'huge crm-select2',
-                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type']);
+                'data-option-edit-path' => 'civicrm/admin/options/health_monitor_device_type', 'placeholder' => ts('- Select Device Type -'),
+                'select' => ['minimumInputLength' => 0]]);
 
 
         $this->addButtons(array(
@@ -206,6 +214,8 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
      * @throws \CRM_Core_Exception
      */
     protected function query() {
+        CRM_Core_Error::debug_var('formvalues', $this->formValues);
+
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS
       `civicrm_device`.`id`,
@@ -218,11 +228,11 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
             $sql .= " AND `civicrm_device`.`name` LIKE '%".$this->formValues['device_name']."%'";
         }
-        if (isset($this->formValues['contact_id']) && is_array($this->formValues['contact_id']) && count($this->formValues['contact_id'])) {
-            $sql  .= " AND `civicrm_device`.`contact_id` IN (".implode(", ", $this->formValues['contact_id']).")";
+        if (isset($this->formValues['contact_id']) && !empty($this->formValues['contact_id'])) {
+            $sql  .= " AND `civicrm_device`.`contact_id` IN (". $this->formValues['contact_id']. ")";
         }
-        if (isset($this->formValues['device_type_id']) && is_array($this->formValues['device_type_id']) && count($this->formValues['device_type_id'])) {
-            $sql  .= " AND `civicrm_device`.`device_type_id` IN (".implode(", ", $this->formValues['device_type_id']).")";
+        if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
+            $sql  .= " AND `civicrm_device`.`device_type_id` = " . $this->formValues['device_type_id'] . " ";
         }
 
         if ($this->limit !== false) {
@@ -253,7 +263,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
             $this->rows[] = $row;
 
         }
-        CRM_Core_Error::debug_var('tabrows', $this->rows);
+
 
     }
 
