@@ -80,7 +80,7 @@
             $('.healthmonitor-filter :input').change(function(){
                 new_hm_table.draw();
             });
-            
+
             //devices datatable
             var devices_tab = $('.selector-devices');
             var devices_table = devices_tab.DataTable();

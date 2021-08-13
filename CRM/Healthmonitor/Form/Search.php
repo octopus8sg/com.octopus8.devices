@@ -98,7 +98,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             0 => 'id',
             1 => 'date',
             2 => 'device_type_id',
-            3 => 'device_id',
+            3 => 'name',
             4 => 'sensor_id',
             5 => 'sensor_value',
         ];
