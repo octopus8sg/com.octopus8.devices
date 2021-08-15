@@ -149,25 +149,18 @@ CRM.$(function ($) {
     newdata["contact_id"] = contact_id;
     ajax_chart(myChart, json_url, newdata);
 
-    $('.healthmonitor-filter :input').change(function () {
+    $('.chart-filter :input').change(function () {
         var newdata = {};
 
-        $dateselect_from =  $('#dateselect_from').val()
-        newdata["dateselect_from"] = $('#dateselect_from').val();
-        $('#dateselect_from').val($dateselect_from);
+
+        newdata["dateselect_from"] = $('#chart_dateselect_from').val();
+
         
-        
-        $dateselect_to =  $('#dateselect_to').val();
-        newdata["dateselect_to"] = $('#dateselect_to').val();
-        $('#dateselect_from').val($dateselect_to);
-        
-        $device_type_id =  $('#device_type_id').val();
-        newdata["device_type_id"] = $('#device_type_id').val();
-        $('#dateselect_from').val($device_type_id);
-        
-        $sensor_id =  $('#sensor_id').val();
-        newdata["sensor_id"] = $('#sensor_id').val();
-        $('#dateselect_from').val($sensor_id);
+        newdata["dateselect_to"] = $('#chart_dateselect_to').val();
+
+        newdata["device_type_id"] = $('#chart_device_type_id').val();
+
+        newdata["sensor_id"] = $('#chart_sensor_id').val();
 
         // alert(newdata["dateselect_from"] );
         // alert(newdata["dateselect_to"] );

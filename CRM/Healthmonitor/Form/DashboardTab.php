@@ -155,8 +155,8 @@ class CRM_Healthmonitor_Form_DashboardTab extends CRM_Core_Form {
                 'date' => $dao->date,
                 'sensor_value' => $dao->sensor_value,
             ];
-            $row['device_type_id'] = CRM_Core_PseudoConstant::getLabel('health_monitor_device_type', $dao->device_type_id);
-            $row['sensor_id'] = CRM_Core_PseudoConstant::getLabel('health_monitor_sensor', $dao->sensor_id);
+            $row['device_type_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            $row['sensor_id'] = CRM_Core_OptionGroup::getLabel('health_monitor_sensor', $dao->sensor_id);
             if (!empty($row['device_id'])) {
                 $row['device'] = '<a href="' . CRM_Utils_System::url('civicrm/device/form',
                         ['reset' => 1, 'id' => $dao->device_id]) . '">' .
