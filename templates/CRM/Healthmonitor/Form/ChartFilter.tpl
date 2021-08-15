@@ -7,7 +7,7 @@
       <div class="crm-accordion-wrapper crm-expenses_search-accordion">
         <div class="crm-accordion-header crm-master-accordion-header">{ts}Filter Health Monitoring Data{/ts}</div><!-- /.crm-accordion-header -->
         <div class="crm-accordion-body">
-          <table class="form-layout chart-filter">
+          <table class="form-layout healthmonitor-filter">
             <tbody>
             <tr>
               <td class="label">{$form.dateselect_from.label}</td>

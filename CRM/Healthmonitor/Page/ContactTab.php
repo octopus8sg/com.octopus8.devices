@@ -199,12 +199,17 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
     {
 //        Civi::resources()->addScriptUrl('https://cdn.jsdelivr.net/npm/chart.js', -1, 'html-header');
         Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/analytics.js', 2);
+        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
+        $ajaxUrl = [];
+        $ajaxUrl[] = CRM_Utils_System::url('civicrm/healthmonitor/chart_ajax');
+
+
         // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
         CRM_Utils_System::setTitle(E::ts('HM Data Entries'));
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this, TRUE);
         $this->assign('contactId', $contactId);
-
+        $ajaxUrl[] = $contactId;
+        CRM_Core_Resources::singleton()->addVars('ajax_url', $ajaxUrl);
         $this->assign('useAjax', true);
         $urlQry['snippet'] = 4;
         $urlQry['cid'] = $contactId;

@@ -311,13 +311,17 @@ function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
 //    CRM_Core_Error::debug_var('id', $id);
 //    CRM_Core_Error::debug_var('params', $params);
     if ($op == 'create' && $objectName == 'HealthMonitor') {
-        if (!isset($params['device_id']) and isset($params['device_name'])) {
+        $contact_id = 0;
+        if(isset($params['contact_id'])){
+            $contact_id =     $params['contact_id'];
+        }
+        if (!isset($params['device_id']) and isset($params['device_code'])) {
             $devices = civicrm_api4('Device', 'get', [
                 'select' => [
                     'id',
                 ],
                 'where' => [
-                    ['name', '=', $params['device_name']],
+                    ['name', '=', $params['device_code']],
                 ],
                 'limit' => 2,
             ]);
@@ -325,6 +329,9 @@ function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
                 $device_id = $devices[0]['id'];
                 $params['device_id'] = $device_id;
             }
+        }
+        if (!isset($params['device_id'])){
+            return "The field device_code and/or device_id is mandatory";
         }
         if ((!isset($params['contact_id']) or !isset($params['device_type_id'])) and isset($params['device_id'])) {
             $devices = civicrm_api4('Device', 'get', [
@@ -339,14 +346,16 @@ function _healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
             ]);
             if (!empty($devices)) {
                 if (!isset($params['contact_id'])) {
-                    $client_id = $devices[0]['contact_id'];
+                    $contact_id = $devices[0]['contact_id'];
                 }
                 if (!isset($params['device_type_id'])) {
                     $device_type_id = $devices[0]['device_type_id'];
                 }
             }
-            $params['contact_id'] = $client_id;
+            $params['contact_id'] = $contact_id;
             $params['device_type_id'] = $device_type_id;
+        }else{
+            return "The field device_code and/or device_id and/or contact_id is mandatory";
         }
     }
 }

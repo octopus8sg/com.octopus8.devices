@@ -24,13 +24,13 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
 
     public function preProcess() {
         $this->formValues = $this->getSubmitValues();
-//        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
+        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
 
         parent::preProcess();
 
 
         $this->formValues = $this->getSubmitValues();
-//        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
+        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
         $this->setTitle(E::ts('Search Devices'));
 
         $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
@@ -187,7 +187,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
             $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->name;
-            $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            $rows[$count][] = CRM_Core_PseudoConstant::getLabel('health_monitor_device_type', $dao->device_type_id);
             $rows[$count][] = $action;
             $count++;
         }
@@ -254,7 +254,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
                 'default_client' => $dao->default_client,
             ];
             $row['default'] = "<input type='checkbox' $default_client disabled>";
-            $row['device_type'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            $row['device_type'] = CRM_Core_PseudoConstant::getLabel('health_monitor_device_type', $dao->device_type_id);
             if (!empty($row['contact_id'])) {
                 $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view',
                         ['reset' => 1, 'cid' => $dao->contact_id]).'">'.
