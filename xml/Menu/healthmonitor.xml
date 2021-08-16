@@ -41,7 +41,8 @@
     <page_callback>CRM_Healthmonitor_Page_Tab</page_callback>
     <title>Tab</title>
     <access_arguments>access CiviCRM</access_arguments>
-  </item>  <item>
+  </item>
+  <item>
     <path>civicrm/healthmonitor/chart</path>
     <page_callback>CRM_Healthmonitor_Page_ChartPage</page_callback>
     <title>Chart</title>
@@ -77,6 +78,12 @@
     <path>civicrm/healthmonitor/devicefilter</path>
     <page_callback>CRM_Healthmonitor_Form_DeviceFilter</page_callback>
     <title>DeviceFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/healthmonitor/charterpage</path>
+    <page_callback>CRM_Healthmonitor_Page_CharterPage</page_callback>
+    <title>CharterPage</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>

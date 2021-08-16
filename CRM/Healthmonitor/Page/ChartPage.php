@@ -10,7 +10,7 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
         $logged_user_id = CRM_Core_Session::singleton()->getLoggedInContactID();
 //        $time = strtotime("-1 year", time());
 //        $date = date("Y-m-d H:i:s", $time);
-
+//
 //      for($i=0;$i<364;$i++){
 //          $time = strtotime("+1 day", $time);
 //          $date = date("Y-m-d H:i:s", $time);
@@ -21,7 +21,7 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
 //              'date' => $date,
 //              'sensor_value' => $sensor_value,
 //              'device_code' => $device_name,
-//              'contact_id' => $logged_user_id,
+////              'contact_id' => $logged_user_id,
 //              'sensor_id' => $sensor_id,
 //          ]);
 //          $sensor_value = 0.1 * random_int(355,370);
@@ -70,6 +70,9 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
 //        CRM_Core_Error::debug_var('contact', $contactId);
 
+
+        $contactId = CRM_Utils_Request::retrieveValue('contact_id', 'Positive', null);
+//        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
         $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'Positive', null);
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);

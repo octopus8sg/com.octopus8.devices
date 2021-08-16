@@ -2,6 +2,7 @@ CRM.$(function ($) {
     var ctx = document.getElementById('ChartLine').getContext('2d');
     var json_url = CRM.vars.ajax_url[0];
     var contact_id = CRM.vars.ajax_url[1];
+    alert(contact_id);
 
     json_url = json_url.toString().replace(/&amp;/g, '&');
     var labels = [];
@@ -161,6 +162,8 @@ CRM.$(function ($) {
         newdata["device_type_id"] = $('#chart_device_type_id').val();
 
         newdata["sensor_id"] = $('#chart_sensor_id').val();
+
+        newdata["contact_id"] = contact_id;
 
         // alert(newdata["dateselect_from"] );
         // alert(newdata["dateselect_to"] );

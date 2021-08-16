@@ -47,4 +47,3 @@
     });
   </script>
 {/literal}
-{debug}

@@ -67,14 +67,14 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
 
         // datatables style and js (for export etc)
 
-        Civi::resources()->addStyleUrl('https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/datatables.min.css', -1, "page-header");
-
-        Civi::resources()->addScriptUrl('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js', -1, "page-header");
-        Civi::resources()->addScriptUrl('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js', -1, "page-header");
-        Civi::resources()->addScriptUrl('https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/datatables.min.js', [
-            'weight' => -1,
-            'region' => 'html-header'
-        ]);
+//        Civi::resources()->addStyleUrl('https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/datatables.min.css', -1, "page-header");
+//
+//        Civi::resources()->addScriptUrl('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js', -1, "page-header");
+//        Civi::resources()->addScriptUrl('https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js', -1, "page-header");
+//        Civi::resources()->addScriptUrl('https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-html5-1.7.1/b-print-1.7.1/r-2.2.9/datatables.min.js', [
+//            'weight' => -1,
+//            'region' => 'html-header'
+//        ]);
 
         // data datatable js and variables
         Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/data.js', 2);
