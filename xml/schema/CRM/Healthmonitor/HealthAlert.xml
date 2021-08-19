@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Healthmonitor</base>
+  <class>HealthAlert</class>
+  <name>civicrm_health_alert</name>
+  <comment>Health Alert</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique HealthAlert ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>health_monitor_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Health Monitor Data</comment>
+  </field>
+  <foreignKey>
+    <name>health_monitor_id</name>
+    <table>civicrm_health_monitor</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>health_alert_rule_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Health Rule</comment>
+  </field>
+  <foreignKey>
+    <name>health_alert_rule_id</name>
+    <table>civicrm_health_alert_rule</table>
+    <key>id</key>
+    <onDelete>RESTRICT</onDelete>
+  </foreignKey>
+
+
+</table>

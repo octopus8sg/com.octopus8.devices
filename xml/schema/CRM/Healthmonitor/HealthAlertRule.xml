@@ -2,16 +2,16 @@
 
 <table>
   <base>CRM/Healthmonitor</base>
-  <class>HealthMonitor</class>
-  <name>civicrm_health_monitor</name>
-  <comment>The app will collect and send health data</comment>
+  <class>HealthAlertRule</class>
+  <name>civicrm_health_alert_rule</name>
+  <comment>Health Alert Rule</comment>
   <log>true</log>
 
   <field>
     <name>id</name>
     <type>int unsigned</type>
     <required>true</required>
-    <comment>Unique HealthMonitor ID</comment>
+    <comment>Unique HealthAlertRule ID</comment>
     <html>
       <type>Number</type>
     </html>
@@ -30,7 +30,6 @@
     <import>true</import>
     <export>true</export>
   </field>
-
   <foreignKey>
     <name>contact_id</name>
     <table>civicrm_contact</table>
@@ -39,49 +38,20 @@
   </foreignKey>
 
   <field>
-    <name>date</name>
-    <type>datetime</type>
-    <comment>Health Monitor Time</comment>
-    <html>
-      <type>Select Date</type>
-      <formatType>activityDateTime</formatType>
-    </html>
+    <name>name</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alert Name</label>
+    <comment>Alert Name</comment>
     <required>true</required>
     <import>true</import>
     <export>true</export>
   </field>
 
-  <field>
-    <name>device_type_id</name>
-    <title>Device Type</title>
-    <type>int</type>
-    <length>3</length>
-    <default>1</default>
-    <import>true</import>
-    <export>true</export>
-    <pseudoconstant>
-      <optionGroupName>health_monitor_device_type</optionGroupName>
-    </pseudoconstant>
-    <html>
-      <type>Select</type>
-    </html>
-  </field>
-
-  <field>
-    <name>device_id</name>
-    <type>int unsigned</type>
-    <import>true</import>
-    <export>true</export>
-    <comment>FK to Device</comment>
-    <required>true</required>
-  </field>
-
-  <foreignKey>
-    <name>device_id</name>
-    <table>civicrm_device</table>
-    <key>id</key>
-    <onDelete>CASCADE</onDelete>
-  </foreignKey>
+  <index>
+    <name>index_name</name>
+    <fieldName>name</fieldName>
+  </index>
 
   <field>
     <name>sensor_id</name>
@@ -101,18 +71,20 @@
   </field>
 
   <field>
-    <name>sensor_value</name>
-    <title>Sensor Value</title>
-    <type>decimal</type>
-    <dataPattern>/^\d+(\.\d{2})?$/</dataPattern>
+    <name>rule_id</name>
+    <title>Rule</title>
+    <type>int</type>
+    <length>5</length>
+    <default>1</default>
     <required>true</required>
     <import>true</import>
     <export>true</export>
-    <comment>Sensor Value</comment>
+    <pseudoconstant>
+      <optionGroupName>health_alert_rule_type</optionGroupName>
+    </pseudoconstant>
     <html>
-      <type>Text</type>
+      <type>Select</type>
     </html>
   </field>
-
 
 </table>

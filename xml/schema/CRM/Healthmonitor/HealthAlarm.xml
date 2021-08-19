@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Healthmonitor</base>
+  <class>HealthAlarm</class>
+  <name>civicrm_health_alarm</name>
+  <comment>Health Alarm - Message sent by Alert</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique HealthAlarm ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>health_alert_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Health Alert Data</comment>
+  </field>
+  <foreignKey>
+    <name>health_alert_id</name>
+    <table>civicrm_health_alert</table>
+    <key>id</key>
+    <onDelete>RESTRICT</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>health_alarm_rule_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Health Alarm Rule</comment>
+  </field>
+  <foreignKey>
+    <name>health_alarm_rule_id</name>
+    <table>civicrm_health_alarm_rule</table>
+    <key>id</key>
+    <onDelete>RESTRICT</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>addressee_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Address Contact</comment>
+  </field>
+  <foreignKey>
+    <name>addressee_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>sent_email_id</name>
+    <type>int unsigned</type>
+    <comment>0 of none</comment>
+  </field>
+
+  <field>
+    <name>sent_sms_id</name>
+    <type>int unsigned</type>
+    <comment>0 of none</comment>
+  </field>
+</table>

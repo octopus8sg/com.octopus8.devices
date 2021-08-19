@@ -24,17 +24,37 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             ['name' => 'health_monitor_device_type',
                 'title' => E::ts('HM Device Type')]);
         $deviceTypeOptionGroupId = $deviceTypeOptionGroupId['id'];
+
         civicrm_api3('OptionValue', 'create',
             ['value' => 1,
                 'is_default' => '1',
                 'name' => 'jelly8_smart_watch_1',
                 'label' => E::ts('Jelly8 Smart Watch 1'),
                 'option_group_id' => $deviceTypeOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 2,
+                'name' => 'jelly8_smart_weight_1',
+                'label' => E::ts('Jelly8 Smart Weight 1'),
+                'option_group_id' => $deviceTypeOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 3,
+                'name' => 'jelly8_smart_height_1',
+                'label' => E::ts('Jelly8 Smart Height 1'),
+                'option_group_id' => $deviceTypeOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 4,
+                'name' => 'jelly8_smart_bpm_1',
+                'label' => E::ts('Jelly8 Smart Blood Pressure Monitor 1'),
+                'option_group_id' => $deviceTypeOptionGroupId]);
+
+
+        //sensor types
         $sensorOptionGroupId = civicrm_api3('OptionGroup',
             'create',
             ['name' => 'health_monitor_sensor',
                 'title' => E::ts('HM Sensor')]);
         $sensorOptionGroupId = $sensorOptionGroupId['id'];
+
         civicrm_api3('OptionValue', 'create',
             ['value' => 1,
                 'is_default' => '1',
@@ -43,14 +63,74 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'option_group_id' => $sensorOptionGroupId]);
         civicrm_api3('OptionValue', 'create',
             ['value' => 2,
-                'name' => 'blood_pressure',
-                'label' => E::ts('Blood Pressure'),
+                'name' => 'body_weight',
+                'label' => E::ts('Body Weight'),
                 'option_group_id' => $sensorOptionGroupId]);
         civicrm_api3('OptionValue', 'create',
             ['value' => 3,
                 'name' => 'body_temperature',
                 'label' => E::ts('Body Temperature'),
                 'option_group_id' => $sensorOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 4,
+                'name' => 'blood_pressure_diastolic',
+                'label' => E::ts('Blood Pressure Diastolic'),
+                'option_group_id' => $sensorOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 5,
+                'name' => 'blood_pressure_systolic',
+                'label' => E::ts('Blood Pressure Systolic'),
+                'option_group_id' => $sensorOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 6,
+                'name' => 'height',
+                'label' => E::ts('Height'),
+                'option_group_id' => $sensorOptionGroupId]);
+
+        $ruleTypeGroupId = civicrm_api3('OptionGroup',
+            'create',
+            ['name' => 'health_alert_rule_type',
+                'title' => E::ts('Health Alert Rule Type')]);
+        $ruleTypeGroupId = $ruleTypeGroupId['id'];
+
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 1,
+                'name' => 'eq',
+                'description' => '=',
+                'label' => E::ts('EQ'),
+                'option_group_id' => $ruleTypeGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 2,
+                'name' => 'ne',
+                'description' => '!=',
+                'label' => E::ts('NE'),
+                'option_group_id' => $ruleTypeGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 3,
+                'name' => 'lt',
+                'description' => '<',
+                'label' => E::ts('LT'),
+                'option_group_id' => $ruleTypeGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 4,
+                'name' => 'le',
+                'description' => '<=',
+                'label' => E::ts('LE'),
+                'option_group_id' => $ruleTypeGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 5,
+                'name' => 'gt',
+                'description' => '>',
+                'label' => E::ts('GT'),
+                'option_group_id' => $ruleTypeGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 6,
+                'name' => 'ge',
+                'description' => '>=',
+                'label' => E::ts('GE'),
+                'option_group_id' => $ruleTypeGroupId]);
+
+
 
 
     }
@@ -76,29 +156,40 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
     /**
      * Example: Run an external SQL script when the module is uninstalled.
      */
-     public function uninstall() {
-         try {
-             $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_monitor_device_type']);
-             $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
-             foreach ($optionValues['values'] as $optionValue) {
-                 civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
-             }
-             civicrm_api3('OptionGroup', 'delete', ['id' => $optionGroupId]);
-         } catch (\CiviCRM_API3_Exception $ex) {
-             // Ignore exception.
-         }
-         try {
-             $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_monitor_sensor']);
-             $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
-             foreach ($optionValues['values'] as $optionValue) {
-                 civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
-             }
-             civicrm_api3('OptionGroup', 'delete', ['id' => $optionGroupId]);
-         } catch (\CiviCRM_API3_Exception $ex) {
-             // Ignore exception.
-         }
-         //      $this->executeSqlFile('sql/myuninstall.sql');
-     }
+    public function uninstall() {
+        try {
+            $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_monitor_device_type']);
+            $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
+            foreach ($optionValues['values'] as $optionValue) {
+                civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
+            }
+            civicrm_api3('OptionGroup', 'delete', ['id' => $optionGroupId]);
+        } catch (\CiviCRM_API3_Exception $ex) {
+            // Ignore exception.
+        }
+        try {
+            $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_monitor_sensor']);
+            $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
+            foreach ($optionValues['values'] as $optionValue) {
+                civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
+            }
+            civicrm_api3('OptionGroup', 'delete', ['id' => $optionGroupId]);
+        } catch (\CiviCRM_API3_Exception $ex) {
+            // Ignore exception.
+        }
+
+        try {
+            $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_alert_rule_type']);
+            $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
+            foreach ($optionValues['values'] as $optionValue) {
+                civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
+            }
+            civicrm_api3('OptionGroup', 'delete', ['id' => $optionGroupId]);
+        } catch (\CiviCRM_API3_Exception $ex) {
+            // Ignore exception.
+        }
+        //      $this->executeSqlFile('sql/myuninstall.sql');
+    }
 
     /**
      * Example: Run a simple query when a module is enabled.

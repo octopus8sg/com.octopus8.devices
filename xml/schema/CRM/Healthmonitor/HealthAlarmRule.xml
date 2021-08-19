@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Healthmonitor</base>
+  <class>HealthAlarmRule</class>
+  <name>civicrm_health_alarm_rule</name>
+  <comment>FIXME</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique HealthAlarmRule ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>name</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alert Name</label>
+    <comment>Alert Name</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <index>
+    <name>index_name</name>
+    <fieldName>name</fieldName>
+  </index>
+
+  <field>
+    <name>addressee_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Address Contact</comment>
+  </field>
+  <foreignKey>
+    <name>addressee_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>alert_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Alert</comment>
+  </field>
+  <foreignKey>
+    <name>alert_id</name>
+    <table>civicrm_health_alert</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+
+
+</table>
