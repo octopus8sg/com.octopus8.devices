@@ -42,16 +42,16 @@
     <name>health_monitor_id</name>
     <table>civicrm_health_monitor</table>
     <key>id</key>
-    <onDelete>CASCADE</onDelete>
+    <onDelete>RESTRICT</onDelete>
   </foreignKey>
 
   <field>
-    <name>health_alert_rule_id</name>
+    <name>alert_rule_id</name>
     <type>int unsigned</type>
     <comment>FK to Health Rule</comment>
   </field>
   <foreignKey>
-    <name>health_alert_rule_id</name>
+    <name>alert_rule_id</name>
     <table>civicrm_health_alert_rule</table>
     <key>id</key>
     <onDelete>RESTRICT</onDelete>

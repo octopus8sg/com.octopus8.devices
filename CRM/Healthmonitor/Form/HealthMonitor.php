@@ -37,6 +37,8 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
 
         $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this, FALSE);
         CRM_Utils_System::setTitle('Add Health Monitor Value');
+        $session = CRM_Core_Session::singleton();
+        $url = CRM_Utils_System::url('civicrm/healthmonitor/search', 'reset=1');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Health Monitor Value');
             $entities = civicrm_api4('HealthMonitor', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
@@ -46,9 +48,10 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
             }
             $this->assign('healthmonitor', $this->_healthmonitor);
 
-            $session = CRM_Core_Session::singleton();
             $session->replaceUserContext(CRM_Utils_System::url('civicrm/healthmonitor/form', ['id' => $this->getEntityId(), 'action' => 'update']));
+            $session->pushUserContext($url);
         }
+        $session->pushUserContext($url);
     }
 
     public function buildQuickForm()
@@ -81,7 +84,7 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
 
             $this->addButtons([
                 [
-                    'type' => 'upload',
+                    'type' => 'done',
                     'name' => E::ts('Submit'),
                     'isDefault' => TRUE,
                 ],
@@ -137,6 +140,10 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
             $params['contact_id'] = $values['contact_id'];
             civicrm_api4('HealthMonitor', $action, ['values' => $params]);
         }
+        $session = CRM_Core_Session::singleton();
+        $url = CRM_Utils_System::url('civicrm/healthmonitor/search', 'reset=1');
+        $session->pushUserContext($url);
+
         parent::postProcess();
     }
 

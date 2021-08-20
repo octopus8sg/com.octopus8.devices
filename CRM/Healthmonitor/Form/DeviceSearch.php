@@ -221,7 +221,6 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
       `civicrm_device`.`id`,
       `civicrm_device`.`name`,
       `civicrm_device`.`device_type_id`,
-      `civicrm_device`.`default_client`,
       `civicrm_device`.`contact_id`
     FROM `civicrm_device`
     WHERE 1";
@@ -242,18 +241,12 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $this->count = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $this->rows = array();
         while($dao->fetch()) {
-            $default_client = "";
-            if($dao->default_client){
-                $default_client = "checked";
-            }
             $row = [
                 'id' => $dao->id,
                 'device_type_id' => $dao->device_type_id,
                 'contact_id' => $dao->contact_id,
-                'name' => $dao->name,
-                'default_client' => $dao->default_client,
+                'name' => $dao->name
             ];
-            $row['default'] = "<input type='checkbox' $default_client disabled>";
             $row['device_type'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
             if (!empty($row['contact_id'])) {
                 $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view',

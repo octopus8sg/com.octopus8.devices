@@ -38,19 +38,20 @@
   </foreignKey>
 
   <field>
-    <name>name</name>
+    <name>code</name>
     <type>varchar</type>
     <length>255</length>
-    <label>Alert Name</label>
-    <comment>Alert Name</comment>
+    <label>Alert Rule Code</label>
+    <comment>Alert Rule Code</comment>
     <required>true</required>
     <import>true</import>
     <export>true</export>
   </field>
 
   <index>
-    <name>index_name</name>
-    <fieldName>name</fieldName>
+    <name>index_code</name>
+    <fieldName>code</fieldName>
+    <unique>true</unique>
   </index>
 
   <field>
@@ -67,6 +68,20 @@
     </pseudoconstant>
     <html>
       <type>Select</type>
+    </html>
+  </field>
+
+  <field>
+    <name>sensor_value</name>
+    <title>Sensor Value</title>
+    <type>decimal</type>
+    <dataPattern>/^\d+(\.\d{2})?$/</dataPattern>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <comment>Sensor Value</comment>
+    <html>
+      <type>Text</type>
     </html>
   </field>
 

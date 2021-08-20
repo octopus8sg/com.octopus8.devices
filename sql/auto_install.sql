@@ -15,7 +15,7 @@
 -- *
 -- *******************************************************/
 
-SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS `civicrm_health_monitor`;
 DROP TABLE IF EXISTS `civicrm_health_alert_rule`;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `civicrm_health_alarm_rule`;
 DROP TABLE IF EXISTS `civicrm_health_alarm`;
 DROP TABLE IF EXISTS `civicrm_device`;
 
-SET FOREIGN_KEY_CHECKS = 1;
+SET FOREIGN_KEY_CHECKS=1;
 -- /*******************************************************
 -- *
 -- * Create new tables
@@ -38,17 +38,16 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- * CiviCRM Health Monitor Device
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_device`
-(
-    `id`             int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique Device ID',
-    `contact_id`     int unsigned NOT NULL COMMENT 'FK to Contact',
-    `name`           varchar(255) NOT NULL COMMENT 'Unique Device Code',
-    `device_type_id` int          NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    UNIQUE INDEX `index_device_code` (name),
-    CONSTRAINT FK_civicrm_device_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE
+CREATE TABLE `civicrm_device` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique Device ID',
+  `contact_id` int unsigned NOT NULL COMMENT 'FK to Contact',
+  `name` varchar(255) NOT NULL COMMENT 'Unique Device Code',
+  `device_type_id` int NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `index_device_code`(name),
+  CONSTRAINT FK_civicrm_device_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
 )
-    ENGINE = InnoDB;
+ENGINE=InnoDB;
 
 -- /*******************************************************
 -- *
@@ -57,21 +56,19 @@ CREATE TABLE `civicrm_device`
 -- * The app will collect and send health data
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_health_monitor`
-(
-    `id`             int unsigned   NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthMonitor ID',
-    `contact_id`     int unsigned COMMENT 'FK to Contact',
-    `date`           datetime       NOT NULL COMMENT 'Health Monitor Time',
-    `device_type_id` int                     DEFAULT 1,
-    `device_id`      int unsigned   NOT NULL COMMENT 'FK to Device',
-    `sensor_id`      int            NOT NULL DEFAULT 1,
-    `sensor_value`   decimal(20, 2) NOT NULL COMMENT 'Sensor Value',
-    PRIMARY KEY (`id`),
-    CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_monitor_device_id FOREIGN KEY (`device_id`) REFERENCES `civicrm_device` (`id`) ON DELETE CASCADE
+CREATE TABLE `civicrm_health_monitor` (
+                                          `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthMonitor ID',
+                                          `contact_id` int unsigned COMMENT 'FK to Contact',
+                                          `date` datetime NOT NULL COMMENT 'Health Monitor Time',
+                                          `device_type_id` int DEFAULT 1,
+                                          `device_id` int unsigned NOT NULL COMMENT 'FK to Device',
+                                          `sensor_id` int NOT NULL DEFAULT 1,
+                                          `sensor_value` decimal(20,2) NOT NULL COMMENT 'Sensor Value',
+                                          PRIMARY KEY (`id`),
+                                          CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+                                          CONSTRAINT FK_civicrm_health_monitor_device_id FOREIGN KEY (`device_id`) REFERENCES `civicrm_device`(`id`) ON DELETE CASCADE
 )
-    ENGINE = InnoDB;
-
+    ENGINE=InnoDB;
 
 -- /*******************************************************
 -- *
@@ -80,18 +77,18 @@ CREATE TABLE `civicrm_health_monitor`
 -- * Health Alert Rule
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_health_alert_rule`
-(
-    `id`         int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlertRule ID',
-    `contact_id` int unsigned COMMENT 'FK to Contact',
-    `name`       varchar(255) NOT NULL COMMENT 'Alert Name',
-    `sensor_id`  int          NOT NULL DEFAULT 1,
-    `rule_id`    int          NOT NULL DEFAULT 1,
-    PRIMARY KEY (`id`),
-    INDEX `index_name` (name),
-    CONSTRAINT FK_civicrm_health_alert_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE
+CREATE TABLE `civicrm_health_alert_rule` (
+                                             `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlertRule ID',
+                                             `contact_id` int unsigned COMMENT 'FK to Contact',
+                                             `code` varchar(255) NOT NULL COMMENT 'Alert Rule Code',
+                                             `sensor_id` int NOT NULL DEFAULT 1,
+                                             `sensor_value` decimal(20,2) NOT NULL COMMENT 'Sensor Value',
+                                             `rule_id` int NOT NULL DEFAULT 1,
+                                             PRIMARY KEY (`id`),
+                                             UNIQUE INDEX `index_code`(code),
+                                             CONSTRAINT FK_civicrm_health_alert_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
 )
-    ENGINE = InnoDB;
+    ENGINE=InnoDB;
 
 
 -- /*******************************************************
@@ -101,40 +98,41 @@ CREATE TABLE `civicrm_health_alert_rule`
 -- * Health Alert
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_health_alert`
-(
-    `id`                   int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlert ID',
-    `contact_id`           int unsigned COMMENT 'FK to Contact',
-    `health_monitor_id`    int unsigned COMMENT 'FK to Health Monitor Data',
-    `health_alert_rule_id` int unsigned COMMENT 'FK to Health Rule',
-    PRIMARY KEY (`id`),
-    CONSTRAINT FK_civicrm_health_alert_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_alert_health_monitor_id FOREIGN KEY (`health_monitor_id`) REFERENCES `civicrm_health_monitor` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_alert_health_alert_rule_id FOREIGN KEY (`health_alert_rule_id`) REFERENCES `civicrm_health_alert_rule` (`id`) ON DELETE RESTRICT
+CREATE TABLE `civicrm_health_alert` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlert ID',
+  `contact_id` int unsigned COMMENT 'FK to Contact',
+  `health_monitor_id` int unsigned COMMENT 'FK to Health Monitor Data',
+  `alert_rule_id` int unsigned COMMENT 'FK to Health Rule',
+  PRIMARY KEY (`id`),
+  CONSTRAINT FK_civicrm_health_alert_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_health_alert_health_monitor_id FOREIGN KEY (`health_monitor_id`) REFERENCES `civicrm_health_monitor`(`id`) ON DELETE RESTRICT,
+  CONSTRAINT FK_civicrm_health_alert_alert_rule_id FOREIGN KEY (`alert_rule_id`) REFERENCES `civicrm_health_alert_rule`(`id`) ON DELETE RESTRICT
 )
-    ENGINE = InnoDB;
+ENGINE=InnoDB;
+
+
 
 -- /*******************************************************
 -- *
 -- * civicrm_health_alarm_rule
 -- *
--- * FIXME
+-- * Health Alarm Rule (for message)
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_health_alarm_rule`
-(
-    `id`           int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlarmRule ID',
-    `contact_id`   int unsigned COMMENT 'FK to Contact',
-    `name`         varchar(255) NOT NULL COMMENT 'Alert Name',
-    `addressee_id` int unsigned COMMENT 'FK to Address Contact',
-    `alert_id`     int unsigned COMMENT 'FK to Alert',
-    PRIMARY KEY (`id`),
-    INDEX `index_name` (name),
-    CONSTRAINT FK_civicrm_health_alarm_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_alarm_rule_addressee_id FOREIGN KEY (`addressee_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_alarm_rule_alert_id FOREIGN KEY (`alert_id`) REFERENCES `civicrm_health_alert` (`id`) ON DELETE CASCADE
+CREATE TABLE `civicrm_health_alarm_rule` (
+                                             `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlarmRule ID',
+                                             `contact_id` int unsigned COMMENT 'FK to Contact',
+                                             `code` varchar(255) NOT NULL COMMENT 'Alarm Rule Code',
+                                             `addressee_id` int unsigned COMMENT 'FK to Address Contact',
+                                             `alert_id` int unsigned COMMENT 'FK to Alert',
+                                             PRIMARY KEY (`id`),
+                                             UNIQUE INDEX `index_code`(code),
+                                             CONSTRAINT FK_civicrm_health_alarm_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+                                             CONSTRAINT FK_civicrm_health_alarm_rule_addressee_id FOREIGN KEY (`addressee_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+                                             CONSTRAINT FK_civicrm_health_alarm_rule_alert_id FOREIGN KEY (`alert_id`) REFERENCES `civicrm_health_alert`(`id`) ON DELETE CASCADE
 )
-    ENGINE = InnoDB;
+    ENGINE=InnoDB;
+
 
 -- /*******************************************************
 -- *
@@ -143,19 +141,18 @@ CREATE TABLE `civicrm_health_alarm_rule`
 -- * Health Alarm - Message sent by Alert
 -- *
 -- *******************************************************/
-CREATE TABLE `civicrm_health_alarm`
-(
-    `id`                   int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlarm ID',
-    `contact_id`           int unsigned COMMENT 'FK to Contact',
-    `health_alert_id`      int unsigned COMMENT 'FK to Health Alert Data',
-    `health_alarm_rule_id` int unsigned COMMENT 'FK to Health Alarm Rule',
-    `addressee_id`         int unsigned COMMENT 'FK to Address Contact',
-    `sent_email_id`        int unsigned COMMENT '0 of none',
-    `sent_sms_id`          int unsigned COMMENT '0 of none',
-    PRIMARY KEY (`id`),
-    CONSTRAINT FK_civicrm_health_alarm_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE,
-    CONSTRAINT FK_civicrm_health_alarm_health_alert_id FOREIGN KEY (`health_alert_id`) REFERENCES `civicrm_health_alert` (`id`) ON DELETE RESTRICT,
-    CONSTRAINT FK_civicrm_health_alarm_health_alarm_rule_id FOREIGN KEY (`health_alarm_rule_id`) REFERENCES `civicrm_health_alarm_rule` (`id`) ON DELETE RESTRICT,
-    CONSTRAINT FK_civicrm_health_alarm_addressee_id FOREIGN KEY (`addressee_id`) REFERENCES `civicrm_contact` (`id`) ON DELETE CASCADE
+CREATE TABLE `civicrm_health_alarm` (
+                                        `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique HealthAlarm ID',
+                                        `contact_id` int unsigned COMMENT 'FK to Contact',
+                                        `health_alert_id` int unsigned COMMENT 'FK to Health Alert Data',
+                                        `health_alarm_rule_id` int unsigned COMMENT 'FK to Health Alarm Rule',
+                                        `addressee_id` int unsigned COMMENT 'FK to Address Contact',
+                                        `sent_email_id` int unsigned COMMENT '0 of none',
+                                        `sent_sms_id` int unsigned COMMENT '0 of none',
+                                        PRIMARY KEY (`id`),
+                                        CONSTRAINT FK_civicrm_health_alarm_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+                                        CONSTRAINT FK_civicrm_health_alarm_health_alert_id FOREIGN KEY (`health_alert_id`) REFERENCES `civicrm_health_alert`(`id`) ON DELETE RESTRICT,
+                                        CONSTRAINT FK_civicrm_health_alarm_health_alarm_rule_id FOREIGN KEY (`health_alarm_rule_id`) REFERENCES `civicrm_health_alarm_rule`(`id`) ON DELETE RESTRICT,
+                                        CONSTRAINT FK_civicrm_health_alarm_addressee_id FOREIGN KEY (`addressee_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
 )
-    ENGINE = InnoDB;
+    ENGINE=InnoDB;

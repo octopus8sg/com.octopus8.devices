@@ -4,7 +4,7 @@
   <base>CRM/Healthmonitor</base>
   <class>HealthAlarmRule</class>
   <name>civicrm_health_alarm_rule</name>
-  <comment>FIXME</comment>
+  <comment>Health Alarm Rule (for message)</comment>
   <log>true</log>
 
   <field>
@@ -34,19 +34,20 @@
   </foreignKey>
 
   <field>
-    <name>name</name>
+    <name>code</name>
     <type>varchar</type>
     <length>255</length>
-    <label>Alert Name</label>
-    <comment>Alert Name</comment>
+    <label>Alarm Rule Code</label>
+    <comment>Alarm Rule Code</comment>
     <required>true</required>
     <import>true</import>
     <export>true</export>
   </field>
 
   <index>
-    <name>index_name</name>
-    <fieldName>name</fieldName>
+    <name>index_code</name>
+    <fieldName>code</fieldName>
+    <unique>true</unique>
   </index>
 
   <field>

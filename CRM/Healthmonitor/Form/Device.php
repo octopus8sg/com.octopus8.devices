@@ -38,6 +38,7 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
 
         $this->_action = CRM_Utils_Request::retrieve('action', 'String', $this);
         $this->assign('action', $this->_action);
+        $session = CRM_Core_Session::singleton();
 
         $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this, FALSE);
         CRM_Utils_System::setTitle('Add Device');
@@ -49,9 +50,12 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
             }
             $this->assign('device', $this->_device);
 
-            $session = CRM_Core_Session::singleton();
             $session->replaceUserContext(CRM_Utils_System::url('civicrm/device/form', ['id' => $this->getEntityId(), 'action' => 'update']));
+            $url = CRM_Utils_System::url('civicrm/device/search', 'reset=1');
+            $session->pushUserContext($url);
         }
+        $url = CRM_Utils_System::url('civicrm/device/search', 'reset=1');
+        $session->pushUserContext($url);
     }
 
 
@@ -83,57 +87,18 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
 
             $this->addButtons([
                 [
-                    'type' => 'upload',
+                    'type' => 'done',
                     'name' => E::ts('Submit'),
                     'isDefault' => TRUE,
                 ],
             ]);
         } else {
             $this->addButtons([
-                ['type' => 'submit', 'name' => E::ts('Delete'), 'isDefault' => TRUE],
+                ['type' => 'done', 'name' => E::ts('Delete'), 'isDefault' => TRUE],
                 ['type' => 'cancel', 'name' => E::ts('Cancel')]
             ]);
         }
         parent::buildQuickForm();
-    }
-
-    /**
-     * Check if there is a record with the same name in the db.
-     *
-     * @param string $value
-     *   The value of the field we are checking.
-     * @param string $daoName
-     *   The dao object name.
-     * @param string $daoID
-     *   The id of the object being updated. u can change your name.
-     *                          as long as there is no conflict
-     * @param string $fieldName
-     *   The name of the field in the DAO.
-     *
-     * @param string $domainID
-     *   The id of the domain.  Object exists only for the given domain.
-     *
-     * @return bool
-     *   true if object exists
-     */
-    public static function deviceExists($value, $daoName, $daoID, $fieldName = 'name', $domainID = NULL) {
-        CRM_Core_Error::debug_var('$value', $value);
-        CRM_Core_Error::debug_var('$daoName', $daoName);
-        CRM_Core_Error::debug_var('$daoID', $daoID);
-        $object = new $daoName();
-        $object->$fieldName = $value;
-        if ($domainID) {
-            $object->domain_id = $domainID;
-        }
-
-        if ($object->find(TRUE)) {
-            CRM_Core_Error::debug_var('object', $object->toArray());
-            return $daoID && $object->id == $daoID;
-        }
-        else {
-            CRM_Core_Error::debug_var('no_object', $object->toArray());
-            return TRUE;
-        }
     }
 
 
@@ -158,6 +123,8 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
     }
 
     public function postProcess() {
+        $session = CRM_Core_Session::singleton();
+
         if ($this->_action == CRM_Core_Action::DELETE) {
             civicrm_api4('Device', 'delete', ['where' => [['id', '=', $this->_id]]]);
             CRM_Core_Session::setStatus(E::ts('Removed Device'), E::ts('Device'), 'success');
@@ -175,6 +142,8 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
             // todo many-to-many device-client
             civicrm_api4('Device', $action, ['values' => $params]);
         }
+        $url = CRM_Utils_System::url('civicrm/device/search', 'reset=1');
+        $session->pushUserContext($url);
         parent::postProcess();
     }
 
