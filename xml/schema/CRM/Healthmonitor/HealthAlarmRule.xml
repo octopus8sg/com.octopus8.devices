@@ -63,17 +63,102 @@
   </foreignKey>
 
   <field>
-    <name>alert_id</name>
+    <name>rule_id</name>
     <type>int unsigned</type>
-    <comment>FK to Alert</comment>
+    <comment>FK to Alert Rule</comment>
   </field>
   <foreignKey>
-    <name>alert_id</name>
-    <table>civicrm_health_alert</table>
+    <name>rule_id</name>
+    <table>civicrm_health_alert_rule</table>
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>
 
+  <field>
+    <name>title</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alarm Title</label>
+    <comment>Alarm Title</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
 
+  <field>
+    <name>message</name>
+    <type>varchar</type>
+    <length>1255</length>
+    <label>Alarm Message</label>
+    <comment>Alarm Message</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <field>
+    <name>civicrm</name>
+    <title>CiviCRM</title>
+    <type>boolean</type>
+    <default>true</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>email</name>
+    <title>Email</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>sms</name>
+    <title>SMS</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>telegram</name>
+    <title>Telegram</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>api</name>
+    <title>Api</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
 
 </table>

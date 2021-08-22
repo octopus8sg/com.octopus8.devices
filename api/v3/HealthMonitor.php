@@ -13,7 +13,7 @@ use CRM_Healthmonitor_ExtensionUtil as E;
  */
 function _civicrm_api3_health_monitor_create_spec(&$spec)
 {
-    CRM_Core_Error::debug_var('spec', $spec);
+//    CRM_Core_Error::debug_var('spec', $spec);
     $spec['device_code']['api.required'] = 1;
     unset($spec['sensor_id']);
     $spec['sensor_id'] = ['api.required' => 1];

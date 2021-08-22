@@ -1,6 +1,17 @@
 {crmScope extensionKey='healthmonitor'}
         <div class="healthmonitoring-devices-tab view-content">
-
+            <div class="action-link">
+                <a class="button" target="_blank" href="{crmURL p="civicrm/healthmonitor/createsomedata"
+                }">
+                    <i class="crm-i fa-plus-circle">&nbsp;</i>
+                    {ts}Add Sample Data {/ts}
+                </a>
+                <a class="button" target="_blank" href="{crmURL p="civicrm/healthmonitor/createsomerules"
+                }">
+                    <i class="crm-i fa-plus-circle">&nbsp;</i>
+                    {ts}Add Default Device Alarm / Alert Rules{/ts}
+                </a>
+            </div>
             <div id="secondaryTabContainer1" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
                 {include file="CRM/common/TabSelected.tpl" defaultTab="data" tabContainer="#secondaryTabContainer1"}
 
@@ -21,8 +32,23 @@
                         </a>
                     </li>
                     <li id="tab_alerts1" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-                        <a href="#alerts-subtab1" title="{ts}Alerts{/ts}">
-                            {ts}Alerts{/ts} <em>{$alertCount}</em>
+                        <a href="#alerts-subtab1" title="{ts}Alert Rules{/ts}">
+                            {ts}Alert Rules{/ts} <em>{$alertRulesCount}</em>
+                        </a>
+                    </li>
+                    <li id="tab_alerts2" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
+                        <a href="#alerts-subtab2" title="{ts}Alerts{/ts}">
+                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
+                        </a>
+                    </li>
+                    <li id="tab_alerts3" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
+                        <a href="#alerts-subtab2" title="{ts}Alarm Rules{/ts}">
+                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
+                        </a>
+                    </li>
+                    <li id="tab_alerts4" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
+                        <a href="#alerts-subtab2" title="{ts}Alarms{/ts}">
+                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
                         </a>
                     </li>
                 </ul>
@@ -37,7 +63,7 @@
                     {include file="CRM/Healthmonitor/Page/Tabs/Analytics.tpl"}
                 </div>
                 <div id="alerts-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-                4
+                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}
                 </div>
                 <div class="clear"></div>
             </div>

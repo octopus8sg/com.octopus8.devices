@@ -10,6 +10,13 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
 
     // By convention, functions that look like "function upgrade_NNNN()" are
     // upgrade tasks. They are executed in order (like Drupal's hook_update_N).
+    protected $user;
+    protected $device_type1;
+    protected $sensor_type1; //heart
+    protected $sensor_type2; //weight
+    protected $sensor_type3; //temp
+    protected $sensor_type4; //diast
+    protected $sensor_type5; //syst
 
     /**
      * Example: Run an external SQL script when the module is installed.
@@ -17,6 +24,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
      */
     public function install()
     {
+        $this->uninstall();
 //    $this->executeSqlFile('sql/myinstall.sql');
         // Create the device_type and sensor option groups
         $deviceTypeOptionGroupId = civicrm_api3('OptionGroup',
@@ -25,12 +33,13 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'title' => E::ts('HM Device Type')]);
         $deviceTypeOptionGroupId = $deviceTypeOptionGroupId['id'];
 
-        civicrm_api3('OptionValue', 'create',
+        $device_type1 = civicrm_api3('OptionValue', 'create',
             ['value' => 1,
                 'is_default' => '1',
                 'name' => 'jelly8_smart_watch_1',
                 'label' => E::ts('Jelly8 Smart Watch 1'),
                 'option_group_id' => $deviceTypeOptionGroupId]);
+        $this->device_type1 = $device_type1;
         civicrm_api3('OptionValue', 'create',
             ['value' => 2,
                 'name' => 'jelly8_smart_weight_1',
@@ -55,28 +64,28 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'title' => E::ts('HM Sensor')]);
         $sensorOptionGroupId = $sensorOptionGroupId['id'];
 
-        civicrm_api3('OptionValue', 'create',
+        $sensor_type1 = civicrm_api3('OptionValue', 'create',
             ['value' => 1,
                 'is_default' => '1',
                 'name' => 'heart_rate',
                 'label' => E::ts('Heart Rate'),
                 'option_group_id' => $sensorOptionGroupId]);
-        civicrm_api3('OptionValue', 'create',
+        $sensor_type2 = civicrm_api3('OptionValue', 'create',
             ['value' => 2,
                 'name' => 'body_weight',
                 'label' => E::ts('Body Weight'),
                 'option_group_id' => $sensorOptionGroupId]);
-        civicrm_api3('OptionValue', 'create',
+        $sensor_type3 = civicrm_api3('OptionValue', 'create',
             ['value' => 3,
                 'name' => 'body_temperature',
                 'label' => E::ts('Body Temperature'),
                 'option_group_id' => $sensorOptionGroupId]);
-        civicrm_api3('OptionValue', 'create',
+        $sensor_type4 = civicrm_api3('OptionValue', 'create',
             ['value' => 4,
                 'name' => 'blood_pressure_diastolic',
                 'label' => E::ts('Blood Pressure Diastolic'),
                 'option_group_id' => $sensorOptionGroupId]);
-        civicrm_api3('OptionValue', 'create',
+        $sensor_type5 = civicrm_api3('OptionValue', 'create',
             ['value' => 5,
                 'name' => 'blood_pressure_systolic',
                 'label' => E::ts('Blood Pressure Systolic'),
@@ -86,6 +95,11 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'name' => 'height',
                 'label' => E::ts('Height'),
                 'option_group_id' => $sensorOptionGroupId]);
+        $this->sensor_type1 = $sensor_type1;
+        $this->sensor_type2 = $sensor_type2;
+        $this->sensor_type3 = $sensor_type3;
+        $this->sensor_type4 = $sensor_type4;
+        $this->sensor_type5 = $sensor_type5;
 
         $ruleTypeGroupId = civicrm_api3('OptionGroup',
             'create',
@@ -129,8 +143,18 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'description' => '>=',
                 'label' => E::ts('GE'),
                 'option_group_id' => $ruleTypeGroupId]);
+        /* now create 1 device for the 1 user
+        and create data for 1 last month for this user
+        */
+        $users = civicrm_api3('User', 'get', [
+            'sequential' => 1,
+            'return' => ["contact_id"],
+            'id' => 1,
+        ]);
+        $user = $users['values'][0];
+        $this->user = $user;
 
-
+//        $device_type1
 
 
     }
@@ -143,20 +167,48 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
      * created during the installation (e.g., a setting or a managed entity), do
      * so here to avoid order of operation problems.
      */
-    // public function postInstall() {
-    //  $customFieldId = civicrm_api3('CustomField', 'getvalue', array(
-    //    'return' => array("id"),
-    //    'name' => "customFieldCreatedViaManagedHook",
-    //  ));
-    //  civicrm_api3('Setting', 'create', array(
-    //    'myWeirdFieldSetting' => array('id' => $customFieldId, 'weirdness' => 1),
-    //  ));
-    // }
+    public function postInstall()
+    {
+        if (!empty($this->user)) {
+            $user = $this->user;
+//            CRM_Core_Error::debug_var('user', $user);
+            $contact_id = $user['contact_id'];
+            $device_type1 = $this->device_type1;
+            $sensor_type1 = $this->sensor_type1;
+            $sensor_type2 = $this->sensor_type2;
+            $sensor_type3 = $this->sensor_type3;
+            $sensor_type4 = $this->sensor_type4;
+            $sensor_type5 = $this->sensor_type5;
+            $this->generateAlertRule('recovery', $contact_id, $sensor_type1, 80);
+            $this->generateAlertRule('manageble', $contact_id, $sensor_type1, 100);
+            $this->generateAlertRule('challenge', $contact_id, $sensor_type1, 120);
+            $this->generateAlertRule('burn', $contact_id, $sensor_type1, 140);
+            $this->generateAlertRule('danger', $contact_id, $sensor_type1, 160);
+            $this->generateAlertRule('skinny', $contact_id, $sensor_type2, 50, "le");
+            $this->generateAlertRule('fatty', $contact_id, $sensor_type2, 100);
+            $this->generateAlertRule('hypothermia', $contact_id, $sensor_type3, 35, "le");
+            $this->generateAlertRule('fever', $contact_id, $sensor_type3, 37.1);
+            $this->generateAlertRule('hyperthermia', $contact_id, $sensor_type3, 37.9);
+            $this->generateAlertRule('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+            $this->generateAlertRule('diast_hypertension', $contact_id, $sensor_type4, 90.01);
+            $this->generateAlertRule('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
+            $this->generateAlertRule('syst_hypertension', $contact_id, $sensor_type5, 140.01);
+            $this->generateOneMonthData($device_type1, $sensor_type1, 55, 65, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type2, 69.9, 73.3, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type3, 35.5, 37.3, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type4, 59.01, 90.02, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type5, 89.01, 140.02, $contact_id);
+        } else {
+            return;
+        }
+
+    }
 
     /**
      * Example: Run an external SQL script when the module is uninstalled.
      */
-    public function uninstall() {
+    public function uninstall()
+    {
         try {
             $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_monitor_device_type']);
             $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
@@ -189,6 +241,95 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             // Ignore exception.
         }
         //      $this->executeSqlFile('sql/myuninstall.sql');
+    }
+
+    /**
+     * @param $zone_name
+     * @param $sensor_type
+     * @param $rule_id
+     * @param $sensor_value
+     * @param $contact_id
+     * @throws CiviCRM_API3_Exception
+     * The proc creates 1 device, 7 rules and 31 day sensor values
+     */
+    public function generateAlertRule($zone_name, $contact_id, $sensor_type, $sensor_value, $rule_id = "gt")
+        /**
+         * @param $device_type
+         * @param $sensor_type
+         * @param $sensor_type2
+         * @param $sensor_type3
+         * @param $contact_id
+         * @throws CiviCRM_API3_Exception
+         * The proc creates 1 device, 7 rules and 31 day sensor values
+         */
+    {
+        $sensor_type1id = $sensor_type['id'];
+        $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
+        $alert_code = $contact_id . "_" . $zone_name . '_' . rand(10000, 99999);
+
+        $result = civicrm_api3('HealthAlertRule', 'create', [
+            'contact_id' => $contact_id,
+            'code' => $alert_code,
+            'sensor_id' => $sensor_type1name,
+            'sensor_value' => $sensor_value,
+            'rule_id' => $rule_id,
+            'api.HealthAlarmRule.create' => [
+                'contact_id' => $contact_id,
+                'addressee_id' => $contact_id,
+                'rule_id' => "\$value.id",
+                'code' => $contact_id . "_" . $alert_code,
+                'title' =>
+                    $zone_name,
+                'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
+        ]);
+        CRM_Core_Error::debug_var('result1', $result);
+        return $result;
+    }
+
+    public function generateOneMonthData($device_type, $sensor_type, $sensor_val_min, $sensor_val_max, $contact_id)
+    {
+        $device_type1id = $device_type['id'];
+        $device_type1name = $device_type['values'][$device_type1id]['name'];
+        $sensor_type1id = $sensor_type['id'];
+        $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
+        $device_name = $contact_id . "_" . $device_type1name . '_' . rand(10000, 99999);
+
+        $device = civicrm_api3('Device', 'create', [
+            'contact_id' => $contact_id,
+            'name' => $device_name,
+            'device_type_id' => $device_type1name,
+        ]);
+//        CRM_Core_Error::debug_var('device', $device);
+
+
+        CRM_Core_Error::debug_var('device', $device);
+        $time = strtotime("-32 days", time());
+        $date = date("Y-m-d H:i:s", $time);
+        CRM_Core_Error::debug_var('date', $date);
+
+
+        for ($i = 0; $i < 31; $i++) {
+            $time = strtotime("+1 day", $time);
+            $date = date("Y-m-d H:i:s", $time);
+            if (is_float($sensor_val_min) OR is_float($sensor_val_max)) {
+                $intval_min = intval($sensor_val_min * 100);
+                $intval_max = intval($sensor_val_max * 100);
+                $sensor_value = 0.01 * random_int($intval_min, $intval_max);
+            } else {
+                $sensor_value = random_int($sensor_val_min, $sensor_val_max);
+            }
+//            CRM_Core_Error::debug_var('date', $date);
+//            CRM_Core_Error::debug_var('i', $i);
+
+            $result = civicrm_api3('HealthMonitor', 'create', [
+                'date' => $date,
+                'sensor_value' => $sensor_value,
+                'device_code' => $device_name,
+                'contact_id' => $contact_id,
+                'sensor_id' => $sensor_type1name,
+            ]);
+//            CRM_Core_Error::debug_var('result1', $result);
+        }
     }
 
     /**

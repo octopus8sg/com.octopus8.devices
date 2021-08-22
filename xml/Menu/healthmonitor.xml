@@ -104,4 +104,33 @@
     <title>AlarmRule</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/alertrule/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch::getAjax</page_callback>
+    <title>AlertRuleSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRule</page_callback>
+    <title>AlertRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarmrule/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmRuleSearch</page_callback>
+    <title>AlarmRuleSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarm/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmSearch</page_callback>
+    <title>AlarmSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

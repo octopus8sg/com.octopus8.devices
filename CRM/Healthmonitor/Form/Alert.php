@@ -14,7 +14,7 @@ class CRM_Healthmonitor_Form_Alert extends CRM_Core_Form {
     protected $_alert;
 
     public function getDefaultEntity() {
-        return 'Alert';
+        return 'HealthAlert';
     }
 
     public function getDefaultEntityTable() {
@@ -45,7 +45,7 @@ class CRM_Healthmonitor_Form_Alert extends CRM_Core_Form {
         CRM_Utils_System::setTitle('Add Alert');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alert');
-            $entities = civicrm_api4('Alert', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('HealthAlert', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
             if(!empty($entities)){
                 $this->_alert = $entities[0];
             }

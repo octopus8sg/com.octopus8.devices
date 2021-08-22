@@ -94,7 +94,22 @@ function healthmonitor_civicrm_pre($op, $objectName, $id, &$params)
 
 function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
 {
+    // function for catching health monitor and alert posts
 //    return _healthmonitor_civicrm_post($op, $objectName, $id, $params);
+//    CRM_Core_Error::debug_var('op', $op);
+//    CRM_Core_Error::debug_var('objectName', $objectName);
+//    CRM_Core_Error::debug_var('id', $id);
+//    CRM_Core_Error::debug_var('params', $params);
+
+    if($op === 'create' AND $objectName === 'HealthMonitor'){
+//    check and create health monitor
+        // check for rule - contact, sensor_id
+        // check rule case
+        // create / return
+    }
+    if($op === 'create' AND $objectName === 'HealthAlert'){
+//    check and create health monitor
+    }
 }
 
 /**

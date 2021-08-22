@@ -1,6 +1,6 @@
 
 CRM.$(function ($) {
-    var data_sourceUrl = CRM.vars.sourceUrl['data_sourceUrl'];
+    var data_sourceUrl = CRM.vars.source_url['data_sourceUrl'];
 
     $(document).ready(function () {
         //Reset Table, add Filter and Search Possibility

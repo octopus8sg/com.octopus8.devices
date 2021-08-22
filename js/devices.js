@@ -1,5 +1,6 @@
 CRM.$(function ($) {
-    var devices_sourceUrl = CRM.vars.sourceUrl['device_sourceUrl'];
+    // var devices_sourceUrl = CRM.vars.sourceUrl['device_sourceUrl'];
+    var devices_sourceUrl = CRM.vars.source_url['device_sourceUrl'];
 
     $(document).ready(function () {
         //Reset Table, add Filter and Search Possibility

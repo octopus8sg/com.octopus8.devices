@@ -128,14 +128,11 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
     FROM `civicrm_health_monitor` LEFT JOIN `civicrm_device` on `civicrm_health_monitor`.`device_id` = `civicrm_device`.`id`
     WHERE 1";
 
-        $user_id = CRM_Core_Session::singleton()->getLoggedInContactID();
+
         if (isset($contactId)) {
             $sql .= " AND `civicrm_health_monitor`.`contact_id` = " . $contactId . " ";
         }
-//        else {
-//            $sql .= " AND `civicrm_health_monitor`.`contact_id` = " . $user_id . " ";
-//
-//        }
+
 
         if (isset($device_type_id)) {
             if ($device_type_id > 0) {
@@ -147,18 +144,12 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
             if ($sensor_id > 0) {
                 $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $sensor_id . " ";
             }
-//            else {
-//                $sql .= " AND `civicrm_health_monitor`.`sensor_id` = 1 ";
-//            }
         }
-//        else {
-//            $sql .= " AND `civicrm_health_monitor`.`sensor_id` = 1 ";
-//        }
 
         $month_ago = strtotime("-1 month", time());
         $date_month_ago = date("Y-m-d H:i:s", $month_ago);
 
-        $today = strtotime("-1 minute", time());
+        $today = strtotime("+1 day", time());
         $date_today = date("Y-m-d H:i:s", $today);
 
         if (isset($dateselect_from)) {
@@ -166,18 +157,9 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
                 if ($dateselect_from != '') {
                     $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $dateselect_from . "' ";
                 }
-//                else {
-//                    $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $date_month_ago . "' ";
-//                }
-
             }
-//            else {
-//                $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $date_month_ago . "' ";
-//            }
         }
-//        else {
-//            $sql .= " AND `civicrm_health_monitor`.`date` >= '" . $date_month_ago . "' ";
-//        }
+
 
         if (isset($dateselect_to)) {
             if ($dateselect_to != null) {
@@ -199,7 +181,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
 
         if ($sort !== NULL) {
             $sql .= " ORDER BY {$sort} {$sortOrder}";
-        }else{
+        } else {
             $sql = $sql . ' ORDER BY `civicrm_health_monitor`.`date` ASC';
         }
 
@@ -221,10 +203,10 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update =  CRM_Utils_System::url('civicrm/healthmonitor/form',
-                                    ['action' => 'update', 'id' => $dao->id]);
-            $r_delete =  CRM_Utils_System::url('civicrm/healthmonitor/form',
-                                    ['action' => 'delete', 'id' => $dao->id]);
+            $r_update = CRM_Utils_System::url('civicrm/healthmonitor/form',
+                ['action' => 'update', 'id' => $dao->id]);
+            $r_delete = CRM_Utils_System::url('civicrm/healthmonitor/form',
+                ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$update $delete</span>";
