@@ -43,12 +43,12 @@
                     </li>
                     <li id="tab_alerts3" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
                         <a href="#alerts-subtab2" title="{ts}Alarm Rules{/ts}">
-                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
+                            {ts}Alarm Rules{/ts} <em>{$alarmRulesCount}</em>
                         </a>
                     </li>
                     <li id="tab_alerts4" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
                         <a href="#alerts-subtab2" title="{ts}Alarms{/ts}">
-                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
+                            {ts}Alarms{/ts} <em>{$alarmsCount}</em>
                         </a>
                     </li>
                 </ul>
@@ -64,6 +64,15 @@
                 </div>
                 <div id="alerts-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
                     {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}
+                </div>
+                <div id="alerts-subtab2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+                </div>
+                <div id="alerts-subtab3" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+                </div>
+                <div id="alerts-subtab4" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
                 </div>
                 <div class="clear"></div>
             </div>
