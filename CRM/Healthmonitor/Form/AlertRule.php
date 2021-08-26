@@ -44,7 +44,7 @@ class CRM_Healthmonitor_Form_AlertRule extends CRM_Core_Form {
         CRM_Utils_System::setTitle('Add Alert Rule');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alert Rule');
-            $entities = civicrm_api4('AlertRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('HealthAlertRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
             if(!empty($entities)){
                 $this->_alert_rule = $entities[0];
             }

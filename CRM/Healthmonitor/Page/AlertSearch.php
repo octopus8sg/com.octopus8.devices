@@ -1,17 +1,21 @@
 <?php
+
 use CRM_Healthmonitor_ExtensionUtil as E;
 
-class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
+class CRM_Healthmonitor_Page_AlertSearch extends CRM_Core_Page
+{
 
-  public function run() {
-    // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
-    CRM_Utils_System::setTitle(E::ts('AlarmSearch'));
+    public function run()
+    {
+        // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
+        CRM_Utils_System::setTitle(E::ts('AlertSearch'));
 
-    // Example: Assign a variable for use in a template
-    $this->assign('currentTime', date('Y-m-d H:i:s'));
+        // Example: Assign a variable for use in a template
+        $this->assign('currentTime', date('Y-m-d H:i:s'));
 
-    parent::run();
-  }
+        parent::run();
+    }
+
     public function getAjax()
     {
 
@@ -28,10 +32,10 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
         $limit = CRM_Utils_Request::retrieveValue('iDisplayLength', 'Positive', 10);
 //        CRM_Core_Error::debug_var('limit', $limit);
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('alarm_sensor_id', 'Positive', null);
+        $sensor_id = CRM_Utils_Request::retrieveValue('alert_sensor_id', 'Positive', null);
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
-        $dateselect_to = CRM_Utils_Request::retrieveValue('alarm_dateselect_to', 'String', null);
+        $dateselect_to = CRM_Utils_Request::retrieveValue('alert_dateselect_to', 'String', null);
         try {
             $dateselectto = new DateTime($dateselect_to);
         } catch (Exception $e) {
@@ -39,7 +43,7 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
         }
 //        CRM_Core_Error::debug_var('dateselect_to', $dateselect_to);
 
-        $dateselect_from = CRM_Utils_Request::retrieveValue('alarm_dateselect_from', 'String', null);
+        $dateselect_from = CRM_Utils_Request::retrieveValue('alert_dateselect_from', 'String', null);
         try {
             $dateselectto = new DateTime($dateselect_from);
         } catch (Exception $e) {
@@ -50,13 +54,9 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
         $sortMapper = [
             0 => 'id',
             1 => 'date',
-            2 => 'title',
-            3 => 'addressee_id',
-            4 => 'civicrm',
-            5 => 'email',
-            6 => 'telegram',
-            7 => 'api',
-
+            2 => 'sensor_name',
+            3 => 'data_value',
+            4 => 'code',
         ];
 
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
@@ -69,11 +69,11 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
                            s.label        sensor_name,
                            d.sensor_value data_value,
                            t.code
-FROM civicrm_health_alarm a
+FROM civicrm_health_alert a
          INNER JOIN civicrm_health_monitor d on a.health_monitor_id = d.id
-         INNER JOIN civicrm_health_alarm_rule t on a.alarm_rule_id = t.id
+         INNER JOIN civicrm_health_alert_rule t on a.alert_rule_id = t.id
          INNER JOIN civicrm_option_value r on t.rule_id = r.weight
-         INNER JOIN civicrm_option_group gr on r.option_group_id = gr.id and gr.name = 'health_alarm_rule_type'
+         INNER JOIN civicrm_option_group gr on r.option_group_id = gr.id and gr.name = 'health_alert_rule_type'
          INNER JOIN civicrm_option_value s on t.sensor_id = s.weight
          INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'
       WHERE 1";
@@ -118,7 +118,7 @@ FROM civicrm_health_alarm a
         }
 
 
-//        CRM_Core_Error::debug_var('alarm_sql', $sql);
+//        CRM_Core_Error::debug_var('alert_sql', $sql);
 
 
         if ($sort !== NULL) {
@@ -145,9 +145,9 @@ FROM civicrm_health_alarm a
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update = CRM_Utils_System::url('civicrm/alarmrule/form',
+            $r_update = CRM_Utils_System::url('civicrm/alertrule/form',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete = CRM_Utils_System::url('civicrm/alarmrule/form',
+            $r_delete = CRM_Utils_System::url('civicrm/alertrule/form',
                 ['action' => 'delete', 'id' => $dao->id]);
             $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$delete</span>";

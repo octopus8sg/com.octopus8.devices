@@ -8,7 +8,8 @@ use CRM_Healthmonitor_ExtensionUtil as E;
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
-class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
+class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
+{
     protected $formValues;
 
     protected $pageId = false;
@@ -22,9 +23,10 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
     public $rows = [];
 
 
-    public function preProcess() {
+    public function preProcess()
+    {
         $this->formValues = $this->getSubmitValues();
-        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
 
         parent::preProcess();
 
@@ -43,9 +45,9 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
 
         $pagerParams = [];
         $pagerParams['total'] = 0;
-        $pagerParams['status'] =E::ts('%%StatusMessage%%');
+        $pagerParams['status'] = E::ts('%%StatusMessage%%');
         $pagerParams['csvString'] = NULL;
-        $pagerParams['rowCount'] =  50;
+        $pagerParams['rowCount'] = 50;
         $pagerParams['buttonTop'] = 'PagerTopButton';
         $pagerParams['buttonBottom'] = 'PagerBottomButton';
         $pagerParams['total'] = $this->count;
@@ -55,7 +57,8 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
     }
 
 
-    public function buildQuickForm() {
+    public function buildQuickForm()
+    {
         parent::buildQuickForm();
 
         $this->add('text', 'device_name', E::ts('Device Unique Code'), array('class' => 'huge'));
@@ -81,7 +84,8 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         ));
     }
 
-    public function postProcess() {
+    public function postProcess()
+    {
         parent::postProcess();
     }
 
@@ -109,7 +113,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $sortMapper = [
             0 => 'id',
             1 => 'name',
-            2 => 'device_type_id',
+            2 => 'device_type',
         ];
 
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
@@ -127,33 +131,23 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $nextParamKey = 3;
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS
-      `civicrm_device`.`id`,
-      `civicrm_device`.`name`,
-      `civicrm_device`.`device_type_id`
-    FROM `civicrm_device` 
+      t.id,
+      t.name,
+      dt.label device_type
+    FROM civicrm_device t 
+    INNER JOIN civicrm_option_value dt on t.device_type_id = dt.weight
+    INNER JOIN civicrm_option_group gdt on dt.option_group_id = gdt.id and gdt.name = 'health_monitor_device_type'    
     WHERE 1";
-        // LEFT JOIN civicrm_option_group option_group_case_status ON ( option_group_case_status.name = 'case_status' )
-        // LEFT JOIN civicrm_option_value case_status ON ( civicrm_case.status_id = case_status.value
-////        CRM_Core_Error::debug_var('formValues', $this->formValues);
 
-//        if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
-//            $sql .= " AND `civicrm_health_monitor`.`device_type_id` =" . $this->formValues['device_type_id'] . " ";
-//        }
-//
-//        if (isset($this->formValues['sensor_id']) && !empty($this->formValues['sensor_id'])) {
-//            $sql .= " AND `civicrm_health_monitor`.`sensor_id` = " . $this->formValues['sensor_id'] . " ";
-//        }
-//
         if (isset($contactId)) {
-            $sql .= " AND `civicrm_device`.`contact_id` = " . $contactId . " ";
+            $sql .= " AND t.`contact_id` = " . $contactId . " ";
         }
 
         if (isset($device_type_id)) {
             if ($device_type_id > 0) {
-                $sql .= " AND `civicrm_device`.`device_type_id` = " . $device_type_id . " ";
+                $sql .= " AND t.`device_type_id` = " . $device_type_id . " ";
             }
         }
-
 
 
         if ($sort !== NULL) {
@@ -171,23 +165,23 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         }
 
 
-//        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('device_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update =  CRM_Utils_System::url('civicrm/device/form',
+            $r_update = CRM_Utils_System::url('civicrm/device/form',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete =  CRM_Utils_System::url('civicrm/device/form',
+            $r_delete = CRM_Utils_System::url('civicrm/device/form',
                 ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->name;
-            $rows[$count][] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
+            $rows[$count][] = $dao->device_type;
             $rows[$count][] = $action;
             $count++;
         }
@@ -213,25 +207,26 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
      *
      * @throws \CRM_Core_Exception
      */
-    protected function query() {
+    protected function query()
+    {
 //        CRM_Core_Error::debug_var('formvalues', $this->formValues);
-
+// SQL_CALC_FOUND_ROWS
         $sql = "
-    SELECT SQL_CALC_FOUND_ROWS
-      `civicrm_device`.`id`,
-      `civicrm_device`.`name`,
-      `civicrm_device`.`device_type_id`,
-      `civicrm_device`.`contact_id`
-    FROM `civicrm_device`
+    SELECT  SQL_CALC_FOUND_ROWS
+      t.`id`,
+      t.`name`,
+      t.`device_type_id`,
+      t.`contact_id`
+    FROM t
     WHERE 1";
         if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
-            $sql .= " AND `civicrm_device`.`name` LIKE '%".$this->formValues['device_name']."%'";
+            $sql .= " AND t.`name` LIKE '%" . $this->formValues['device_name'] . "%'";
         }
         if (isset($this->formValues['contact_id']) && !empty($this->formValues['contact_id'])) {
-            $sql  .= " AND `civicrm_device`.`contact_id` IN (". $this->formValues['contact_id']. ")";
+            $sql .= " AND t.`contact_id` IN (" . $this->formValues['contact_id'] . ")";
         }
         if (isset($this->formValues['device_type_id']) && !empty($this->formValues['device_type_id'])) {
-            $sql  .= " AND `civicrm_device`.`device_type_id` = " . $this->formValues['device_type_id'] . " ";
+            $sql .= " AND t.`device_type_id` = " . $this->formValues['device_type_id'] . " ";
         }
 
         if ($this->limit !== false) {
@@ -240,7 +235,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
         $dao = CRM_Core_DAO::executeQuery($sql);
         $this->count = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $this->rows = array();
-        while($dao->fetch()) {
+        while ($dao->fetch()) {
             $row = [
                 'id' => $dao->id,
                 'device_type_id' => $dao->device_type_id,
@@ -249,9 +244,9 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form {
             ];
             $row['device_type'] = CRM_Core_OptionGroup::getLabel('health_monitor_device_type', $dao->device_type_id);
             if (!empty($row['contact_id'])) {
-                $row['contact'] = '<a href="'.CRM_Utils_System::url('civicrm/contact/view',
-                        ['reset' => 1, 'cid' => $dao->contact_id]).'">'.
-                    CRM_Contact_BAO_Contact::displayName($dao->contact_id).'</a>';
+                $row['contact'] = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->contact_id]) . '">' .
+                    CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
             }
             $this->rows[] = $row;
 

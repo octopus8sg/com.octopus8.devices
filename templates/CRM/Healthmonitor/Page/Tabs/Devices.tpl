@@ -31,3 +31,4 @@
         </div>
     </div>
 </div>
+{crmScript ext=com.octopus8.healthmonitor file=js/devices.js}

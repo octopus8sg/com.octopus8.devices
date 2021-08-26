@@ -6,9 +6,6 @@
 <canvas id="ChartLine" style="display: block; width: 100% !important;"></canvas>
 </div>
 <div class="clear"></div>
-{literal}
-    <script type="text/javascript">
 
-
-    </script>
-{/literal}
+{crmScript ext=com.octopus8.healthmonitor file=js/Chart.bundle.min.js}
+{crmScript ext=com.octopus8.healthmonitor file=js/analytics.js}

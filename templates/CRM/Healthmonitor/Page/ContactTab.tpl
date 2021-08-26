@@ -1,13 +1,11 @@
 {crmScope extensionKey='healthmonitor'}
         <div class="healthmonitoring-devices-tab view-content">
             <div class="action-link">
-                <a class="button" target="_blank" href="{crmURL p="civicrm/healthmonitor/createsomedata"
-                }">
+                <a class="button" target="_blank" href="{crmURL p="civicrm/device/makedata" q="cid=$contactId"}">
                     <i class="crm-i fa-plus-circle">&nbsp;</i>
                     {ts}Add Sample Data {/ts}
                 </a>
-                <a class="button" target="_blank" href="{crmURL p="civicrm/healthmonitor/createsomerules"
-                }">
+                <a class="button" target="_blank" href="{crmURL p="civicrm/device/makerules" q="cid=$contactId"}">
                     <i class="crm-i fa-plus-circle">&nbsp;</i>
                     {ts}Add Default Device Alarm / Alert Rules{/ts}
                 </a>
@@ -33,22 +31,22 @@
                     </li>
                     <li id="tab_alerts1" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
                         <a href="#alerts-subtab1" title="{ts}Alert Rules{/ts}">
-                            {ts}Alert Rules{/ts} <em>{$alertRulesCount}</em>
+                            {ts}Alert Rules{/ts} <em>{$alertRuleCount}</em>
                         </a>
                     </li>
                     <li id="tab_alerts2" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
                         <a href="#alerts-subtab2" title="{ts}Alerts{/ts}">
-                            {ts}Alerts{/ts} <em>{$alertsCount}</em>
+                            {ts}Alerts{/ts} <em>{$alertCount}</em>
                         </a>
                     </li>
                     <li id="tab_alerts3" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-                        <a href="#alerts-subtab2" title="{ts}Alarm Rules{/ts}">
-                            {ts}Alarm Rules{/ts} <em>{$alarmRulesCount}</em>
+                        <a href="#alerts-subtab3" title="{ts}Alarm Rules{/ts}">
+                            {ts}Alarm Rules{/ts} <em>{$alarmRuleCount}</em>
                         </a>
                     </li>
                     <li id="tab_alerts4" class="crm-tab-button ui-corner-all ui-tabs-tab ui-corner-top ui-state-default ui-tab">
-                        <a href="#alerts-subtab2" title="{ts}Alarms{/ts}">
-                            {ts}Alarms{/ts} <em>{$alarmsCount}</em>
+                        <a href="#alerts-subtab4" title="{ts}Alarms{/ts}">
+                            {ts}Alarms{/ts} <em>{$alarmCount}</em>
                         </a>
                     </li>
                 </ul>
@@ -66,13 +64,13 @@
                     {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}
                 </div>
                 <div id="alerts-subtab2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+                    {include file="CRM/Healthmonitor/Page/Tabs/Alerts.tpl"}
                 </div>
                 <div id="alerts-subtab3" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+                    {include file="CRM/Healthmonitor/Page/Tabs/AlarmRules.tpl"}
                 </div>
                 <div id="alerts-subtab4" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                    {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+                    {include file="CRM/Healthmonitor/Page/Tabs/Alerts.tpl"}
                 </div>
                 <div class="clear"></div>
             </div>
@@ -80,3 +78,16 @@
 
 {/crmScope}
 
+{literal}
+    <script type="text/javascript">
+        CRM.$(function($) {
+            $('input.hasDatepicker')
+                .crmDatepicker({
+                    format: "yy-mm-dd",
+                    altFormat: "yy-mm-dd",
+                    dateFormat: "yy-mm-dd"
+                });
+
+        });
+    </script>
+{/literal}

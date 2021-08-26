@@ -179,6 +179,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             $sensor_type3 = $this->sensor_type3;
             $sensor_type4 = $this->sensor_type4;
             $sensor_type5 = $this->sensor_type5;
+            $this->generateAlertRule('slow', $contact_id, $sensor_type1, 50, "le");
             $this->generateAlertRule('recovery', $contact_id, $sensor_type1, 80);
             $this->generateAlertRule('manageble', $contact_id, $sensor_type1, 100);
             $this->generateAlertRule('challenge', $contact_id, $sensor_type1, 120);
@@ -193,9 +194,9 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             $this->generateAlertRule('diast_hypertension', $contact_id, $sensor_type4, 90.01);
             $this->generateAlertRule('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
             $this->generateAlertRule('syst_hypertension', $contact_id, $sensor_type5, 140.01);
-            $this->generateOneMonthData($device_type1, $sensor_type1, 55, 65, $contact_id);
-            $this->generateOneMonthData($device_type1, $sensor_type2, 69.9, 73.3, $contact_id);
-            $this->generateOneMonthData($device_type1, $sensor_type3, 35.5, 37.3, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type1, 49, 161, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type2, 49.9, 100.1, $contact_id);
+            $this->generateOneMonthData($device_type1, $sensor_type3, 34.9, 38.1, $contact_id);
             $this->generateOneMonthData($device_type1, $sensor_type4, 59.01, 90.02, $contact_id);
             $this->generateOneMonthData($device_type1, $sensor_type5, 89.01, 140.02, $contact_id);
         } else {
@@ -243,6 +244,54 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         //      $this->executeSqlFile('sql/myuninstall.sql');
     }
 
+    public function makeRules()
+    {
+        $contact_id = CRM_Utils_Request::retrieve('cid', 'Positive');
+//        CRM_Core_Error::debug_var('contact_id', $contact_id);
+        $sensor_type1 = 'heart_rate';
+        $sensor_type2 = 'body_weight';
+        $sensor_type3 = 'body_temperature';
+        $sensor_type4 = 'blood_pressure_diastolic';
+        $sensor_type5 = 'blood_pressure_systolic';
+//        CRM_Core_Error::debug_var('sensor_type5', sensor_type5);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('slow', $contact_id, $sensor_type1, 50, "le");
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('recovery', $contact_id, $sensor_type1, 80);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('manageble', $contact_id, $sensor_type1, 100);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('challenge', $contact_id, $sensor_type1, 120);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('burn', $contact_id, $sensor_type1, 140);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('danger', $contact_id, $sensor_type1, 160);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('skinny', $contact_id, $sensor_type2, 50, "le");
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('fatty', $contact_id, $sensor_type2, 100);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('hypothermia', $contact_id, $sensor_type3, 35, "le");
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('fever', $contact_id, $sensor_type3, 37.1);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('hyperthermia', $contact_id, $sensor_type3, 37.9);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('diast_hypertension', $contact_id, $sensor_type4, 90.01);
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
+        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('syst_hypertension', $contact_id, $sensor_type5, 140.01);
+    }
+
+    public function makeData()
+    {
+        $contact_id = CRM_Utils_Request::retrieve('cid', 'Positive');
+        $device_type1 = 'jelly8_smart_watch_1';
+        $device_type2 = 'jelly8_smart_weight_1';
+        $device_type3 = 'jelly8_smart_height_1';
+        $device_type4 = 'jelly8_smart_bpm_1';
+        $device_type5 = 'jelly8_smart_bpm_1';
+        $sensor_type1 = 'heart_rate';
+        $sensor_type2 = 'body_weight';
+        $sensor_type3 = 'body_temperature';
+        $sensor_type4 = 'blood_pressure_diastolic';
+        $sensor_type5 = 'blood_pressure_systolic';
+
+        CRM_Healthmonitor_Upgrader::generateOneMonthDataNamed($device_type1, $sensor_type1, 49, 161, $contact_id);
+        CRM_Healthmonitor_Upgrader::generateOneMonthDataNamed($device_type2, $sensor_type2, 49.9, 100.1, $contact_id);
+        CRM_Healthmonitor_Upgrader::generateOneMonthDataNamed($device_type3, $sensor_type3, 34.9, 38.1, $contact_id);
+        CRM_Healthmonitor_Upgrader::generateOneMonthDataNamed($device_type4, $sensor_type4, 59.01, 90.02, $contact_id);
+        CRM_Healthmonitor_Upgrader::generateOneMonthDataNamed($device_type5, $sensor_type5, 89.01, 140.02, $contact_id);
+    }
+
     /**
      * @param $zone_name
      * @param $sensor_type
@@ -253,15 +302,6 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
      * The proc creates 1 device, 7 rules and 31 day sensor values
      */
     public function generateAlertRule($zone_name, $contact_id, $sensor_type, $sensor_value, $rule_id = "gt")
-        /**
-         * @param $device_type
-         * @param $sensor_type
-         * @param $sensor_type2
-         * @param $sensor_type3
-         * @param $contact_id
-         * @throws CiviCRM_API3_Exception
-         * The proc creates 1 device, 7 rules and 31 day sensor values
-         */
     {
         $sensor_type1id = $sensor_type['id'];
         $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
@@ -279,10 +319,32 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'rule_id' => "\$value.id",
                 'code' => $contact_id . "_" . $alert_code,
                 'title' =>
-                    $zone_name,
+                    strtoupper($zone_name . ' ' . $sensor_type1name),
                 'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
         ]);
-        CRM_Core_Error::debug_var('result1', $result);
+//        CRM_Core_Error::debug_var('result1', $result);
+        return $result;
+    }
+    public function generateAlertRuleSensorName($zone_name, $contact_id, $sensor_name, $sensor_value, $rule_id = "gt")
+    {
+        $alert_code = $contact_id . "_" . $zone_name . '_' . $sensor_name . rand(10000, 99999);
+//        CRM_Core_Error::debug_var('alert_code', $alert_code);
+        $result = civicrm_api3('HealthAlertRule', 'create', [
+            'contact_id' => $contact_id,
+            'code' => $alert_code,
+            'sensor_id' => $sensor_name,
+            'sensor_value' => $sensor_value,
+            'rule_id' => $rule_id,
+            'api.HealthAlarmRule.create' => [
+                'contact_id' => $contact_id,
+                'addressee_id' => $contact_id,
+                'rule_id' => "\$value.id",
+                'code' => $contact_id . "_" . $alert_code,
+                'title' =>
+                    strtoupper($zone_name . ' ' . $sensor_name),
+                'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
+        ]);
+//       CRM_Core_Error::debug_var('result1', $result);
         return $result;
     }
 
@@ -302,10 +364,10 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
 //        CRM_Core_Error::debug_var('device', $device);
 
 
-        CRM_Core_Error::debug_var('device', $device);
+//        CRM_Core_Error::debug_var('device', $device);
         $time = strtotime("-32 days", time());
         $date = date("Y-m-d H:i:s", $time);
-        CRM_Core_Error::debug_var('date', $date);
+//        CRM_Core_Error::debug_var('date', $date);
 
 
         for ($i = 0; $i < 31; $i++) {
@@ -327,6 +389,48 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
                 'device_code' => $device_name,
                 'contact_id' => $contact_id,
                 'sensor_id' => $sensor_type1name,
+            ]);
+//            CRM_Core_Error::debug_var('result1', $result);
+        }
+    }
+
+    public function generateOneMonthDataNamed($device_type_name, $sensor_type_name, $sensor_val_min, $sensor_val_max, $contact_id)
+    {
+        $device_name = $contact_id . "_" . $device_type_name . '_' . rand(10000, 99999);
+
+        $device = civicrm_api3('Device', 'create', [
+            'contact_id' => $contact_id,
+            'name' => $device_name,
+            'device_type_id' => $device_type_name,
+        ]);
+//        CRM_Core_Error::debug_var('device', $device);
+
+
+//        CRM_Core_Error::debug_var('device', $device);
+        $time = strtotime("-32 days", time());
+        $date = date("Y-m-d H:i:s", $time);
+//        CRM_Core_Error::debug_var('date', $date);
+
+
+        for ($i = 0; $i < 31; $i++) {
+            $time = strtotime("+1 day", $time);
+            $date = date("Y-m-d H:i:s", $time);
+            if (is_float($sensor_val_min) OR is_float($sensor_val_max)) {
+                $intval_min = intval($sensor_val_min * 100);
+                $intval_max = intval($sensor_val_max * 100);
+                $sensor_value = 0.01 * random_int($intval_min, $intval_max);
+            } else {
+                $sensor_value = random_int($sensor_val_min, $sensor_val_max);
+            }
+//            CRM_Core_Error::debug_var('date', $date);
+//            CRM_Core_Error::debug_var('i', $i);
+
+            $result = civicrm_api3('HealthMonitor', 'create', [
+                'date' => $date,
+                'sensor_value' => $sensor_value,
+                'device_code' => $device_name,
+                'contact_id' => $contact_id,
+                'sensor_id' => $sensor_type_name,
             ]);
 //            CRM_Core_Error::debug_var('result1', $result);
         }

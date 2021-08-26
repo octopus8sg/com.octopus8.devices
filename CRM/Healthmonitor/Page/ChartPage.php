@@ -63,9 +63,9 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
 
     public function getAjax()
     {
-        CRM_Core_Error::debug_var('request_get', 'get');
-        CRM_Core_Error::debug_var('request', $_REQUEST);
-        CRM_Core_Error::debug_var('post', $_POST);
+//        CRM_Core_Error::debug_var('request_get', 'get');
+//        CRM_Core_Error::debug_var('request', $_REQUEST);
+//        CRM_Core_Error::debug_var('post', $_POST);
 
         $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
 //        CRM_Core_Error::debug_var('contact', $contactId);

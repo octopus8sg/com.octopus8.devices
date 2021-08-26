@@ -10,17 +10,9 @@ CRM.$(function ($) {
         hm_dtsettings.bFilter = true;
         //turn on search
 
-        hm_dtsettings.sDom = 'T<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
+        hm_dtsettings.sDom = '<"crm-datatable-pager-top"lp>rt<"crm-datatable-pager-bottom"ip>';
         //turn of search field
         hm_dtsettings.sAjaxSource = data_sourceUrl;
-        hm_dtsettings.oTableTools = {
-            "aButtons": [
-                {
-                    "sExtends":    "text",
-                    "sButtonText": "Hello world"
-                }
-            ]
-        };
         hm_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "dateselect_from", "value": $('#data_dateselect_from').val() });
             aoData.push({ "name": "dateselect_to", "value": $('#data_dateselect_to').val() });

@@ -2,7 +2,7 @@
 
     <div class="crm-block crm-form-block crm-basic-criteria-form-block">
       <div class="crm-accordion-wrapper crm-expenses_search-accordion">
-        <div class="crm-accordion-header crm-master-accordion-header">{ts}Filter Health Monitoring Data{/ts}</div><!-- /.crm-accordion-header -->
+        <div class="crm-accordion-header crm-master-accordion-header">{ts}Filter Chart Data{/ts}</div><!-- /.crm-accordion-header -->
         <div class="crm-accordion-body">
           <table class="form-layout chart-filter">
             <tbody>
@@ -27,19 +27,3 @@
       </div><!-- /.crm-accordion-wrapper -->
     </div><!-- /.crm-form-block -->
  </div>
-  {literal}
-  <script type="text/javascript">
-    CRM.$(function($) {
-      $("input[name='chart_dateselect_to']").datepicker({
-        format: "yy-mm-dd",
-        altFormat: "yy-mm-dd",
-        dateFormat: "yy-mm-dd"
-      });
-      $("input[name='chart_dateselect_from']").datepicker({
-        format: "yy-mm-dd",
-        altFormat: "yy-mm-dd",
-        dateFormat: "yy-mm-dd"
-      });
-    });
-  </script>
-{/literal}

@@ -150,6 +150,7 @@ CRM.$(function ($) {
     ajax_chart(myChart, json_url, newdata);
 
     $('.chart-filter :input').change(function () {
+
         var newdata = {};
 
 

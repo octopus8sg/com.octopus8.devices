@@ -50,7 +50,7 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
         CRM_Utils_System::setTitle('Add Alarm Rule');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alarm Rule');
-            $entities = civicrm_api4('AlarmRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('HealthAlarmRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
             if (!empty($entities)) {
                 $this->_alarm_rule = $entities[0];
             }
@@ -80,6 +80,8 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
                 'entity' => 'HealthAlertRule',
                 'placeholder' => ts('- Select Alert -'),
                 'select' => ['minimumInputLength' => 0],
+                'api' => ['search_field' => 'code',
+                'label_field' => 'code']
             ], TRUE);
             $this->add('text', 'title', E::ts('Value'), null, FALSE);
             $this->add('textarea', 'message', E::ts('Value'), null, FALSE);

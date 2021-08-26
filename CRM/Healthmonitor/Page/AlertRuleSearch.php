@@ -1,17 +1,21 @@
 <?php
+
 use CRM_Healthmonitor_ExtensionUtil as E;
 
-class CRM_Healthmonitor_Page_AlertRuleSearch extends CRM_Core_Page {
+class CRM_Healthmonitor_Page_AlertRuleSearch extends CRM_Core_Page
+{
 
-  public function run() {
-    // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
-    CRM_Utils_System::setTitle(E::ts('AlertRuleSearch'));
+    public function run()
+    {
+        // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
+        CRM_Utils_System::setTitle(E::ts('AlertRuleSearch'));
 
-    // Example: Assign a variable for use in a template
-    $this->assign('currentTime', date('Y-m-d H:i:s'));
+        // Example: Assign a variable for use in a template
+        $this->assign('currentTime', date('Y-m-d H:i:s'));
 
-    parent::run();
-  }
+        parent::run();
+    }
+
     public function getAjax()
     {
 
@@ -29,7 +33,7 @@ class CRM_Healthmonitor_Page_AlertRuleSearch extends CRM_Core_Page {
 //        CRM_Core_Error::debug_var('limit', $limit);
 
         $sensor_id = CRM_Utils_Request::retrieveValue('alert_rule_sensor_id', 'Positive', null);
-        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
+//        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
 
         $sortMapper = [
@@ -43,15 +47,14 @@ class CRM_Healthmonitor_Page_AlertRuleSearch extends CRM_Core_Page {
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
         $sortOrder = isset($_REQUEST['sSortDir_0']) ? CRM_Utils_Type::escape($_REQUEST['sSortDir_0'], 'String') : 'asc';
 
-
-        $sql = "
-    SELECT SQL_CALC_FOUND_ROWS
+//     SQL_CALC_FOUND_ROWS
+        $sql = " SELECT  SQL_CALC_FOUND_ROWS
       t.id,
        t.code,
        s.label sensor_name,
        r.label rule_name,
        t.sensor_value
-FROM wordpresswc1.civicrm_health_alert_rule t
+FROM civicrm_health_alert_rule t
     INNER JOIN civicrm_option_value r on  t.rule_id = r.weight
     INNER JOIN civicrm_option_group gr on r.option_group_id = gr.id and gr.name = 'health_alert_rule_type'
     INNER JOIN civicrm_option_value s on  t.sensor_id = s.weight
@@ -63,15 +66,11 @@ FROM wordpresswc1.civicrm_health_alert_rule t
         }
 
 
-
         if (isset($sensor_id)) {
             if ($sensor_id > 0) {
                 $sql .= " AND t.sensor_id = " . $sensor_id . " ";
             }
         }
-
-        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
-
 
         if ($sort !== NULL) {
             $sql .= " ORDER BY {$sort} {$sortOrder}";
@@ -90,7 +89,7 @@ FROM wordpresswc1.civicrm_health_alert_rule t
         }
 
 
-//        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");

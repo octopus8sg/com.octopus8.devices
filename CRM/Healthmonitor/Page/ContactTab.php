@@ -68,13 +68,13 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         // datatables style and js (for export etc)
 
         // data datatable js and variables
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/data.js', 2);
         $this->assign('useAjax', true);
         $sourceUrl = [];
         $ajaxUrl = [];
         $urlQry['snippet'] = 4;
         $urlQry['cid'] = $contactId;
-        $this->assign('sourceUrl', CRM_Utils_System::url('civicrm/healthmonitor/ajax', $urlQry, FALSE, NULL, FALSE));
+//        $this->assign('sourceUrl', CRM_Utils_System::url('civicrm/healthmonitor/ajax', $urlQry, FALSE, NULL, FALSE));
+        $this->assign('sourceUrl', "");
         $datas = \Civi\Api4\HealthMonitor::get()
             ->selectRowCount()
             ->addWhere('contact_id', '=', $contactId)
@@ -87,7 +87,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $this->assign('data_sourceUrl', $data_sourceUrl);
 
         // devices datatable js and variables
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/devices.js', 2);
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/devices.js', 2);
         $devices = \Civi\Api4\Device::get()
             ->selectRowCount()
             ->addWhere('contact_id', '=', $contactId)
@@ -98,7 +98,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $this->assign('device_sourceUrl', $device_sourceUrl);
 
         // alert rules datatable js and variables
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/alertrules.js', 2);
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/alertrules.js', 2);
         $alertRules = \Civi\Api4\HealthAlertRule::get()
             ->selectRowCount()
             ->addWhere('contact_id', '=', $contactId)
@@ -108,9 +108,31 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $sourceUrl['alert_rules_sourceUrl'] = $alertRules_sourceUrl;
         $this->assign('alert_rules_sourceUrl', $alertRules_sourceUrl);
 
+        // alarm rules datatable js and variables
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/alarmrules.js', 2);
+        $alarmRules = \Civi\Api4\HealthAlarmRule::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+        $this->assign('alarmRuleCount', $alarmRules->rowCount);
+        $alarmRules_sourceUrl = CRM_Utils_System::url('civicrm/alarmrule/ajax', $urlQry, FALSE, NULL, FALSE);
+        $sourceUrl['alarm_rules_sourceUrl'] = $alarmRules_sourceUrl;
+        $this->assign('alarm_rules_sourceUrl', $alarmRules_sourceUrl);
+
+        // alert datatable js and variables
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/alert.js', 2);
+        $alerts = \Civi\Api4\HealthAlert::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+        $this->assign('alertCount', $alerts->rowCount);
+        $alert_sourceUrl = CRM_Utils_System::url('civicrm/alert/ajax', $urlQry, FALSE, NULL, FALSE);
+        $sourceUrl['alert_sourceUrl'] = $alert_sourceUrl;
+        $this->assign('alert_sourceUrl', $alert_sourceUrl);
+
         // chart js and variables
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
         $ajaxUrl[] = CRM_Utils_System::url('civicrm/healthmonitor/chart_ajax');
         $ajaxUrl[] = $contactId;
 

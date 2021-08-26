@@ -1,38 +1,46 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button" href="{crmURL p="civicrm/healthmonitor/form" q="reset=1&action=add" }">
+        <a class="button" target="_blank" href="{crmURL p="civicrm/alarmrule/form" q="reset=1&action=add" }">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
-            {ts}Add Device Data{/ts}
+            {ts}Add Alarm Rule{/ts}
         </a>
     </div>
     <div class="clear"></div>
-    {include file="CRM/Healthmonitor/Form/HealthMonitorFilter.tpl"}
+    {include file="CRM/Healthmonitor/Form/AlarmRuleFilter.tpl"}
     <div class="clear"></div>
-
     <div class="crm-results-block">
         <div class="crm-search-results">
             {include file="CRM/common/enableDisableApi.tpl"}
             {include file="CRM/common/jsortable.tpl"}
-            <table class="selector selector-data row-highlight pagerDisplay" id="myTable" name="myTable">
+            <table class="selector selector-alarmrules row-highlight pagerDisplay" id="myAlarmRules" name="myAlarmRules">
                 <thead class="sticky">
                 <tr>
                     <th id="sortable" scope="col">
                         {ts}ID{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Date{/ts}
+                        {ts}Unique Code{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Device Type{/ts}
+                        {ts}Title{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Device Unique Code{/ts}
+                        {ts}Sensor Name{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Sensor{/ts}
+                        {ts}Addressee{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Value{/ts}
+                        {ts}CiviCRM{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Email{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Telegram{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Api{/ts}
                     </th>
                     <th id="nosort">&nbsp;Action</th>
                 </tr>
@@ -41,4 +49,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.healthmonitor file=js/data.js}
+{crmScript ext=com.octopus8.healthmonitor file=js/alarmrules.js}
