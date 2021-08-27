@@ -2,7 +2,7 @@
 
   <div class="crm-block crm-form-block crm-basic-criteria-form-block">
     <div class="crm-accordion-wrapper crm-expenses_search-accordion">
-      <div class="crm-accordion-header crm-master-accordion-header">{ts}Filter Alert Rules{/ts}</div><!-- /.crm-accordion-header -->
+      <div class="crm-accordion-header crm-master-accordion-header">{ts}Filter Alarm Rules{/ts}</div><!-- /.crm-accordion-header -->
       <div class="crm-accordion-body">
         <table class="form-layout alarmrule-filter">
           <tbody>

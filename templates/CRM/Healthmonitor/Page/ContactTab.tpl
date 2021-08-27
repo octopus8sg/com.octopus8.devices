@@ -70,7 +70,7 @@
                     {include file="CRM/Healthmonitor/Page/Tabs/AlarmRules.tpl"}
                 </div>
                 <div id="alerts-subtab4" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-                    {include file="CRM/Healthmonitor/Page/Tabs/Alerts.tpl"}
+                    {include file="CRM/Healthmonitor/Page/Tabs/Alarms.tpl"}
                 </div>
                 <div class="clear"></div>
             </div>

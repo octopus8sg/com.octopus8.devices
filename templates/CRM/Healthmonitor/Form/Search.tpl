@@ -91,8 +91,8 @@
               <td>{$row.sensor_value}</td>
               <td class="right nowrap">
                   <span>
-                    <a class="action-item crm-hover-button" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
-                    <a class="action-item crm-hover-button" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
+                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
+                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/healthmonitor/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
                   </span>
               </td>
             </tr>

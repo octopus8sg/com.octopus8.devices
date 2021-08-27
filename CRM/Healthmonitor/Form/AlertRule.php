@@ -82,7 +82,9 @@ class CRM_Healthmonitor_Form_AlertRule extends CRM_Core_Form {
                 $rules,
                 TRUE, ['class' => 'huge crm-select2',
                     'data-option-edit-path' => 'civicrm/admin/options/health_alert_rule_type']);
-            $this->add('text', 'sensor_value', E::ts('Value'), null, FALSE);
+            $this->add('text', 'sensor_value', E::ts('Sensor Value'), ['size' => 60, 'maxlength' => 100], FALSE);
+            $this->add('text', 'code', E::ts('Unique Code'), ['size' => 60, 'maxlength' => 100, 'disabled' => true], FALSE);
+//            $this->addRule('code', ts('Rule Unique Code should consist of numbers and letters'), 'alphanumeric', null, 'client');
 
 
             $this->addButtons([

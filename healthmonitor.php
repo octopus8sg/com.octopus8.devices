@@ -195,6 +195,7 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
     }
     if ($op === 'create' AND $objectName === 'HealthAlert') {
 //        CRM_Core_Error::debug_var('ha_post_params', $params);
+        $alert_id = $params->id;
         $alert_rule_id = $params->alert_rule_id;
         $health_monitor_id = $params->health_monitor_id;
         $alarmrules = \Civi\Api4\HealthAlarmRule::get()
@@ -205,7 +206,7 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
         if(!empty($healtmonitors)){
             $healtmonitor = $healtmonitors[0];
         }
-        CRM_Core_Error::debug_var('healtmonitor', $healtmonitor);
+//        CRM_Core_Error::debug_var('healtmonitor', $healtmonitor);
 
 //        $device_id = $healtmonitor->device_id;
         $device_id = $healtmonitor['device_id'];
@@ -224,7 +225,8 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
         $date = $healtmonitor['date'];
 
         foreach ($alarmrules as $alarmrule) {
-            CRM_Core_Error::debug_var('healtmonitor', $healtmonitor);
+//            CRM_Core_Error::debug_var('healtmonitor', $healtmonitor);
+            $alarm_rule_id = $alarmrule['id'];
             $rule_id = $alarmrule['rule_id'];
             $alertrules = \Civi\Api4\HealthAlertRule::get()
                 ->setWhere([['id', '=', $rule_id]])
@@ -232,12 +234,13 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
             if(!empty($alertrules)){
                 $alertrule = $alertrules[0];
             }
-            CRM_Core_Error::debug_var('alertrule', $alertrule);
+//            CRM_Core_Error::debug_var('alertrule', $alertrule);
             $rule = $rules[$alertrule['rule_id']];
             $rule_name = strtoupper($rule) . ' ' . $alertrule['sensor_value'];
             $addressee_name = CRM_Contact_BAO_Contact::displayName($alarmrule['addressee_id']);
             $title = "Device Alert: " . $siteurl;
             $message = "Alert for: " . $addressee_name . "\n";
+            $message .= "Message: " . $alarmrule['message'] . "\n";
             $message .= "Site: " . $siteurl . "\n";
             $message .= "Device Code: " . $device_name . "\n";
             $message .= "Contact ID: " . $contact_id . "\n";
@@ -247,18 +250,23 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
             $message .= "Sensor Value: " . $sensor_value . "\n";
             $message .= "Rule Name: " . $rule_name . "\n";
             $message .= "Date: " . $date . "\n";
+            $civicrm_date = null;
+            $email_date = null;
             $messagehtml = nl2br($message);
-            CRM_Core_Error::debug_var('message', $message);
+//            CRM_Core_Error::debug_var('message', $message);
             if ($alarmrule['civicrm'] === TRUE) {
                 $result = civicrm_api3('Note', 'create', [
                     'entity_id' => $alarmrule['addressee_id'],
                     'note' => $message,
                     'subject' => $title,
                 ]);
+                if($result){
+                    $civicrm_date = date("Y-m-d H:i:s");
+                }
             }
-            CRM_Core_Error::debug_var('result', $result);
-//            if ($alarmrule['email'] === TRUE) {
-            if (TRUE === TRUE) {
+//            CRM_Core_Error::debug_var('result', $result);
+            if ($alarmrule['email'] === TRUE) {
+//            if (TRUE === TRUE) {
 
                 $mailParams = [
                     'groupName' => 'Activity Email Sender',
@@ -270,13 +278,23 @@ function healthmonitor_civicrm_post($op, $objectName, $id, &$params)
                     'html' => $messagehtml,
                     'attachments' => null,
                 ];
-                CRM_Core_Error::debug_var('mailparams', $mailParams);
+//                CRM_Core_Error::debug_var('mailparams', $mailParams);
                 if (!CRM_Utils_Mail::send($mailParams)) {
                     return FALSE;
+                }else{
+                    $email_date = date("Y-m-d H:i:s");
                 }
             }
+
+            $result = civicrm_api3('HealthAlarm', 'create', [
+                'contact_id' => $contact_id,
+                'health_alert_id' => $alert_id,
+                'alarm_rule_id' => $alarm_rule_id,
+                'civicrm' => $civicrm_date,
+                'email' => $email_date,
+            ]);
         }
-//    check and create health monitor
+//    check and create health alarm
         return;
     }
     return;

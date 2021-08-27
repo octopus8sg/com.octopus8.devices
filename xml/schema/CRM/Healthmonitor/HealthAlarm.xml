@@ -42,26 +42,51 @@
     <name>health_alert_id</name>
     <table>civicrm_health_alert</table>
     <key>id</key>
-    <onDelete>RESTRICT</onDelete>
+    <onDelete>CASCADE</onDelete>
   </foreignKey>
 
   <field>
-    <name>sent_email_id</name>
+    <name>alarm_rule_id</name>
     <type>int unsigned</type>
-    <required>true</required>
-    <export>true</export>
+    <comment>FK to Health Alarm Rule</comment>
+  </field>
+  <foreignKey>
+    <name>alarm_rule_id</name>
+    <table>civicrm_health_alarm_rule</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>civicrm</name>
+    <type>datetime</type>
+    <comment>CiviCRM note created</comment>
     <import>true</import>
-    <default>0</default>
-    <comment>0 of none</comment>
+    <export>true</export>
   </field>
 
   <field>
-    <name>sent_sms_id</name>
-    <type>int unsigned</type>
-    <comment>0 of none</comment>
-    <required>true</required>
-    <export>true</export>
+    <name>email</name>
+    <type>datetime</type>
+    <comment>Email sent</comment>
     <import>true</import>
-    <default>0</default>
+    <export>true</export>
   </field>
+
+  <field>
+    <name>sms</name>
+    <type>datetime</type>
+    <comment>SMS sent</comment>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <field>
+    <name>api</name>
+    <type>datetime</type>
+    <comment>API alarm sent</comment>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
 </table>

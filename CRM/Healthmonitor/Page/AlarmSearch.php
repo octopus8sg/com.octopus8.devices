@@ -31,6 +31,15 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
         $sensor_id = CRM_Utils_Request::retrieveValue('alarm_sensor_id', 'Positive', null);
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
+        $civicrm = CRM_Utils_Request::retrieveValue('alarm_civicrm', 'Boolean', null);
+//        CRM_Core_Error::debug_var('civicrm', $civicrm);
+
+        $email = CRM_Utils_Request::retrieveValue('alarm_email', 'Boolean', null);
+//        CRM_Core_Error::debug_var('email', $email);
+
+        $addressee_id = CRM_Utils_Request::retrieveValue('alarm_addressee_id', 'String', null);
+//        CRM_Core_Error::debug_var('addressee_id', $addressee_id);
+
         $dateselect_to = CRM_Utils_Request::retrieveValue('alarm_dateselect_to', 'String', null);
         try {
             $dateselectto = new DateTime($dateselect_to);
@@ -50,13 +59,10 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
         $sortMapper = [
             0 => 'id',
             1 => 'date',
-            2 => 'title',
-            3 => 'addressee_id',
-            4 => 'civicrm',
-            5 => 'email',
-            6 => 'telegram',
-            7 => 'api',
-
+            2 => 'addressee_id',
+            3 => 'device_data',
+            5 => 'civicrm',
+            6 => 'email'
         ];
 
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
@@ -64,17 +70,18 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page {
 
 //
         $sql = "SELECT SQL_CALC_FOUND_ROWS
-                           a.id,
+                           ha.id,
                            d.date,
-                           s.label        sensor_name,
-                           d.sensor_value data_value,
-                           t.code
-FROM civicrm_health_alarm a
+                           t.addressee_id,
+                           CONCAT(s.label, ': ', d.sensor_value) device_data,
+                           ha.civicrm,
+                           ha.email
+FROM civicrm_health_alarm ha
+         INNER JOIN civicrm_health_alert a on ha.health_alert_id = a.id
          INNER JOIN civicrm_health_monitor d on a.health_monitor_id = d.id
-         INNER JOIN civicrm_health_alarm_rule t on a.alarm_rule_id = t.id
-         INNER JOIN civicrm_option_value r on t.rule_id = r.weight
-         INNER JOIN civicrm_option_group gr on r.option_group_id = gr.id and gr.name = 'health_alarm_rule_type'
-         INNER JOIN civicrm_option_value s on t.sensor_id = s.weight
+         INNER JOIN civicrm_health_alarm_rule t on ha.alarm_rule_id = t.id
+         INNER JOIN civicrm_health_alert_rule tr on a.alert_rule_id = tr.id
+         INNER JOIN civicrm_option_value s on tr.sensor_id = s.value
          INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'
       WHERE 1";
 
@@ -85,9 +92,31 @@ FROM civicrm_health_alarm a
 
         if (isset($sensor_id)) {
             if ($sensor_id > 0) {
-                $sql .= " AND t.sensor_id = " . $sensor_id . " ";
+                $sql .= " AND tr.sensor_id = " . $sensor_id . " ";
             }
         }
+
+        if (isset($addressee_id)) {
+            if ($addressee_id != "") {
+                $sql .= " AND t.addressee_id in (" . $addressee_id . ")";
+            }else{
+
+            }
+
+        }
+
+
+        if ($email) {
+            if(strval($email) == 'true') $sql .= " AND ha.email IS NOT NULL ";
+            if(strval($email) == 'false')    $sql .= " AND ha.email IS NULL ";
+        }
+
+        if ($civicrm) {
+            if(strval($civicrm) == 'true')    $sql .= " AND ha.civicrm IS NOT NULL ";
+            if(strval($civicrm) == 'false')    $sql .= " AND ha.civicrm IS NULL ";
+        }
+
+
         $month_ago = strtotime("-1 month", time());
         $date_month_ago = date("Y-m-d H:i:s", $month_ago);
 
@@ -118,7 +147,6 @@ FROM civicrm_health_alarm a
         }
 
 
-//        CRM_Core_Error::debug_var('alarm_sql', $sql);
 
 
         if ($sort !== NULL) {
@@ -138,24 +166,30 @@ FROM civicrm_health_alarm a
         }
 
 
-//        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('alarm_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update = CRM_Utils_System::url('civicrm/alarmrule/form',
-                ['action' => 'update', 'id' => $dao->id]);
-            $r_delete = CRM_Utils_System::url('civicrm/alarmrule/form',
+            $r_delete = CRM_Utils_System::url('civicrm/alarm/form',
                 ['action' => 'delete', 'id' => $dao->id]);
-            $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $delete = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $addressee = "";
+            if (!empty($dao->addressee_id)) {
+                $addressee = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->addressee_id]) . '">' .
+                    CRM_Contact_BAO_Contact::displayName($dao->addressee_id) . '</a>';
+            }
+
             $action = "<span>$delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->date;
-            $rows[$count][] = $dao->sensor_name;
-            $rows[$count][] = $dao->data_value;
-            $rows[$count][] = $dao->code;
+            $rows[$count][] = $addressee;
+            $rows[$count][] = $dao->device_data;
+            $rows[$count][] = $dao->civicrm;
+            $rows[$count][] = $dao->email;
             $rows[$count][] = $action;
             $count++;
         }

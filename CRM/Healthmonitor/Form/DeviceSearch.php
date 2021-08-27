@@ -32,7 +32,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
 
 
         $this->formValues = $this->getSubmitValues();
-        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues2', $this->formValues);
         $this->setTitle(E::ts('Search Devices'));
 
         $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
@@ -176,8 +176,8 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
                 ['action' => 'update', 'id' => $dao->id]);
             $r_delete = CRM_Utils_System::url('civicrm/device/form',
                 ['action' => 'delete', 'id' => $dao->id]);
-            $update = '<a class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
-            $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $update = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
+            $delete = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->name;

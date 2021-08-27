@@ -74,8 +74,8 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
         $this->assign('id', $this->getEntityId());
         $this->add('hidden', 'id');
         if ($this->_action != CRM_Core_Action::DELETE) {
-            $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
-            $this->addEntityRef('addressee_id', E::ts('Contact'), [], TRUE);
+            $this->addEntityRef('contact_id', E::ts('Device User'), [], TRUE);
+            $this->addEntityRef('addressee_id', E::ts('Addressee'), [], TRUE);
             $this->addEntityRef('rule_id', E::ts('Alert Rule'), [
                 'entity' => 'HealthAlertRule',
                 'placeholder' => ts('- Select Alert -'),
@@ -83,8 +83,13 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
                 'api' => ['search_field' => 'code',
                 'label_field' => 'code']
             ], TRUE);
-            $this->add('text', 'title', E::ts('Value'), null, FALSE);
-            $this->add('textarea', 'message', E::ts('Value'), null, FALSE);
+            $this->add('text', 'title', E::ts('Alarm Title'), ['size' => 60, 'maxlength' => 100], FALSE);
+            $this->add('textarea', 'message', E::ts('Alarm Message'), [
+                'cols' => '58',
+                'rows' => '1',
+            ], FALSE);
+            $this->add('checkbox', 'civicrm', E::ts('Send CiviCRM Note?'), null, FALSE);
+            $this->add('checkbox', 'email', E::ts('Send Email?'), null, FALSE);
 
             $this->addButtons([
                 [
@@ -133,6 +138,7 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
             CRM_Core_Session::setStatus(E::ts('Removed Health AlarmRule'), E::ts('Health AlarmRule'), 'success');
         } else {
             $values = $this->controller->exportValues();
+//            CRM_Core_Error::debug_var('alarm_rules_form_values', $values);
             $action = 'create';
             if ($this->getEntityId()) {
                 $params['id'] = $this->getEntityId();
@@ -142,6 +148,8 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
             $addressee_id = $values['addressee_id'];
             $title = $values['title'];
             $message = $values['message'];
+            $civicrm = $values['civicrm'];
+            $email = $values['email'];
             $contact_name = CRM_Contact_BAO_Contact::displayName($contact_id);
             $addressee_name = CRM_Contact_BAO_Contact::displayName($addressee_id);
             $rule_id = $values['rule_id'];
@@ -154,6 +162,8 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
             $params['rule_id'] = $rule_id;
             $params['title'] = $title;
             $params['message'] = $message;
+            $params['civicrm'] = $civicrm;
+            $params['email'] = $email;
             civicrm_api4('HealthAlarmRule', $action, ['values' => $params]);
         }
         $url = CRM_Utils_System::url('civicrm/health_alarm_rule/search', 'reset=1');

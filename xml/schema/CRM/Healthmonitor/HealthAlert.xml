@@ -42,7 +42,7 @@
     <name>health_monitor_id</name>
     <table>civicrm_health_monitor</table>
     <key>id</key>
-    <onDelete>RESTRICT</onDelete>
+    <onDelete>CASCADE</onDelete>
   </foreignKey>
 
   <field>
@@ -54,7 +54,7 @@
     <name>alert_rule_id</name>
     <table>civicrm_health_alert_rule</table>
     <key>id</key>
-    <onDelete>RESTRICT</onDelete>
+    <onDelete>CASCADE</onDelete>
   </foreignKey>
 
 

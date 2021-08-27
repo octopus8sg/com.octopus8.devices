@@ -281,7 +281,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
      */
     protected function query()
     {
-        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
+//        CRM_Core_Error::debug_var('formvalues1', $this->formValues);
         $sql = "
     SELECT SQL_CALC_FOUND_ROWS
       t.`id`,

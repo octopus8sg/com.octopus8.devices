@@ -34,23 +34,23 @@ class CRM_Healthmonitor_Page_AlarmRuleSearch extends CRM_Core_Page
 //        CRM_Core_Error::debug_var('limit', $limit);
 
         $sensor_id = CRM_Utils_Request::retrieveValue('alarm_rule_sensor_id', 'Positive', null);
-        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
+//        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
         $civicrm = CRM_Utils_Request::retrieveValue('alarm_rule_civicrm', 'Boolean', null);
-        CRM_Core_Error::debug_var('civicrm', $civicrm);
+//        CRM_Core_Error::debug_var('civicrm', $civicrm);
 
         $email = CRM_Utils_Request::retrieveValue('alarm_rule_email', 'Boolean', null);
-        CRM_Core_Error::debug_var('email', $email);
+//        CRM_Core_Error::debug_var('email', $email);
 
         $telegram = CRM_Utils_Request::retrieveValue('alarm_rule_telegram', 'Boolean', null);
-        CRM_Core_Error::debug_var('telegram', $telegram);
+//        CRM_Core_Error::debug_var('telegram', $telegram);
 
         $api = CRM_Utils_Request::retrieveValue('alarm_rule_api', 'Boolean', null);
-        CRM_Core_Error::debug_var('api', $api);
+//        CRM_Core_Error::debug_var('api', $api);
 
 
         $addressee_id = CRM_Utils_Request::retrieveValue('alarm_rule_addressee_id', 'String', null);
-        CRM_Core_Error::debug_var('addressee_id', $addressee_id);
+//        CRM_Core_Error::debug_var('addressee_id', $addressee_id);
 
 
         $sortMapper = [
@@ -99,7 +99,7 @@ FROM civicrm_health_alarm_rule t
 
         if (isset($sensor_id)) {
             if ($sensor_id > 0) {
-                $sql .= " AND t.sensor_id = " . $sensor_id . " ";
+                $sql .= " AND r.sensor_id = " . $sensor_id . " ";
             }
         }
 
@@ -151,6 +151,13 @@ FROM civicrm_health_alarm_rule t
             $update = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $civicrm = '';
+            $addressee = "";
+            if (!empty($dao->addressee_id)) {
+                $addressee = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->addressee_id]) . '">' .
+                    CRM_Contact_BAO_Contact::displayName($dao->addressee_id) . '</a>';
+            }
+
             if ($dao->civicrm) $civicrm = '&#10004;';
             $email = '';
             if ($dao->email) $email = '&#10004;';
@@ -163,7 +170,7 @@ FROM civicrm_health_alarm_rule t
             $rows[$count][] = $dao->code;
             $rows[$count][] = $dao->title;
             $rows[$count][] = $dao->sensor_name;
-            $rows[$count][] = $dao->addressee_id;
+            $rows[$count][] = $addressee;
             $rows[$count][] = $civicrm;
             $rows[$count][] = $email;
             $rows[$count][] = $telegram;

@@ -130,6 +130,17 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $sourceUrl['alert_sourceUrl'] = $alert_sourceUrl;
         $this->assign('alert_sourceUrl', $alert_sourceUrl);
 
+        // alarm rules datatable js and variables
+//        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/alarmrules.js', 2);
+        $alarms = \Civi\Api4\HealthAlarm::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+        $this->assign('alarmCount', $alarms->rowCount);
+        $alarm_sourceUrl = CRM_Utils_System::url('civicrm/alarm/ajax', $urlQry, FALSE, NULL, FALSE);
+        $sourceUrl['alarm_sourceUrl'] = $alarm_sourceUrl;
+        $this->assign('alarm_sourceUrl', $alarm_sourceUrl);
+
         // chart js and variables
 //        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
 //        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);

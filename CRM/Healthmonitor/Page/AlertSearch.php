@@ -149,7 +149,7 @@ FROM civicrm_health_alert a
                 ['action' => 'update', 'id' => $dao->id]);
             $r_delete = CRM_Utils_System::url('civicrm/alertrule/form',
                 ['action' => 'delete', 'id' => $dao->id]);
-            $delete = '<a class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $delete = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->date;
