@@ -217,7 +217,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
       t.`name`,
       t.`device_type_id`,
       t.`contact_id`
-    FROM t
+    FROM civicrm_device t
     WHERE 1";
         if (isset($this->formValues['device_name']) && !empty($this->formValues['device_name'])) {
             $sql .= " AND t.`name` LIKE '%" . $this->formValues['device_name'] . "%'";
