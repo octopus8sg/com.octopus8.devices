@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button" href="{crmURL p="civicrm/healthmonitor/form" q="reset=1&action=add" }">
+        <a target="_blank" class="button add-data" href="{crmURL p="civicrm/healthmonitor/form" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Device Data{/ts}
         </a>

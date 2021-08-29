@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button" href="{crmURL p="civicrm/device/form" q="reset=1&action=add" }">
+        <a class="button add-device" href="{crmURL p="civicrm/device/form" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Device{/ts}
         </a>

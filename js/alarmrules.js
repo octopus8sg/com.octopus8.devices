@@ -1,6 +1,19 @@
 CRM.$(function ($) {
+
+    $("a.add-alarm-rule").click(function( event ) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+        // alert(href);
+        var $el = CRM.loadForm(href, {
+            dialog: {width: '50%', height: '50%'}
+        }).on('crmFormSuccess', function() {
+            var hm_tab = $('.selector-alarmrules');
+            var hm_table = hm_tab.DataTable();
+            hm_table.draw();
+        });
+    });
+
     var alarmrules_sourceUrl = CRM.vars.source_url['alarm_rules_sourceUrl'];
-    // var alarmrules_sourceUrl = "";
 
     $(document).ready(function () {
         //Reset Table, add Filter and Search Possibility
@@ -17,11 +30,6 @@ CRM.$(function ($) {
         alarmrules_dtsettings.Buttons = ["csv", "pdf", "copy"];
         alarmrules_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "alarm_rule_sensor_id", "value": $('#alarm_rule_sensor_id').val() });
-            aoData.push({ "name": "alarm_rule_addressee_id", "value": $('#alarm_rule_addressee_id').val() });
-            aoData.push({ "name": "alarm_rule_civicrm", "value": $('#alarm_rule_civicrm').is(":checked") });
-            aoData.push({ "name": "alarm_rule_email", "value": $('#alarm_rule_email').is(":checked") });
-            aoData.push({ "name": "alarm_rule_telegram", "value": $('#alarm_rule_telegram').is(":checked") });
-            aoData.push({ "name": "alarm_rule_api", "value": $('#alarm_rule_api').is(":checked") });
             $.ajax( {
                 "dataType": 'json',
                 "type": "POST",

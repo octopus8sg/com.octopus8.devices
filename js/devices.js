@@ -1,5 +1,19 @@
 CRM.$(function ($) {
-    // var devices_sourceUrl = CRM.vars.sourceUrl['device_sourceUrl'];
+
+    $("a.add-device").click(function( event ) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+        // alert(href);
+        var $el =CRM.loadForm(href, {
+            dialog: {width: '50%', height: '50%'}
+        }).on('crmFormSuccess', function() {
+            var hm_tab = $('.selector-devices');
+            var hm_table = hm_tab.DataTable();
+            hm_table.draw();
+        });
+    });
+
+
     var devices_sourceUrl = CRM.vars.source_url['device_sourceUrl'];
 
     $(document).ready(function () {

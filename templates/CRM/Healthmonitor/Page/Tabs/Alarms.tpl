@@ -16,19 +16,17 @@
                         {ts}Date{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Addressee{/ts}
+                        {ts}Sensor{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Device Data{/ts}
+                        {ts}Value{/ts}
                     </th>
                     <th scope="col">
-                        {ts}CiviCRM{/ts}
-                    </th>
-                    <th scope="col">
-                        {ts}Email{/ts}
+                        {ts}Alarm Code{/ts}
                     </th>
                     <th id="nosort">&nbsp;Action</th>
                 </tr>
+
                 </thead>
             </table>
         </div>

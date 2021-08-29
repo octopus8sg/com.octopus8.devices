@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button" target="_blank" href="{crmURL p="civicrm/alertrule/form" q="reset=1&action=add" }">
+        <a class="button add-alert-rule" href="{crmURL p="civicrm/alertrule/form" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Alert Rule{/ts}
         </a>
@@ -22,13 +22,25 @@
                         {ts}Unique Code{/ts}
                     </th>
                     <th scope="col">
+                        {ts}Title{/ts}
+                    </th>
+                    <th scope="col">
                         {ts}Sensor Name{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Rule Name{/ts}
+                        {ts}Addressee{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Sensor Value{/ts}
+                        {ts}CiviCRM{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Email{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Telegram{/ts}
+                    </th>
+                    <th scope="col">
+                        {ts}Api{/ts}
                     </th>
                     <th id="nosort">&nbsp;Action</th>
                 </tr>

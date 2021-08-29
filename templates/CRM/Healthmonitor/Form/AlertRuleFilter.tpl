@@ -9,6 +9,20 @@
           <tr>
             <td class="label">{$form.alert_rule_sensor_id.label}</td>
             <td>{$form.alert_rule_sensor_id.html}</td>
+            <td class="label">{$form.alert_rule_addressee_id.label}</td>
+            <td>{$form.alert_rule_addressee_id.html}</td>
+          </tr>
+          <tr>
+            <td class="label">{$form.alert_rule_civicrm.label}</td>
+            <td>{$form.alert_rule_civicrm.html}</td>
+            <td class="label">{$form.alert_rule_email.label}</td>
+            <td>{$form.alert_rule_email.html}</td>
+          </tr>
+          <tr>
+            <td class="label">{$form.alert_rule_telegram.label}</td>
+            <td>{$form.alert_rule_telegram.html}</td>
+            <td class="label">{$form.alert_rule_api.label}</td>
+            <td>{$form.alert_rule_api.html}</td>
           </tr>
           </tbody>
         </table>

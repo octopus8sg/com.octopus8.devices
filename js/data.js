@@ -1,5 +1,19 @@
 
 CRM.$(function ($) {
+
+    $("a.add-data").click(function( event ) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+            // alert(href);
+            CRM.loadForm(href, {
+                dialog: {width: '50%', height: '50%'}
+            }).on('crmFormSuccess', function() {
+                var hm_tab = $('.selector-data');
+                var hm_table = hm_tab.DataTable();
+                hm_table.draw();
+            });
+    });
+
     var data_sourceUrl = CRM.vars.source_url['data_sourceUrl'];
 
     $(document).ready(function () {
@@ -35,6 +49,7 @@ CRM.$(function ($) {
             new_hm_table.draw();
         });
     });
+
 
 
 });

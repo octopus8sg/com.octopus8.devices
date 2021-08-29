@@ -57,22 +57,6 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
               'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
               'select' => ['minimumInputLength' => 1]]);
 
-      //for alert rule filter
-      $this->add('select', 'alert_rule_sensor_id',
-          E::ts('Sensor'),
-          $sensors,
-          FALSE, ['class' => 'huge crm-select2',
-              'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
-              'select' => ['minimumInputLength' => 1]]);
-
-      //for alert filter
-      $this->add('select', 'alert_sensor_id',
-          E::ts('Sensor'),
-          $sensors,
-          FALSE, ['class' => 'huge crm-select2',
-              'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
-              'select' => ['minimumInputLength' => 1]]);
-
       //for alarm rule filter
       $this->add('select', 'alarm_rule_sensor_id',
           E::ts('Sensor'),
@@ -81,8 +65,24 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
               'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
               'select' => ['minimumInputLength' => 1]]);
 
-      //for alarm rule filter
+      //for alarm filter
       $this->add('select', 'alarm_sensor_id',
+          E::ts('Sensor'),
+          $sensors,
+          FALSE, ['class' => 'huge crm-select2',
+              'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
+              'select' => ['minimumInputLength' => 1]]);
+
+      //for alert rule filter
+      $this->add('select', 'alert_rule_sensor_id',
+          E::ts('Sensor'),
+          $sensors,
+          FALSE, ['class' => 'huge crm-select2',
+              'data-option-edit-path' => 'civicrm/admin/options/health_monitor_sensor','placeholder' => ts('- Select Sensor -'),
+              'select' => ['minimumInputLength' => 1]]);
+
+      //for alert rule filter
+      $this->add('select', 'alert_sensor_id',
           E::ts('Sensor'),
           $sensors,
           FALSE, ['class' => 'huge crm-select2',
@@ -92,9 +92,9 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
       // contact - for data and adressee filters
       $this->addEntityRef('data_contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-      $this->addEntityRef('alarm_rule_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+      $this->addEntityRef('alert_rule_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-      $this->addEntityRef('alarm_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+      $this->addEntityRef('alert_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
 
       $this->addEntityRef('data_device_id', E::ts('Device'), [
@@ -128,15 +128,6 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
           null,
           '_to',
           '_from');
-      $this->addDatePickerRange('alert_dateselect',
-          'Select Date',
-          FALSE,
-          FALSE,
-          'From: ',
-          'To: ',
-          null,
-          '_to',
-          '_from');
       $this->addDatePickerRange('alarm_dateselect',
           'Select Date',
           FALSE,
@@ -146,17 +137,26 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
           null,
           '_to',
           '_from');
+      $this->addDatePickerRange('alert_dateselect',
+          'Select Date',
+          FALSE,
+          FALSE,
+          'From: ',
+          'To: ',
+          null,
+          '_to',
+          '_from');
 
 
-      $this->add('checkbox', 'alarm_rule_civicrm', ts('CiviCRM'))->setChecked(true);
-      $this->add('checkbox', 'alarm_rule_email', ts('Email'));
-      $this->add('checkbox', 'alarm_rule_telegram', ts('Telegram'));
-      $this->add('checkbox', 'alarm_rule_api', ts('API'));
+      $this->add('checkbox', 'alert_rule_civicrm', ts('CiviCRM'))->setChecked(true);
+      $this->add('checkbox', 'alert_rule_email', ts('Email'));
+      $this->add('checkbox', 'alert_rule_telegram', ts('Telegram'));
+      $this->add('checkbox', 'alert_rule_api', ts('API'));
 
-      $this->add('checkbox', 'alarm_civicrm', ts('CiviCRM'))->setChecked(true);
-      $this->add('checkbox', 'alarm_email', ts('Email'));
-      $this->add('checkbox', 'alarm_telegram', ts('Telegram'));
-      $this->add('checkbox', 'alarm_api', ts('API'));
+      $this->add('checkbox', 'alert_civicrm', ts('CiviCRM'))->setChecked(true);
+      $this->add('checkbox', 'alert_email', ts('Email'));
+      $this->add('checkbox', 'alert_telegram', ts('Telegram'));
+      $this->add('checkbox', 'alert_api', ts('API'));
 
       $this->assign('suppressForm', FALSE);
   }

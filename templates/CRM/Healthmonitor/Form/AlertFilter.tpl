@@ -15,8 +15,21 @@
             <tr>
               <td class="label">{$form.alert_sensor_id.label}</td>
               <td>{$form.alert_sensor_id.html}</td>
+              <td class="label">{$form.alert_addressee_id.label}</td>
+              <td>{$form.alert_addressee_id.html}</td>
             </tr>
-            </tbody>
+            <tr>
+              <td class="label">{$form.alert_civicrm.label}</td>
+              <td>{$form.alert_civicrm.html}</td>
+              <td class="label">{$form.alert_email.label}</td>
+              <td>{$form.alert_email.html}</td>
+            </tr>
+{*            <tr>*}
+{*              <td class="label">{$form.alert_telegram.label}</td>*}
+{*              <td>{$form.alert_rule_telegram.html}</td>*}
+{*              <td class="label">{$form.alert_api.label}</td>*}
+{*              <td>{$form.alert_rule_api.html}</td>*}
+{*            </tbody>*}
           </table>
           <div class="crm-submit-buttons">
             {include file="CRM/common/formButtons.tpl"}

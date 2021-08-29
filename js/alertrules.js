@@ -1,4 +1,18 @@
 CRM.$(function ($) {
+    $("a.add-alert-rule").click(function( event ) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+        // alert(href);
+        var $el = CRM.loadForm(href, {
+            dialog: {width: '50%', height: '50%'}
+        }).on('crmFormSuccess', function() {
+            var hm_tab = $('.selector-alertrules');
+            var hm_table = hm_tab.DataTable();
+            hm_table.draw();
+        });
+    });
+
+
     var alertrules_sourceUrl = CRM.vars.source_url['alert_rules_sourceUrl'];
     // var alertrules_sourceUrl = "";
 
@@ -17,6 +31,11 @@ CRM.$(function ($) {
         alertrules_dtsettings.Buttons = ["csv", "pdf", "copy"];
         alertrules_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "alert_rule_sensor_id", "value": $('#alert_rule_sensor_id').val() });
+            aoData.push({ "name": "alert_rule_addressee_id", "value": $('#alert_rule_addressee_id').val() });
+            aoData.push({ "name": "alert_rule_civicrm", "value": $('#alert_rule_civicrm').is(":checked") });
+            aoData.push({ "name": "alert_rule_email", "value": $('#alert_rule_email').is(":checked") });
+            aoData.push({ "name": "alert_rule_telegram", "value": $('#alert_rule_telegram').is(":checked") });
+            aoData.push({ "name": "alert_rule_api", "value": $('#alert_rule_api').is(":checked") });
             $.ajax( {
                 "dataType": 'json',
                 "type": "POST",

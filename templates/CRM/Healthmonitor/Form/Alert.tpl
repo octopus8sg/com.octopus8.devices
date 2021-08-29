@@ -14,21 +14,11 @@
   </div>
 {/foreach}
 
-{* FIELD EXAMPLE: OPTION 2 (MANUAL LAYOUT) *}
+{* FIELD EXAMPLE: OPTION 2 (MANUAL LAYOUT)
 
   <div>
-    <span>{$form.contact_id.label}</span>
-    <span>{$form.contact_id.html}</span>
-  </div>
-
-  <div>
-    <span>{$form.alert_rule_id.label}</span>
-    <span>{$form.alert_rule_id.html}</span>
-  </div>
-
-  <div>
-    <span>{$form.health_monitor_id.label}</span>
-    <span>{$form.health_monitor_id.html}</span>
+    <span>{$form.favorite_color.label}</span>
+    <span>{$form.favorite_color.html}</span>
   </div>
 
 {* FOOTER *}

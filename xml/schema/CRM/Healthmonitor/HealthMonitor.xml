@@ -41,7 +41,7 @@
   <field>
     <name>date</name>
     <type>datetime</type>
-    <comment>Health Monitor Time</comment>
+    <comment>Device Data Time</comment>
     <html>
       <type>Select Date</type>
       <formatType>activityDateTime</formatType>

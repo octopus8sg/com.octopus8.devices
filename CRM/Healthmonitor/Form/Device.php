@@ -8,20 +8,26 @@ use CRM_Healthmonitor_ExtensionUtil as E;
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
-class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
+class CRM_Healthmonitor_Form_Device extends CRM_Core_Form
+{
     protected $_id;
 
     protected $_device;
 
-    public function getDefaultEntity() {
+    protected $contact_id;
+
+    public function getDefaultEntity()
+    {
         return 'Device';
     }
 
-    public function getDefaultEntityTable() {
+    public function getDefaultEntityTable()
+    {
         return 'civicrm_device';
     }
 
-    public function getEntityId() {
+    public function getEntityId()
+    {
         return $this->_id;
     }
 
@@ -33,7 +39,8 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
      *
      * This is a virtual function and should be redefined if needed.
      */
-    public function preProcess() {
+    public function preProcess()
+    {
         parent::preProcess();
 
         $this->_action = CRM_Utils_Request::retrieve('action', 'String', $this);
@@ -41,11 +48,13 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         $session = CRM_Core_Session::singleton();
 
         $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this, FALSE);
+
+        $this->contact_id = CRM_Utils_Request::retrieve('cid', 'Positive', $this, FALSE);
         CRM_Utils_System::setTitle('Add Device');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Device');
             $entities = civicrm_api4('Device', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
-            if(!empty($entities)){
+            if (!empty($entities)) {
                 $this->_device = $entities[0];
             }
             $this->assign('device', $this->_device);
@@ -59,20 +68,24 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
     }
 
 
-    public function buildQuickForm() {
+    public function buildQuickForm()
+    {
         $this->registerRule('deviceExists', 'callback', 'deviceExists', 'CRM_Utils_Rule');
         $this->assign('id', $this->getEntityId());
         $this->add('hidden', 'id');
+        $contact_id = $this->contact_id;
         if ($this->_action != CRM_Core_Action::DELETE) {
-            $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
-            $this->add('text', 'name', E::ts('Device Unique Code'), ['class' => 'huge'], TRUE);
-            $this->addRule('name', ts('Device Unique Code already exists in Database.'), 'objectExists', [
+            if (!$contact_id) {
+                $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
+            }
+            $this->add('text', 'name', E::ts('Device Code'), ['class' => 'huge'], TRUE);
+            $this->addRule('name', ts('Device Code already exists in Database.'), 'objectExists', [
                 'CRM_Healthmonitor_DAO_Device',
                 $this->_id,
                 'name',
                 CRM_Core_Config::domainID(),
             ]);
-            $this->addRule('name', ts('Device Unique Code should consist of numbers and letters'), 'alphanumeric', null, 'client');
+            $this->addRule('name', ts('Device Code should consist of numbers and letters'), 'alphanumeric', null, 'client');
             //            $this->addRule('name', ts('Name already exists in Database.'), 'deviceExists', [
 //                'CRM_Healthmonitor_DAO_Device',
 //                $this->getEntityId(),
@@ -109,7 +122,8 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
      * @return array|NULL
      *   reference to the array of default values
      */
-    public function setDefaultValues() {
+    public function setDefaultValues()
+    {
         if ($this->_device) {
             $defaults = $this->_device;
         }
@@ -122,7 +136,8 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
         return $defaults;
     }
 
-    public function postProcess() {
+    public function postProcess()
+    {
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
@@ -137,7 +152,13 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form {
             }
             $params['name'] = $values['name'];
 //            $params['default_client'] = boolval($values['default_client']);
-            $params['contact_id'] = $values['contact_id'];
+            $contact_id = $this->contact_id;
+            if($contact_id){
+                $params['contact_id'] = $contact_id;
+            }else{
+                $params['contact_id'] = $values['contact_id'];
+
+            }
             $params['device_type_id'] = $values['device_type_id'];
             // todo many-to-many device-client
             civicrm_api4('Device', $action, ['values' => $params]);

@@ -93,18 +93,6 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/alert/form</path>
-    <page_callback>CRM_Healthmonitor_Form_Alert</page_callback>
-    <title>Alert</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/alertrule/form</path>
-    <page_callback>CRM_Healthmonitor_Form_AlertRule</page_callback>
-    <title>AlertRule</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
     <path>civicrm/alarm/form</path>
     <page_callback>CRM_Healthmonitor_Form_Alarm</page_callback>
     <title>Alarm</title>
@@ -117,25 +105,15 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/alertrule/search</path>
-    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch</page_callback>
-    <title>AlertRuleSearch</title>
+    <path>civicrm/alert/form</path>
+    <page_callback>CRM_Healthmonitor_Form_Alert</page_callback>
+    <title>Alert</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/alertrule/ajax</path>
-    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/alert/search</path>
-    <page_callback>CRM_Healthmonitor_Page_AlertSearch</page_callback>
-    <title>AlertSearch</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/alert/ajax</path>
-    <page_callback>CRM_Healthmonitor_Page_AlertSearch::getAjax</page_callback>
+    <path>civicrm/alertrule/form</path>
+    <page_callback>CRM_Healthmonitor_Form_AlertRule</page_callback>
+    <title>AlertRule</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
@@ -158,6 +136,28 @@
   <item>
     <path>civicrm/alarm/ajax</path>
     <page_callback>CRM_Healthmonitor_Page_AlarmSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch</page_callback>
+    <title>AlertRuleSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch</page_callback>
+    <title>AlertSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch::getAjax</page_callback>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>

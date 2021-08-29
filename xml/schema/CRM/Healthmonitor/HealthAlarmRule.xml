@@ -4,7 +4,7 @@
   <base>CRM/Healthmonitor</base>
   <class>HealthAlarmRule</class>
   <name>civicrm_health_alarm_rule</name>
-  <comment>Health Alarm Rule (for message)</comment>
+  <comment>Health Alarm Rule</comment>
   <log>true</log>
 
   <field>
@@ -15,6 +15,8 @@
     <html>
       <type>Number</type>
     </html>
+    <import>true</import>
+    <export>true</export>
   </field>
   <primaryKey>
     <name>id</name>
@@ -25,6 +27,8 @@
     <name>contact_id</name>
     <type>int unsigned</type>
     <comment>FK to Contact</comment>
+    <import>true</import>
+    <export>true</export>
   </field>
   <foreignKey>
     <name>contact_id</name>
@@ -51,114 +55,52 @@
   </index>
 
   <field>
-    <name>addressee_id</name>
-    <type>int unsigned</type>
-    <comment>FK to Address Contact</comment>
+    <name>sensor_id</name>
+    <title>Sensor</title>
+    <type>int</type>
+    <length>3</length>
+    <default>1</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>health_monitor_sensor</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
   </field>
-  <foreignKey>
-    <name>addressee_id</name>
-    <table>civicrm_contact</table>
-    <key>id</key>
-    <onDelete>CASCADE</onDelete>
-  </foreignKey>
+
+  <field>
+    <name>sensor_value</name>
+    <title>Sensor Value</title>
+    <type>decimal</type>
+    <dataPattern>/^\d+(\.\d{2})?$/</dataPattern>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <comment>Sensor Value</comment>
+    <html>
+      <type>Text</type>
+    </html>
+  </field>
 
   <field>
     <name>rule_id</name>
-    <type>int unsigned</type>
-    <comment>FK to Alert Rule</comment>
-  </field>
-  <foreignKey>
-    <name>rule_id</name>
-    <table>civicrm_health_alert_rule</table>
-    <key>id</key>
-    <onDelete>CASCADE</onDelete>
-  </foreignKey>
-
-  <field>
-    <name>title</name>
-    <type>varchar</type>
-    <length>255</length>
-    <label>Alarm Title</label>
-    <comment>Alarm Title</comment>
+    <title>Rule</title>
+    <type>int</type>
+    <length>5</length>
+    <default>1</default>
     <required>true</required>
     <import>true</import>
     <export>true</export>
-  </field>
-
-  <field>
-    <name>message</name>
-    <type>varchar</type>
-    <length>1255</length>
-    <label>Alarm Message</label>
-    <comment>Alarm Message</comment>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
-  </field>
-
-  <field>
-    <name>civicrm</name>
-    <title>CiviCRM</title>
-    <type>boolean</type>
-    <default>true</default>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>health_alarm_rule_type</optionGroupName>
+    </pseudoconstant>
     <html>
-      <type>CheckBox</type>
+      <type>Select</type>
     </html>
   </field>
 
-  <field>
-    <name>email</name>
-    <title>Email</title>
-    <type>boolean</type>
-    <default>false</default>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
-    <html>
-      <type>CheckBox</type>
-    </html>
-  </field>
-
-  <field>
-    <name>sms</name>
-    <title>SMS</title>
-    <type>boolean</type>
-    <default>false</default>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
-    <html>
-      <type>CheckBox</type>
-    </html>
-  </field>
-
-  <field>
-    <name>telegram</name>
-    <title>Telegram</title>
-    <type>boolean</type>
-    <default>false</default>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
-    <html>
-      <type>CheckBox</type>
-    </html>
-  </field>
-
-  <field>
-    <name>api</name>
-    <title>Api</title>
-    <type>boolean</type>
-    <default>false</default>
-    <required>true</required>
-    <import>true</import>
-    <export>true</export>
-    <html>
-      <type>CheckBox</type>
-    </html>
-  </field>
 
 </table>

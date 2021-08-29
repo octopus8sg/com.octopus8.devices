@@ -5,10 +5,10 @@ use Civi\Test\HookInterface;
 use Civi\Test\TransactionalInterface;
 
 /**
- * HealthAlertRule API Test Case
+ * HealthAlarmRule API Test Case
  * @group headless
  */
-class api_v3_HealthAlertRuleTest extends \PHPUnit\Framework\TestCase implements HeadlessInterface, HookInterface, TransactionalInterface {
+class api_v3_HealthAlarmRuleTest extends \PHPUnit\Framework\TestCase implements HeadlessInterface, HookInterface, TransactionalInterface {
   use \Civi\Test\Api3TestTrait;
 
   /**
@@ -28,8 +28,8 @@ class api_v3_HealthAlertRuleTest extends \PHPUnit\Framework\TestCase implements 
    * The setup() method is executed before the test is executed (optional).
    */
   public function setUp() {
-    $table = CRM_Core_DAO_AllCoreTables::getTableForEntityName('HealthAlertRule');
-    $this->assertTrue($table && CRM_Core_DAO::checkTableExists($table), 'There was a problem with extension installation. Table for ' . 'HealthAlertRule' . ' not found.');
+    $table = CRM_Core_DAO_AllCoreTables::getTableForEntityName('HealthAlarmRule');
+    $this->assertTrue($table && CRM_Core_DAO::checkTableExists($table), 'There was a problem with extension installation. Table for ' . 'HealthAlarmRule' . ' not found.');
     parent::setUp();
   }
 
@@ -50,16 +50,16 @@ class api_v3_HealthAlertRuleTest extends \PHPUnit\Framework\TestCase implements 
     // Boilerplate entity has one data field -- 'contact_id'.
     // Put some data in, read it back out, and delete it.
 
-    $created = $this->callAPISuccess('HealthAlertRule', 'create', [
+    $created = $this->callAPISuccess('HealthAlarmRule', 'create', [
       'contact_id' => 1,
     ]);
     $this->assertTrue(is_numeric($created['id']));
 
-    $get = $this->callAPISuccess('HealthAlertRule', 'get', []);
+    $get = $this->callAPISuccess('HealthAlarmRule', 'get', []);
     $this->assertEquals(1, $get['count']);
     $this->assertEquals(1, $get['values'][$created['id']]['contact_id']);
 
-    $this->callAPISuccess('HealthAlertRule', 'delete', [
+    $this->callAPISuccess('HealthAlarmRule', 'delete', [
       'id' => $created['id'],
     ]);
   }

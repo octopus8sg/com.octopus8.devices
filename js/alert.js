@@ -11,12 +11,14 @@ CRM.$(function ($) {
         alert_dtsettings.bFilter = true;
         //turn on search
 
-        alert_dtsettings.sDom = '<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
+        alert_dtsettings.sDom = '<"crm-datatable-pager-top"lp>rt<"crm-datatable-pager-bottom"ip>';
         //turn of search field
         alert_dtsettings.sAjaxSource = alert_sourceUrl;
-        alert_dtsettings.Buttons = ["csv", "pdf", "copy"];
         alert_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "alert_sensor_id", "value": $('#alert_sensor_id').val() });
+            aoData.push({ "name": "alert_addressee_id", "value": $('#alert_addressee_id').val() });
+            aoData.push({ "name": "alert_civicrm", "value": $('#alert_civicrm').is(":checked") });
+            aoData.push({ "name": "alert_email", "value": $('#alert_email').is(":checked") });
             aoData.push({ "name": "alert_dateselect_from", "value": $('#alert_dateselect_from').val() });
             aoData.push({ "name": "alert_dateselect_to", "value": $('#alert_dateselect_to').val() });
             $.ajax( {

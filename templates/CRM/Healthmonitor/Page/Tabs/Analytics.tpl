@@ -1,4 +1,4 @@
-<h3>Health Monitoring Chart</h3>
+<h3>Device Data Chart</h3>
 <div class="clear"></div>
 {include file="CRM/Healthmonitor/Form/ChartFilter.tpl"}
 <div class="clear"></div>

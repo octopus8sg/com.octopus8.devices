@@ -4,7 +4,7 @@
     <base>CRM/Healthmonitor</base>
     <class>Device</class>
     <name>civicrm_device</name>
-    <comment>CiviCRM Health Monitor Device</comment>
+    <comment>CiviCRM Device</comment>
     <log>true</log>
 
     <field>

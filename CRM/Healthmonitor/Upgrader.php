@@ -103,8 +103,8 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
 
         $ruleTypeGroupId = civicrm_api3('OptionGroup',
             'create',
-            ['name' => 'health_alert_rule_type',
-                'title' => E::ts('Health Alert Rule Type')]);
+            ['name' => 'health_alarm_rule_type',
+                'title' => E::ts('Health Alarm Rule Type')]);
         $ruleTypeGroupId = $ruleTypeGroupId['id'];
 
         civicrm_api3('OptionValue', 'create',
@@ -179,21 +179,21 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             $sensor_type3 = $this->sensor_type3;
             $sensor_type4 = $this->sensor_type4;
             $sensor_type5 = $this->sensor_type5;
-            $this->generateAlertRule('slow', $contact_id, $sensor_type1, 50, "le");
-            $this->generateAlertRule('recovery', $contact_id, $sensor_type1, 80);
-            $this->generateAlertRule('manageble', $contact_id, $sensor_type1, 100);
-            $this->generateAlertRule('challenge', $contact_id, $sensor_type1, 120);
-            $this->generateAlertRule('burn', $contact_id, $sensor_type1, 140);
-            $this->generateAlertRule('danger', $contact_id, $sensor_type1, 160);
-            $this->generateAlertRule('skinny', $contact_id, $sensor_type2, 50, "le");
-            $this->generateAlertRule('fatty', $contact_id, $sensor_type2, 100);
-            $this->generateAlertRule('hypothermia', $contact_id, $sensor_type3, 35, "le");
-            $this->generateAlertRule('fever', $contact_id, $sensor_type3, 37.1);
-            $this->generateAlertRule('hyperthermia', $contact_id, $sensor_type3, 37.9);
-            $this->generateAlertRule('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
-            $this->generateAlertRule('diast_hypertension', $contact_id, $sensor_type4, 90.01);
-            $this->generateAlertRule('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
-            $this->generateAlertRule('syst_hypertension', $contact_id, $sensor_type5, 140.01);
+            $this->generateAlarmRule('slow', $contact_id, $sensor_type1, 50, "le");
+            $this->generateAlarmRule('recovery', $contact_id, $sensor_type1, 80);
+            $this->generateAlarmRule('manageble', $contact_id, $sensor_type1, 100);
+            $this->generateAlarmRule('challenge', $contact_id, $sensor_type1, 120);
+            $this->generateAlarmRule('burn', $contact_id, $sensor_type1, 140);
+            $this->generateAlarmRule('danger', $contact_id, $sensor_type1, 160);
+            $this->generateAlarmRule('skinny', $contact_id, $sensor_type2, 50, "le");
+            $this->generateAlarmRule('fatty', $contact_id, $sensor_type2, 100);
+            $this->generateAlarmRule('hypothermia', $contact_id, $sensor_type3, 35, "le");
+            $this->generateAlarmRule('fever', $contact_id, $sensor_type3, 37.1);
+            $this->generateAlarmRule('hyperthermia', $contact_id, $sensor_type3, 37.9);
+            $this->generateAlarmRule('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+            $this->generateAlarmRule('diast_hypertension', $contact_id, $sensor_type4, 90.01);
+            $this->generateAlarmRule('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
+            $this->generateAlarmRule('syst_hypertension', $contact_id, $sensor_type5, 140.01);
             $this->generateOneMonthData($device_type1, $sensor_type1, 49, 161, $contact_id);
             $this->generateOneMonthData($device_type1, $sensor_type2, 49.9, 100.1, $contact_id);
             $this->generateOneMonthData($device_type1, $sensor_type3, 34.9, 38.1, $contact_id);
@@ -232,7 +232,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         }
 
         try {
-            $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_alert_rule_type']);
+            $optionGroupId = civicrm_api3('OptionGroup', 'getvalue', ['return' => 'id', 'name' => 'health_alarm_rule_type']);
             $optionValues = civicrm_api3('OptionValue', 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
             foreach ($optionValues['values'] as $optionValue) {
                 civicrm_api3('OptionValue', 'delete', ['id' => $optionValue['id']]);
@@ -254,21 +254,21 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         $sensor_type4 = 'blood_pressure_diastolic';
         $sensor_type5 = 'blood_pressure_systolic';
 //        CRM_Core_Error::debug_var('sensor_type5', sensor_type5);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('slow', $contact_id, $sensor_type1, 50, "le");
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('recovery', $contact_id, $sensor_type1, 80);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('manageble', $contact_id, $sensor_type1, 100);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('challenge', $contact_id, $sensor_type1, 120);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('burn', $contact_id, $sensor_type1, 140);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('danger', $contact_id, $sensor_type1, 160);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('skinny', $contact_id, $sensor_type2, 50, "le");
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('fatty', $contact_id, $sensor_type2, 100);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('hypothermia', $contact_id, $sensor_type3, 35, "le");
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('fever', $contact_id, $sensor_type3, 37.1);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('hyperthermia', $contact_id, $sensor_type3, 37.9);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('diast_hypertension', $contact_id, $sensor_type4, 90.01);
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
-        CRM_Healthmonitor_Upgrader::generateAlertRuleSensorName('syst_hypertension', $contact_id, $sensor_type5, 140.01);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('slow', $contact_id, $sensor_type1, 50, "le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('recovery', $contact_id, $sensor_type1, 80);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('manageble', $contact_id, $sensor_type1, 100);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('challenge', $contact_id, $sensor_type1, 120);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('burn', $contact_id, $sensor_type1, 140);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('danger', $contact_id, $sensor_type1, 160);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('skinny', $contact_id, $sensor_type2, 50, "le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('fatty', $contact_id, $sensor_type2, 100);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('hypothermia', $contact_id, $sensor_type3, 35, "le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('fever', $contact_id, $sensor_type3, 37.1);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('hyperthermia', $contact_id, $sensor_type3, 37.9);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('diast_hypertension', $contact_id, $sensor_type4, 90.01);
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('syst_hypertension', $contact_id, $sensor_type5, 140.01);
     }
 
     public function makeData()
@@ -301,23 +301,23 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
      * @throws CiviCRM_API3_Exception
      * The proc creates 1 device, 7 rules and 31 day sensor values
      */
-    public function generateAlertRule($zone_name, $contact_id, $sensor_type, $sensor_value, $rule_id = "gt")
+    public function generateAlarmRule($zone_name, $contact_id, $sensor_type, $sensor_value, $rule_id = "gt")
     {
         $sensor_type1id = $sensor_type['id'];
         $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
-        $alert_code = $contact_id . "_" . $zone_name . '_' . rand(10000, 99999);
+        $alarm_code = $contact_id . "_" . $zone_name . '_' . rand(10000, 99999);
 
-        $result = civicrm_api3('HealthAlertRule', 'create', [
+        $result = civicrm_api3('HealthAlarmRule', 'create', [
             'contact_id' => $contact_id,
-            'code' => $alert_code,
+            'code' => $alarm_code,
             'sensor_id' => $sensor_type1name,
             'sensor_value' => $sensor_value,
             'rule_id' => $rule_id,
-            'api.HealthAlarmRule.create' => [
+            'api.HealthAlertRule.create' => [
                 'contact_id' => $contact_id,
                 'addressee_id' => $contact_id,
                 'rule_id' => "\$value.id",
-                'code' => $contact_id . "_" . $alert_code,
+                'code' => $contact_id . "_" . $alarm_code,
                 'title' =>
                     strtoupper($zone_name . ' ' . $sensor_type1name),
                 'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
@@ -325,21 +325,21 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
 //        CRM_Core_Error::debug_var('result1', $result);
         return $result;
     }
-    public function generateAlertRuleSensorName($zone_name, $contact_id, $sensor_name, $sensor_value, $rule_id = "gt")
+    public function generateAlarmRuleSensorName($zone_name, $contact_id, $sensor_name, $sensor_value, $rule_id = "gt")
     {
-        $alert_code = $contact_id . "_" . $zone_name . '_' . $sensor_name . rand(10000, 99999);
-//        CRM_Core_Error::debug_var('alert_code', $alert_code);
-        $result = civicrm_api3('HealthAlertRule', 'create', [
+        $alarm_code = $contact_id . "_" . $zone_name . '_' . $sensor_name . rand(10000, 99999);
+//        CRM_Core_Error::debug_var('alarm_code', $alarm_code);
+        $result = civicrm_api3('HealthAlarmRule', 'create', [
             'contact_id' => $contact_id,
-            'code' => $alert_code,
+            'code' => $alarm_code,
             'sensor_id' => $sensor_name,
             'sensor_value' => $sensor_value,
             'rule_id' => $rule_id,
-            'api.HealthAlarmRule.create' => [
+            'api.HealthAlertRule.create' => [
                 'contact_id' => $contact_id,
                 'addressee_id' => $contact_id,
                 'rule_id' => "\$value.id",
-                'code' => $contact_id . "_" . $alert_code,
+                'code' => $contact_id . "_" . $alarm_code,
                 'title' =>
                     strtoupper($zone_name . ' ' . $sensor_name),
                 'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],

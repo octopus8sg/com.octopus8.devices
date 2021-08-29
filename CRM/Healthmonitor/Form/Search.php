@@ -30,7 +30,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
 
 
         $this->formValues = $this->getSubmitValues();
-        $this->setTitle(E::ts('Search Health Monitoring'));
+        $this->setTitle(E::ts('Search Device Data'));
 
         $this->limit = CRM_Utils_Request::retrieveValue('crmRowCount', 'Positive', 50);
         $this->pageId = CRM_Utils_Request::retrieveValue('crmPID', 'Positive', 1);

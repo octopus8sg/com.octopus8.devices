@@ -8,7 +8,6 @@ use CRM_Healthmonitor_ExtensionUtil as E;
  * @see https://docs.civicrm.org/dev/en/latest/framework/quickform/
  */
 class CRM_Healthmonitor_Form_Alert extends CRM_Core_Form {
-
     protected $_id;
 
     protected $_alert;
@@ -84,26 +83,6 @@ class CRM_Healthmonitor_Form_Alert extends CRM_Core_Form {
                 TRUE, ['class' => 'huge crm-select2',
                     'data-option-edit-path' => 'civicrm/device/search']);
 
-            $healthMonitors = civicrm_api4('HealthMonitor', 'get', [
-                'select' => [
-                    'id',
-                    'contact_id',
-                    'sensor_id:label',
-                    'sensor_value',
-                    'date',
-                ]]);
-
-            foreach ($healthMonitors as $healthMonitor){
-                $datas[$healthMonitor['id']] = $healthMonitor['contact_id']
-                    . "_" . $healthMonitor['sensor_id:label']
-                    . "_" . $healthMonitor['sensor_value']
-                    . "_" . $healthMonitor['date'];
-            }
-            $this->add('select', 'health_monitor_id',
-                E::ts('Data'),
-                $datas,
-                TRUE, ['class' => 'huge crm-select2',
-                    'data-option-edit-path' => 'civicrm/healthmonitor/search']);
 
             $this->addButtons([
                 [
@@ -187,6 +166,5 @@ class CRM_Healthmonitor_Form_Alert extends CRM_Core_Form {
         }
         return $elementNames;
     }
-
 
 }

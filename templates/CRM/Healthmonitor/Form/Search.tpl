@@ -7,7 +7,7 @@
 
     <div class="crm-block crm-form-block crm-basic-criteria-form-block">
       <div class="crm-accordion-wrapper crm-expenses_search-accordion collapsed">
-        <div class="crm-accordion-header crm-master-accordion-header">{ts}Search Health Monitoring{/ts}</div><!-- /.crm-accordion-header -->
+        <div class="crm-accordion-header crm-master-accordion-header">{ts}Search Device Data{/ts}</div><!-- /.crm-accordion-header -->
         <div class="crm-accordion-body">
           <table class="form-layout">
             <tbody>

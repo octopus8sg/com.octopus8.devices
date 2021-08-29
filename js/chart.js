@@ -164,10 +164,10 @@ CRM.$(function ($) {
         newdata["sensor_id"] = $('#chart_sensor_id').val();
         newdata["contact_id"] = contact_id;
 
-        // alert(newdata["dateselect_from"] );
-        // alert(newdata["dateselect_to"] );
-        // alert(newdata["device_type_id"] );
-        // alert(newdata["sensor_id"] );
+        // alarm(newdata["dateselect_from"] );
+        // alarm(newdata["dateselect_to"] );
+        // alarm(newdata["device_type_id"] );
+        // alarm(newdata["sensor_id"] );
         ajax_chart(myChart, json_url, newdata);
     });
 
@@ -175,7 +175,7 @@ CRM.$(function ($) {
     // function to update our chart
     function ajax_chart(chart, url, data) {
         url = url.toString().replace(/&amp;/g, '&');
-        // alert('done4');
+        // alarm('done4');
 
         var data = data || {};
 
