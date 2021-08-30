@@ -447,6 +447,15 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     ));
     _healthmonitor_civix_navigationMenu($menu);
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
+        'label' => E::ts('Search Alerts'),
+        'name' => 'search_alert',
+        'url' => 'civicrm/alert/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _healthmonitor_civix_navigationMenu($menu);
+    _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Device Reports'),
         'name' => 'search_devices',
         'url' => 'civicrm/device/search',

@@ -160,4 +160,9 @@
     <page_callback>CRM_Healthmonitor_Page_AlertSearch::getAjax</page_callback>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/alert/searchajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch::getSearchAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
