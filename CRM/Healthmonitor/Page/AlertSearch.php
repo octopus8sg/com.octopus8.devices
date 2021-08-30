@@ -27,7 +27,7 @@ class CRM_Healthmonitor_Page_AlertSearch extends CRM_Core_Page
     public function run()
     {
         // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
-        CRM_Utils_System::setTitle(E::ts('AlertSearch'));
+        CRM_Utils_System::setTitle(E::ts('Search Alerts'));
 
         // Example: Assign a variable for use in a template
         $this->assign('currentTime', date('Y-m-d H:i:s'));
@@ -389,7 +389,7 @@ FROM civicrm_health_alert ha
         }
 
 
-        CRM_Core_Error::debug_var('searchalert_sql', $sql);
+//        CRM_Core_Error::debug_var('searchalert_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");

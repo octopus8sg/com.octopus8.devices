@@ -9,7 +9,7 @@ CRM.$(function ($) {
         var alert_tab = $('.selector-searchalert');
         var alert_table = alert_tab.DataTable();
         var alert_dtsettings = alert_table.settings().init();
-        alert(JSON.stringify(alert_dtsettings));
+        // alert(JSON.stringify(alert_dtsettings));
         alert_dtsettings.bFilter = true;
         //turn on search
 
@@ -33,7 +33,7 @@ CRM.$(function ($) {
                 "success": fnCallback
             });
         };
-        alert(JSON.stringify(alert_dtsettings));
+        // alert(JSON.stringify(alert_dtsettings));
         alert_table.destroy();
 
         var new_alert_table = alert_tab.DataTable(alert_dtsettings);
@@ -43,7 +43,7 @@ CRM.$(function ($) {
             // alert('Pinput');
             // alert(JSON.stringify(alert_table.settings().init()));
             new_alert_table.draw();
-            alert_table.draw();
+            // alert_table.draw();
         });
 
     });
