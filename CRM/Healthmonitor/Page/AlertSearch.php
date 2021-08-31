@@ -290,8 +290,8 @@ FROM civicrm_health_alert ha
             6 => 'email'
         ];
 
-        $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
-        $sortOrder = isset($_REQUEST['sSortDir_0']) ? CRM_Utils_Type::escape($_REQUEST['sSortDir_0'], 'String') : 'asc';
+        $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : 1;
+        $sortOrder = isset($_REQUEST['sSortDir_0']) ? CRM_Utils_Type::escape($_REQUEST['sSortDir_0'], 'String') : 'desc';
 
 //
         $sql = "SELECT SQL_CALC_FOUND_ROWS
@@ -345,7 +345,7 @@ FROM civicrm_health_alert ha
         $month_ago = strtotime("-1 month", time());
         $date_month_ago = date("Y-m-d H:i:s", $month_ago);
 
-        $today = strtotime("+1 day", time());
+        $today = strtotime("+7 day", time());
         $date_today = date("Y-m-d H:i:s", $today);
 
         if (isset($dateselect_from)) {
@@ -375,7 +375,7 @@ FROM civicrm_health_alert ha
         if ($sort !== NULL) {
             $sql .= " ORDER BY {$sort} {$sortOrder}";
         } else {
-            $sql = $sql . ' ORDER BY d.id ASC, t.id ASC';
+            $sql = $sql . ' ORDER BY d.date DESC';
         }
 
         if ($limit !== false) {

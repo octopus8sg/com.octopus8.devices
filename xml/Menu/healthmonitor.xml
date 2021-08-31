@@ -165,4 +165,10 @@
     <page_callback>CRM_Healthmonitor_Page_AlertSearch::getSearchAjax</page_callback>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/devices/dashboard</path>
+    <page_callback>CRM_Healthmonitor_Page_DashBoard</page_callback>
+    <title>DashBoard</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

@@ -15,8 +15,9 @@ CRM.$(function ($) {
 
         alert_dtsettings.sDom = '<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
         //turn of search field
-        alert_dtsettings.Buttons = ['copy'];
+        // alert_dtsettings.Buttons = ['copy'];
         alert_dtsettings.sAjaxSource = alert_sourceUrl;
+        alert_dtsettings.aaSorting = [];
         alert_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "alert_contact_id", "value": $('#alert_contact_id').val() });
             aoData.push({ "name": "alert_sensor_id", "value": $('#alert_sensor_id').val() });
