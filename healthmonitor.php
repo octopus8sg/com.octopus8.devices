@@ -458,7 +458,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Device Reports'),
         'name' => 'search_devices',
-        'url' => 'civicrm/device/search',
+        'url' => 'civicrm/devices/templates',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 2,

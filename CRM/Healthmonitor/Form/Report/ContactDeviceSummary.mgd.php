@@ -9,11 +9,12 @@ return [
     'entity' => 'ReportTemplate',
     'params' => [
       'version' => 3,
-      'label' => 'ContactDeviceSummary',
-      'description' => 'ContactDeviceSummary (com.octopus8.healthmonitor)',
+      'label' => 'Contact Device Summary',
+      'description' => 'Contact Device Summary (com.octopus8.healthmonitor)',
       'class_name' => 'CRM_Healthmonitor_Form_Report_ContactDeviceSummary',
       'report_url' => 'com.octopus8.healthmonitor/contactdevicesummary',
       'component' => '',
+      'grouping' => 'Devices',
     ],
   ],
 ];

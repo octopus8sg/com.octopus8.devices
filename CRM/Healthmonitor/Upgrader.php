@@ -355,6 +355,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         $sensor_type1id = $sensor_type['id'];
         $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
         $device_name = $contact_id . "_" . $device_type1name . '_' . rand(10000, 99999);
+        $device_name = preg_replace( '/[^a-z0-9 ]/i', '', $device_name);
 
         $device = civicrm_api3('Device', 'create', [
             'contact_id' => $contact_id,

@@ -10,7 +10,7 @@
     </tr>
 
         <tr>
-            <td align="right">{$sensorsCount}</td>
+            <td align="right"><a href = "{crmURL p='civicrm/admin/options/health_monitor_sensor'}">{$sensorsCount}</a></td>
             <td align="right">{$deviceUserCount}</td>
             <td align="right">{$deviceCount}</td>
             <td align="right">{$alarmRuleCount}</td>

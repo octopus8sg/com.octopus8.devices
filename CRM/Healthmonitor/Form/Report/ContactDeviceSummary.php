@@ -128,6 +128,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         ],
                     ],
                     'filters' => [
+                        'device_type_id' => [
+                            'title' => ts('Device Type'),
+                            'type' => CRM_Utils_Type::T_STRING,
+                            'operatorType' => CRM_Report_Form::OP_MULTISELECT,
+                            'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_Device", "device_type_id"),
+                        ],
                     ],
                     'grouping' => 'device-fields',
                 ],
@@ -143,6 +149,13 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         ],
                     ],
                     'filters' => [
+                        'sensor_id' => [
+                            'title' => ts('Data Sensor'),
+                            'type' => CRM_Utils_Type::T_STRING,
+                            'operatorType' => CRM_Report_Form::OP_MULTISELECT,
+                            'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id"),
+                        ],
+//                        $sensor_name = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id");
                     ],
                     'grouping' => 'device-fields',
                 ],
@@ -158,6 +171,13 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         ],
                     ],
                     'filters' => [
+                        'sensor_id' => [
+                            'title' => ts('Alarm Rule Sensor'),
+                            'type' => CRM_Utils_Type::T_STRING,
+                            'operatorType' => CRM_Report_Form::OP_MULTISELECT,
+                            'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id"),
+                        ],
+//                        $sensor_name = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id");
                     ],
                     'grouping' => 'device-fields',
                 ],
