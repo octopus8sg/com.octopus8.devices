@@ -129,11 +129,11 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         'no_display' => TRUE,
                         'required' => TRUE,
                     ],
-                    'device_id' => [
-                        'name' => 'id',
-                        'default' => TRUE,
-                        'no_display' => TRUE,
-                    ],
+//                    'device_id' => [
+//                        'name' => 'id',
+//                        'default' => TRUE,
+//                        'no_display' => TRUE,
+//                    ],
                     'name' => [
                         'title' => ts('Device Code'),
                         'default' => TRUE,
@@ -144,12 +144,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                     ],
                 ],
                 'filters' => [
-                    'device_type_id' => [
-                        'title' => ts('Device Type'),
-                        'type' => CRM_Utils_Type::T_STRING,
-                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_Device", "device_type_id"),
-                    ],
+//                    'device_type_id' => [
+//                        'title' => ts('Device Type'),
+//                        'type' => CRM_Utils_Type::T_STRING,
+//                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
+//                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_Device", "device_type_id"),
+//                    ],
                 ],
                 'grouping' => 'device-fields',
             ],
@@ -160,12 +160,11 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         'no_display' => TRUE,
                         'required' => TRUE,
                     ],
-                    'alarm_rule_id' => [
-                        'name' => 'id',
-                        'no_display' => TRUE,
-                        'required' => TRUE,
-                        'default' => TRUE,
-                    ],
+//                    'alarm_rule_id' => [
+//                        'name' => 'id',
+//                        'no_display' => TRUE,
+//                        'required' => TRUE,
+//                    ],
                     'alarm_rule_code' => [
                         'name' => 'code',
                         'title' => ts('Alarm Rule Code'),
@@ -188,13 +187,13 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                     ],
                 ],
                 'filters' => [
-                    'alarm_rule_sensor_id' => [
-                        'name' => 'sensor_id',
-                        'title' => ts('Alarm Rule Sensor'),
-                        'type' => CRM_Utils_Type::T_STRING,
-                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id"),
-                    ],
+//                    'alarm_rule_sensor_id' => [
+//                        'name' => 'sensor_id',
+//                        'title' => ts('Alarm Rule Sensor'),
+//                        'type' => CRM_Utils_Type::T_STRING,
+//                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
+//                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id"),
+//                    ],
 //                        $sensor_name = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id");
                 ],
                 'grouping' => 'device-fields',
@@ -206,12 +205,11 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                             'no_display' => TRUE,
                             'required' => TRUE,
                         ],
-                        'alert_rule_id' => [
-                            'name' => 'id',
-                            'no_display' => TRUE,
-                            'required' => TRUE,
-                            'default' => TRUE,
-                        ],
+//                        'alert_rule_id' => [
+//                            'name' => 'id',
+//                            'no_display' => TRUE,
+//                            'required' => TRUE,
+//                        ],
                         'alert_rule_code' => [
                             'name' => 'code',
                             'title' => ts('Alert Rule Code'),
@@ -414,7 +412,7 @@ HERESQL;
         if ($this->_aclWhere) {
             $this->_where .= " AND {$this->_aclWhere} ";
         }
-        CRM_Core_Error::debug_var('where', $this->_where);
+//        CRM_Core_Error::debug_var('where', $this->_where);
     }
 
     /**
@@ -519,10 +517,10 @@ HERESQL;
             $this->alterComponentDisplay($componentRows);
 
             //unset Conmponent id and contact id from display
-            CRM_Core_Error::debug_var('_columnHeadersComponent', $this->_columnHeadersComponent);
+//            CRM_Core_Error::debug_var('_columnHeadersComponent', $this->_columnHeadersComponent);
             foreach ($this->_columnHeadersComponent as $componentTitle => $headers) {
-//                CRM_Core_Error::debug_var('componentTitle', $componentTitle);
-//                CRM_Core_Error::debug_var('headers', $headers);
+                CRM_Core_Error::debug_var('componentTitle', $componentTitle);
+                CRM_Core_Error::debug_var('headers', $headers);
                 $id_header = 'civicrm_' . substr_replace($componentTitle, '', -11, 11) . '_' .
                     substr_replace($componentTitle, '', -11, 11) . '_id';
                 $contact_header = 'civicrm_' . substr_replace($componentTitle, '', -11, 11) .
@@ -596,25 +594,15 @@ HERESQL;
 
         $entryFound = FALSE;
         foreach ($componentRows as $contactID => $components) {
-        CRM_Core_Error::debug_var('components', $components);
+//        CRM_Core_Error::debug_var('components', $components);
             foreach ($components as $component => $rows) {
-                CRM_Core_Error::debug_var('component', $component);
+//                CRM_Core_Error::debug_var('component', $component);
 //                CRM_Core_Error::debug_var('row', $rows);
                 foreach ($rows as $rowNum => $row) {
-                    CRM_Core_Error::debug_var('rowNum', $rowNum);
-                    CRM_Core_Error::debug_var('row', $rows);
+//                    CRM_Core_Error::debug_var('rowNum', $rowNum);
+//                    CRM_Core_Error::debug_var('row', $rows);
 //        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
-//                    if ($component == 'contribution_civireport') {
-//                        if ($val = CRM_Utils_Array::value('civicrm_contribution_financial_type_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_contribution_financial_type_id'] = CRM_Contribute_PseudoConstant::financialType($val, FALSE);
-//                        }
-//
-//                        if ($val = CRM_Utils_Array::value('civicrm_contribution_contribution_status_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_contribution_contribution_status_id'] = CRM_Contribute_PseudoConstant::contributionStatus($val, 'label');
-//                        }
-//                        $entryFound = TRUE;
-//                    }
 //
                     if ($component == 'device_civireport') {
 
@@ -636,6 +624,41 @@ HERESQL;
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_sensor_id']
                                 = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id", $val);
                         }
+                    }
+                    if ($component == 'health_alert_rule_civireport') {
+
+                        if ($val = CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_rule_id', $row)) {
+                            CRM_Core_Error::debug_var('val', $val);
+                            $rule_sql = "SELECT civicrm_health_alarm_rule.code
+                           from civicrm_health_alarm_rule where civicrm_health_alarm_rule.id = {$val}";
+                            $rule_code = CRM_Core_DAO::singleValueQuery($rule_sql);
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_rule_id']
+                                = $rule_code;
+                        }
+                        if ($val = CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_addressee_id', $row)) {
+//                            CRM_Core_Error::debug_var('val', $val);
+                            $addressee = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                                    ['reset' => 1, 'cid' => $val]) . '">' .
+                                CRM_Contact_BAO_Contact::displayName($val) . '</a>';
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_addressee_id']
+                                = $addressee;
+                        }
+                        if (boolval(CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_civicrm', $row)) === True) {
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_civicrm']
+                                = '&#10004;';}else{
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_civicrm']
+                                = '';
+                        }
+                        if (boolval(CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_email', $row)) === True) {
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_email']
+                                = '&#10004;';}else{
+                                $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_email']
+                                    = '';
+                            }
+
+
+
+
                     }
 
                 }
