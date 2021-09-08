@@ -129,13 +129,13 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         'no_display' => TRUE,
                         'required' => TRUE,
                     ],
-                    'device' => [
+                    'device_id' => [
                         'name' => 'id',
-                        'title' => ts('Devices'),
+                        'title' => ts('Device ID'),
                         'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
                     ],
+                    'name' => ['title' => ts('Device Code')],
+                    'device_type_id' => ['title' => ts('Device Type')],
                 ],
                 'filters' => [
                     'device_type_id' => [
@@ -147,46 +147,42 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                 ],
                 'grouping' => 'device-fields',
             ],
-            'civicrm_health_monitor' => [
-                'dao' => 'CRM_Healthmonitor_DAO_HealthMonitor',
+            'civicrm_health_alarm_rule' => [
+                'dao' => 'CRM_Healthmonitor_DAO_HealthAlarmRule',
                 'fields' => [
                     'contact_id' => [
                         'no_display' => TRUE,
                         'required' => TRUE,
                     ],
-                    'data' => [
+                    'alarm_rule_id' => [
                         'name' => 'id',
-                        'title' => ts('Device Data'),
+                        'no_display' => TRUE,
+                        'required' => TRUE,
                         'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
                     ],
-                ],
-                'filters' => [
-                    'data_sensor_id' => [
+                    'alarm_rule_code' => [
+                        'name' => 'code',
+                        'title' => ts('Alarm Rule Code'),
+                        'default' => TRUE,
+                    ],
+                    'alarm_rule_sensor_id' => [
                         'name' => 'sensor_id',
-                        'title' => ts('Data Sensor'),
-                        'type' => CRM_Utils_Type::T_STRING,
-                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthMonitor", "sensor_id"),
-                    ],
-//                        $sensor_name = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id");
-                ],
-                'grouping' => 'device-fields',
-            ],
-            'civicrm_health_alarm_rule' => [
-                'dao' => 'CRM_Healthmonitor_DAO_HealthAlarmRule',
-                'fields' => [
-                    'alarm_rules' => [
-                        'name' => 'id',
-                        'title' => ts('Alarm Rules'),
+                        'title' => ts('Sensor'),
                         'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
+                    ],
+                    'alarm_rule_rule_id' => [
+                        'name' => 'rule_id',
+                        'title' => ts('Rule'),
+                        'default' => TRUE,
+                    ],
+                    'alarm_rule_sensor_value' => [
+                        'name' => 'sensor_value',
+                        'title' => ts('Sensor Value'),
+                        'default' => TRUE,
                     ],
                 ],
                 'filters' => [
-                    'rule_sensor_id' => [
+                    'alarm_rule_sensor_id' => [
                         'name' => 'sensor_id',
                         'title' => ts('Alarm Rule Sensor'),
                         'type' => CRM_Utils_Type::T_STRING,
@@ -197,281 +193,54 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                 ],
                 'grouping' => 'device-fields',
             ],
-            'civicrm_health_alarm' => [
-                'dao' => 'CRM_Healthmonitor_DAO_HealthAlarm',
-                'fields' => [
-                    'alarms' => [
-                        'name' => 'id',
-                        'title' => ts('Alarms'),
-//                            'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
-                    ],
-                ],
-                'filters' => [
-                ],
-                'grouping' => 'device-fields',
-            ],
             'civicrm_health_alert_rule' => [
                 'dao' => 'CRM_Healthmonitor_DAO_HealthAlertRule',
                 'fields' => [
-                    'alert_rules' => [
-                        'name' => 'id',
-                        'title' => ts('Alert Rules'),
-//                            'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
-                    ],
+                        'contact_id' => [
+                            'no_display' => TRUE,
+                            'required' => TRUE,
+                        ],
+                        'alert_rule_id' => [
+                            'name' => 'id',
+                            'no_display' => TRUE,
+                            'required' => TRUE,
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_code' => [
+                            'name' => 'code',
+                            'title' => ts('Alert Rule Code'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_title' => [
+                            'name' => 'title',
+                            'title' => ts('Title'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_addressee_id' => [
+                            'name' => 'addressee_id',
+                            'title' => ts('Addressee'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_rule_id' => [
+                            'name' => 'rule_id',
+                            'title' => ts('Rule'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_civicrm' => [
+                            'name' => 'civicrm',
+                            'title' => ts('Civicrm Note'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_email' => [
+                            'name' => 'email',
+                            'title' => ts('Email'),
+                            'default' => TRUE,
+                        ],
                 ],
                 'filters' => [
                 ],
                 'grouping' => 'device-fields',
             ],
-            'civicrm_health_alert' => [
-                'dao' => 'CRM_Healthmonitor_DAO_HealthAlert',
-                'fields' => [
-                    'alerts' => [
-                        'name' => 'id',
-                        'title' => ts('Alerts'),
-//                            'default' => TRUE,
-//                            'required' => TRUE,
-//                    'statistics' => TRUE,
-                    ],
-                ],
-                'filters' => [
-                ],
-                'grouping' => 'device-fields',
-            ],
-
-//      'civicrm_address' => [
-//        'dao' => 'CRM_Core_DAO_Address',
-//        'grouping' => 'contact-fields',
-//        'fields' => [
-//          'street_address' => NULL,
-//          'city' => NULL,
-//          'postal_code' => NULL,
-//          'state_province_id' => [
-//            'title' => ts('State/Province'),
-//          ],
-//        ],
-//        'order_bys' => [
-//          'street_address' => ['title' => ts('Street Address')],
-//          'state_province_id' => ['title' => ts('State/Province')],
-//          'city' => ['title' => ts('City')],
-//          'postal_code' => ['title' => ts('Postal Code')],
-//        ],
-//      ],
-//      'civicrm_country' => [
-//        'dao' => 'CRM_Core_DAO_Country',
-//        'fields' => [
-//          'name' => ['title' => ts('Country'), 'default' => TRUE],
-//        ],
-//        'order_bys' => [
-//          'name' => ['title' => ts('Country')],
-//        ],
-//        'grouping' => 'contact-fields',
-//      ],
-//      'civicrm_email' => [
-//        'dao' => 'CRM_Core_DAO_Email',
-//        'fields' => [
-//          'email' => [
-//            'title' => ts('Email'),
-//            'no_repeat' => TRUE,
-//          ],
-//        ],
-//        'grouping' => 'contact-fields',
-//        'order_bys' => [
-//          'email' => [
-//            'title' => ts('Email'),
-//          ],
-//        ],
-//      ],
-//      'civicrm_contribution' => [
-//        'dao' => 'CRM_Contribute_DAO_Contribution',
-//        'fields' => [
-//          'contact_id' => [
-//            'no_display' => TRUE,
-//            'required' => TRUE,
-//          ],
-//          'contribution_id' => [
-//            'title' => ts('Contribution'),
-//            'no_repeat' => TRUE,
-//            'default' => TRUE,
-//          ],
-//          'total_amount' => ['default' => TRUE],
-//          'financial_type_id' => [
-//            'title' => ts('Financial Type'),
-//            'default' => TRUE,
-//          ],
-//          'trxn_id' => NULL,
-//          'receive_date' => ['default' => TRUE],
-//          'receipt_date' => NULL,
-//          'contribution_status_id' => [
-//            'title' => ts('Contribution Status'),
-//            'default' => TRUE,
-//          ],
-//          'contribution_source' => NULL,
-//        ],
-//      ],
-//      'civicrm_membership' => [
-//        'dao' => 'CRM_Member_DAO_Membership',
-//        'fields' => [
-//          'contact_id' => [
-//            'no_display' => TRUE,
-//            'required' => TRUE,
-//          ],
-//          'membership_id' => [
-//            'title' => ts('Membership'),
-//            'no_repeat' => TRUE,
-//            'default' => TRUE,
-//          ],
-//          'membership_type_id' => [
-//            'title' => ts('Membership Type'),
-//            'default' => TRUE,
-//          ],
-//          'join_date' => [
-//            'title' => ts('Join Date'),
-//          ],
-//          'membership_start_date' => [
-//            'title' => ts('Start Date'),
-//            'default' => TRUE,
-//          ],
-//          'membership_end_date' => [
-//            'title' => ts('End Date'),
-//            'default' => TRUE,
-//          ],
-//          'membership_status_id' => [
-//            'name' => 'status_id',
-//            'title' => ts('Membership Status'),
-//            'default' => TRUE,
-//          ],
-//          'source' => ['title' => ts('Membership Source')],
-//        ],
-//      ],
-//      'civicrm_participant' => [
-//        'dao' => 'CRM_Event_DAO_Participant',
-//        'fields' => [
-//          'contact_id' => [
-//            'no_display' => TRUE,
-//            'required' => TRUE,
-//          ],
-//          'participant_id' => [
-//            'title' => ts('Participant'),
-//            'no_repeat' => TRUE,
-//            'default' => TRUE,
-//          ],
-//          'event_id' => ['default' => TRUE],
-//          'participant_status_id' => [
-//            'name' => 'status_id',
-//            'title' => ts('Participant Status'),
-//            'default' => TRUE,
-//          ],
-//          'role_id' => [
-//            'title' => ts('Role'),
-//            'default' => TRUE,
-//          ],
-//          'participant_register_date' => [
-//            'title' => ts('Register Date'),
-//            'default' => TRUE,
-//          ],
-//          'fee_level' => [
-//            'title' => ts('Fee Level'),
-//            'default' => TRUE,
-//          ],
-//          'fee_amount' => [
-//            'title' => ts('Fee Amount'),
-//            'default' => TRUE,
-//          ],
-//        ],
-//      ],
-//      'civicrm_relationship' => [
-//        'dao' => 'CRM_Contact_DAO_Relationship',
-//        'fields' => [
-//          'relationship_id' => [
-//            'name' => 'id',
-//            'title' => ts('Relationship'),
-//            'no_repeat' => TRUE,
-//            'default' => TRUE,
-//          ],
-//          'relationship_type_id' => [
-//            'title' => ts('Relationship Type'),
-//            'default' => TRUE,
-//          ],
-//          'contact_id_b' => [
-//            'title' => ts('Relationship With'),
-//            'default' => TRUE,
-//          ],
-//          'start_date' => [
-//            'title' => ts('Start Date'),
-//            'type' => CRM_Report_Form::OP_DATE,
-//          ],
-//          'end_date' => [
-//            'title' => ts('End Date'),
-//            'type' => CRM_Report_Form::OP_DATE,
-//          ],
-//        ],
-//      ],
-//      'civicrm_activity' => [
-//        'dao' => 'CRM_Activity_DAO_Activity',
-//        'fields' => [
-//          'id' => [
-//            'title' => ts('Activity'),
-//            'no_repeat' => TRUE,
-//            'default' => TRUE,
-//          ],
-//          'activity_type_id' => [
-//            'title' => ts('Activity Type'),
-//            'default' => TRUE,
-//          ],
-//          'subject' => [
-//            'title' => ts('Subject'),
-//            'default' => TRUE,
-//          ],
-//          'activity_date_time' => [
-//            'title' => ts('Activity Date'),
-//            'default' => TRUE,
-//          ],
-//          'activity_status_id' => [
-//            'name' => 'status_id',
-//            'title' => ts('Activity Status'),
-//            'default' => TRUE,
-//          ],
-//        ],
-//        'grouping' => 'activity-fields',
-//      ],
-//      'civicrm_activity_target' => [
-//        'dao' => 'CRM_Activity_DAO_ActivityContact',
-//        'fields' => [
-//          'target_contact_id' => [
-//            'title' => ts('With Contact'),
-//            'name' => 'contact_id',
-//            'default' => TRUE,
-//          ],
-//        ],
-//        'grouping' => 'activity-fields',
-//      ],
-//      'civicrm_activity_assignment' => [
-//        'dao' => 'CRM_Activity_DAO_ActivityContact',
-//        'fields' => [
-//          'assignee_contact_id' => [
-//            'title' => ts('Assigned to'),
-//            'name' => 'contact_id',
-//            'default' => TRUE,
-//          ],
-//        ],
-//        'grouping' => 'activity-fields',
-//      ],
-//      'civicrm_activity_source' => [
-//        'dao' => 'CRM_Activity_DAO_ActivityContact',
-//        'fields' => [
-//          'source_contact_id' => [
-//            'title' => ts('Added by'),
-//            'name' => 'contact_id',
-//            'default' => TRUE,
-//          ],
-//        ],
-//        'grouping' => 'activity-fields',
-//      ],
             'civicrm_phone' => [
                 'dao' => 'CRM_Core_DAO_Phone',
                 'fields' => [
@@ -501,17 +270,8 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
         $this->_columnHeaders = [];
         $this->_component = [
             $this->_aliases['civicrm_device'],
-            $this->_aliases['civicrm_health_monitor'],
             $this->_aliases['civicrm_health_alarm_rule'],
-            $this->_aliases['civicrm_health_alarm'],
             $this->_aliases['civicrm_health_alert_rule'],
-            $this->_aliases['civicrm_health_alert'],
-
-            //            'contribution_civireport',
-//            'membership_civireport',
-//            'participant_civireport',
-//            'relationship_civireport',
-//            'activity_civireport',
         ];
         foreach ($this->_columns as $tableName => $table) {
             if (array_key_exists('fields', $table)) {
@@ -588,17 +348,10 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
       FROM civicrm_contact {$this->_aliases['civicrm_contact']} {$this->_aclFrom}
     ";
 
-//    $this->joinAddressFromContact();
-//    $this->joinCountryFromAddress();
-//    $this->joinPhoneFromContact();
-//    $this->joinEmailFromContact();
         $civicrm_contact = $this->_aliases['civicrm_contact'];
         $civicrm_device = $this->_aliases['civicrm_device'];
-        $civicrm_health_monitor = $this->_aliases['civicrm_health_monitor'];
         $civicrm_health_alarm_rule = $this->_aliases['civicrm_health_alarm_rule'];
-        $civicrm_health_alarm = $this->_aliases['civicrm_health_alarm'];
         $civicrm_health_alert_rule = $this->_aliases['civicrm_health_alert_rule'];
-        $civicrm_health_alert = $this->_aliases['civicrm_health_alert'];
         // only include tables that are in from clause
         $componentTables = array_intersect($this->_aliases, $this->_component);
         $componentTables = array_flip($componentTables);
@@ -612,28 +365,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
           ON {$civicrm_contact}.id = {$civicrm_device}.contact_id
 HERESQL;
         }
-        if (!empty($this->_selectComponent[$civicrm_health_monitor])) {
-            $this->_formComponent[$civicrm_health_monitor] = <<<HERESQL
-        FROM
-        civicrm_contact {$civicrm_contact}
-        INNER JOIN civicrm_health_monitor {$civicrm_health_monitor}
-          ON {$civicrm_contact}.id = {$civicrm_health_monitor}.contact_id
-HERESQL;
-        }
         if (!empty($this->_selectComponent[$civicrm_health_alarm_rule])) {
             $this->_formComponent[$civicrm_health_alarm_rule] = <<<HERESQL
         FROM
         civicrm_contact {$civicrm_contact}
         INNER JOIN civicrm_health_alarm_rule {$civicrm_health_alarm_rule}
           ON {$civicrm_contact}.id = {$civicrm_health_alarm_rule}.contact_id
-HERESQL;
-        }
-        if (!empty($this->_selectComponent[$civicrm_health_alarm])) {
-            $this->_formComponent[$civicrm_health_alarm] = <<<HERESQL
-        FROM
-        civicrm_contact {$civicrm_contact}
-        INNER JOIN civicrm_health_alarm {$civicrm_health_alarm}
-          ON {$civicrm_contact}.id = {$civicrm_health_alarm}.contact_id
 HERESQL;
         }
         if (!empty($this->_selectComponent[$civicrm_health_alert_rule])) {
@@ -644,17 +381,9 @@ HERESQL;
           ON {$civicrm_contact}.id = {$civicrm_health_alert_rule}.contact_id
 HERESQL;
         }
-        if (!empty($this->_selectComponent[$civicrm_health_alert])) {
-            $this->_formComponent[$civicrm_health_alert] = <<<HERESQL
-        FROM
-        civicrm_contact {$civicrm_contact}
-        INNER JOIN civicrm_health_alert {$civicrm_health_alert}
-          ON {$civicrm_contact}.id = {$civicrm_health_alert}.contact_id
-HERESQL;
-        }
-        CRM_Core_Error::debug_var('_from', $this->_from);
-        CRM_Core_Error::debug_var('_selectComponent', $this->_selectComponent);
-        CRM_Core_Error::debug_var('_formComponent', $this->_formComponent);
+//        CRM_Core_Error::debug_var('_from', $this->_from);
+//        CRM_Core_Error::debug_var('_selectComponent', $this->_selectComponent);
+//        CRM_Core_Error::debug_var('_formComponent', $this->_formComponent);
     }
 
     public function where()
@@ -697,7 +426,7 @@ HERESQL;
         if ($this->_aclWhere) {
             $this->_where .= " AND {$this->_aclWhere} ";
         }
-        CRM_Core_Error::debug_var('where', $this->_where);
+//        CRM_Core_Error::debug_var('where', $this->_where);
     }
 
     /**
@@ -706,7 +435,6 @@ HERESQL;
     public function clauseComponent()
     {
         $selectedContacts = implode(',', $this->_contactSelected);
-        $contribution = $membership = $participant = NULL;
         $eligibleResult = $rows = $tempArray = [];
         foreach ($this->_component as $val) {
 //            CRM_Core_Error::debug_var('val', $val);
@@ -737,109 +465,6 @@ HERESQL;
 //                        CRM_Core_Error::debug_var('$row', $row);
                     }
                     $tempArray[$dao->$CC] = $dao->$CC;
-                }
-            }
-        }
-
-        if (!empty($this->_selectComponent['relationship_civireport'])) {
-
-            $relTypes = CRM_Contact_BAO_Relationship::getContactRelationshipType(NULL, NULL, NULL, NULL, TRUE);
-
-            $val = 'relationship_civireport';
-            $eligibleResult[$val] = $val;
-            $sql = <<<HERESQL
-      {$this->_selectComponent[$val]},{$this->_aliases['civicrm_contact']}.display_name as contact_b_name, contact_a.id as contact_a_id, contact_a.display_name as contact_a_name
-      {$this->_formComponent[$val]}
-      WHERE ({$this->_aliases['civicrm_contact']}.id IN ( $selectedContacts )
-          OR contact_a.id IN ( $selectedContacts ) )
-        AND {$this->_aliases['civicrm_relationship']}.is_active = 1
-        AND contact_a.is_deleted = 0
-        AND {$this->_aliases['civicrm_contact']}.is_deleted = 0
-HERESQL;
-
-            $dao = CRM_Core_DAO::executeQuery($sql);
-            while ($dao->fetch()) {
-                foreach ($this->_columnHeadersComponent[$val] as $key => $value) {
-                    if ($key == 'civicrm_relationship_contact_id_b') {
-                        $row[$key] = $dao->contact_b_name;
-                        continue;
-                    }
-
-                    $row[$key] = $dao->$key;
-                }
-
-                $relTitle = "" . $dao->civicrm_relationship_relationship_type_id .
-                    '_a_b';
-                $row['civicrm_relationship_relationship_type_id'] = $relTypes[$relTitle];
-
-                $rows[$dao->contact_a_id][$val][] = $row;
-
-                $row['civicrm_relationship_contact_id_b'] = $dao->contact_a_name;
-                $relTitle = "" . $dao->civicrm_relationship_relationship_type_id .
-                    '_b_a';
-                if (isset($relTypes[$relTitle])) {
-                    $row['civicrm_relationship_relationship_type_id'] = $relTypes[$relTitle];
-                }
-                $rows[$dao->civicrm_relationship_contact_id_b][$val][] = $row;
-            }
-        }
-
-        if (!empty($this->_selectComponent['activity_civireport'])) {
-            $val = 'activity_civireport';
-            $eligibleResult[$val] = $val;
-
-            // The activities we want to show are those where the contact is the
-            // target, assignee, source, or the client on a case.  Since the vast
-            // majority of activities will not involve the client, it's impractical to
-            // retrieve all activities and use OR clauses in the WHERE.  Instead, we
-            // use a union of subqueries for each of the four ways activities might
-            // join to the contact.
-            $unionParts = [];
-            foreach ($this->activityContactJoin as $activityContactJoinClauses) {
-                $fromClauses = str_replace(
-                    '[ACTIVITYCONTACTJOINSHERE]',
-                    str_replace('[FILTERCONTACTSHERE]', $selectedContacts, $activityContactJoinClauses),
-                    $this->_formComponent[$val]
-                );
-                $unionParts[] = <<<HERESQL
-        (
-          {$this->_selectComponent[$val]},
-          {$this->_aliases['civicrm_activity_source']}.display_name as added_by,
-          {$this->_aliases['civicrm_activity']}.activity_date_time as date_time_for_sort
-          $fromClauses
-
-          WHERE {$this->_aliases['civicrm_activity']}.is_test = 0
-        )
-HERESQL;
-            }
-
-            $sql = implode(' UNION ', $unionParts) . ' ORDER BY date_time_for_sort DESC';
-            $dao = CRM_Core_DAO::executeQuery($sql);
-            while ($dao->fetch()) {
-                foreach ($this->_columnHeadersComponent[$val] as $key => $value) {
-                    if ($key == 'civicrm_activity_source_contact_id') {
-                        $row[$key] = $dao->added_by;
-                        continue;
-                    }
-                    $row[$key] = $dao->$key;
-                }
-
-                if (isset($dao->civicrm_activity_source_contact_id)) {
-                    $rows[$dao->civicrm_activity_source_contact_id][$val][] = $row;
-                }
-                if (isset($dao->target_contact_id)) {
-                    $rows[$dao->target_contact_id][$val][] = $row;
-                }
-                if (isset($dao->assignee_contact_id)) {
-                    $rows[$dao->assignee_contact_id][$val][] = $row;
-                }
-            }
-
-            //unset the component header if data is not present
-            foreach ($this->_component as $val) {
-                if (!in_array($val, $eligibleResult)) {
-
-                    unset($this->_columnHeadersComponent[$val]);
                 }
             }
         }
@@ -980,13 +605,17 @@ HERESQL;
     public function alterComponentDisplay(&$componentRows)
     {
         // custom code to alter rows
-        $activityTypes = CRM_Core_PseudoConstant::activityType(TRUE, TRUE, FALSE, 'label', TRUE);
-        $activityStatus = CRM_Core_PseudoConstant::activityStatus();
 
         $entryFound = FALSE;
         foreach ($componentRows as $contactID => $components) {
+        CRM_Core_Error::debug_var('components', $components);
             foreach ($components as $component => $rows) {
+                CRM_Core_Error::debug_var('component', $component);
+                CRM_Core_Error::debug_var('row', $rows);
                 foreach ($rows as $rowNum => $row) {
+                    CRM_Core_Error::debug_var('rowNum', $rowNum);
+                    CRM_Core_Error::debug_var('row', $rows);
+//        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
 //                    if ($component == 'contribution_civireport') {
 //                        if ($val = CRM_Utils_Array::value('civicrm_contribution_financial_type_id', $row)) {
@@ -999,66 +628,22 @@ HERESQL;
 //                        $entryFound = TRUE;
 //                    }
 //
-//                    if ($component == 'membership_civireport') {
-//                        if ($val = CRM_Utils_Array::value('civicrm_membership_membership_type_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_membership_membership_type_id'] = CRM_Member_PseudoConstant::membershipType($val, FALSE);
-//                        }
-//
-//                        if ($val = CRM_Utils_Array::value('civicrm_membership_status_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_membership_status_id'] = CRM_Member_PseudoConstant::membershipStatus($val, FALSE);
-//                        }
-//                        $entryFound = TRUE;
-//                    }
-//
-//                    if ($component == 'participant_civireport') {
-//                        if ($val = CRM_Utils_Array::value('civicrm_participant_event_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_participant_event_id'] = CRM_Event_PseudoConstant::event($val, FALSE);
-//                            $url = CRM_Report_Utils_Report::getNextUrl('event/income',
-//                                'reset=1&force=1&id_op=in&id_value=' . $val,
-//                                $this->_absoluteUrl, $this->_id
-//                            );
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_participant_event_id_link'] = $url;
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_participant_event_id_hover'] = ts('View Event Income details for this Event.');
-//                            $entryFound = TRUE;
-//                        }
-//
-//                        if ($val = CRM_Utils_Array::value('civicrm_participant_participant_status_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_participant_participant_status_id'] = CRM_Event_PseudoConstant::participantStatus($val, FALSE);
-//                        }
-//                        if ($val = CRM_Utils_Array::value('civicrm_participant_role_id', $row)) {
-//                            $roles = explode(CRM_Core_DAO::VALUE_SEPARATOR, $val);
-//                            $value = [];
-//                            foreach ($roles as $role) {
-//                                $value[$role] = CRM_Event_PseudoConstant::participantRole($role, FALSE);
-//                            }
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_participant_role_id'] = implode(', ', $value);
-//                        }
-//
-//                        $entryFound = TRUE;
-//                    }
-//
-//                    if ($component == 'activity_civireport') {
-//                        if ($val = CRM_Utils_Array::value('civicrm_activity_activity_type_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_activity_activity_type_id'] = $activityTypes[$val];
-//                        }
-//                        if ($val = CRM_Utils_Array::value('civicrm_activity_activity_status_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_activity_activity_status_id'] = $activityStatus[$val];
-//                        }
-//
-//                        $entryFound = TRUE;
-//                    }
-//                    if ($component == 'membership_civireport') {
-//                        if ($val = CRM_Utils_Array::value('civicrm_membership_membership_status_id', $row)) {
-//                            $componentRows[$contactID][$component][$rowNum]['civicrm_membership_membership_status_id'] = CRM_Member_PseudoConstant::membershipStatus($val);
-//                        }
-//                        $entryFound = TRUE;
-//                    }
+                    if ($component == 'device_civireport') {
 
-                    // skip looking further in rows, if first row itself doesn't
-                    // have the column we need
-//                    if (!$entryFound) {
-//                        break;
-//                    }
+                        if ($val = CRM_Utils_Array::value('civicrm_device_device_type_id', $row)) {
+                            CRM_Core_Error::debug_var('val', $val);
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_device_device_type_id'] = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_Device", "device_type_id", $val);
+                        }
+                    }
+
+                    if ($component == 'health_alarm_rule_civireport') {
+
+                        if ($val = CRM_Utils_Array::value('civicrm_health_alarm_rule_alarm_rule_id', $row)) {
+                            CRM_Core_Error::debug_var('val', $val);
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_id'] = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "rule_id", $val);
+                        }
+                    }
+
                 }
             }
         }
