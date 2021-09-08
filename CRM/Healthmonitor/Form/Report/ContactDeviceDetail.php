@@ -519,8 +519,8 @@ HERESQL;
             //unset Conmponent id and contact id from display
 //            CRM_Core_Error::debug_var('_columnHeadersComponent', $this->_columnHeadersComponent);
             foreach ($this->_columnHeadersComponent as $componentTitle => $headers) {
-                CRM_Core_Error::debug_var('componentTitle', $componentTitle);
-                CRM_Core_Error::debug_var('headers', $headers);
+//                CRM_Core_Error::debug_var('componentTitle', $componentTitle);
+//                CRM_Core_Error::debug_var('headers', $headers);
                 $id_header = 'civicrm_' . substr_replace($componentTitle, '', -11, 11) . '_' .
                     substr_replace($componentTitle, '', -11, 11) . '_id';
                 $contact_header = 'civicrm_' . substr_replace($componentTitle, '', -11, 11) .
@@ -615,12 +615,12 @@ HERESQL;
                     if ($component == 'health_alarm_rule_civireport') {
 
                         if ($val = CRM_Utils_Array::value('civicrm_health_alarm_rule_alarm_rule_rule_id', $row)) {
-                            CRM_Core_Error::debug_var('val', $val);
+//                            CRM_Core_Error::debug_var('val', $val);
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_rule_id']
                                 = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "rule_id", $val);
                         }
                         if ($val = CRM_Utils_Array::value('civicrm_health_alarm_rule_alarm_rule_sensor_id', $row)) {
-                            CRM_Core_Error::debug_var('val', $val);
+//                            CRM_Core_Error::debug_var('val', $val);
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_sensor_id']
                                 = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id", $val);
                         }
@@ -628,7 +628,7 @@ HERESQL;
                     if ($component == 'health_alert_rule_civireport') {
 
                         if ($val = CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_rule_id', $row)) {
-                            CRM_Core_Error::debug_var('val', $val);
+//                            CRM_Core_Error::debug_var('val', $val);
                             $rule_sql = "SELECT civicrm_health_alarm_rule.code
                            from civicrm_health_alarm_rule where civicrm_health_alarm_rule.id = {$val}";
                             $rule_code = CRM_Core_DAO::singleValueQuery($rule_sql);
