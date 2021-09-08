@@ -91,31 +91,31 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         ),
                     ),
                 ),
-                'civicrm_email' => array(
-                    'dao' => 'CRM_Core_DAO_Email',
-                    'fields' => array(
-                        'email' => array(
-                            'title' => ts('Email'),
-                            'no_repeat' => TRUE,
-                        ),
-                    ),
-                    'grouping' => 'contact-fields',
-                    'order_bys' => array(
-                        'email' => array(
-                            'title' => ts('Email'),
-                        ),
-                    ),
-                ),
-                'civicrm_phone' => array(
-                    'dao' => 'CRM_Core_DAO_Phone',
-                    'fields' => array(
-                        'phone' => NULL,
-                        'phone_ext' => array(
-                            'title' => ts('Phone Extension'),
-                        ),
-                    ),
-                    'grouping' => 'contact-fields',
-                ),
+//                'civicrm_email' => array(
+//                    'dao' => 'CRM_Core_DAO_Email',
+//                    'fields' => array(
+//                        'email' => array(
+//                            'title' => ts('Email'),
+//                            'no_repeat' => TRUE,
+//                        ),
+//                    ),
+//                    'grouping' => 'contact-fields',
+//                    'order_bys' => array(
+//                        'email' => array(
+//                            'title' => ts('Email'),
+//                        ),
+//                    ),
+//                ),
+//                'civicrm_phone' => array(
+//                    'dao' => 'CRM_Core_DAO_Phone',
+//                    'fields' => array(
+//                        'phone' => NULL,
+//                        'phone_ext' => array(
+//                            'title' => ts('Phone Extension'),
+//                        ),
+//                    ),
+//                    'grouping' => 'contact-fields',
+//                ),
                 'civicrm_device' => [
                     'dao' => 'CRM_Healthmonitor_DAO_Device',
                     'fields' => [
@@ -228,7 +228,9 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                     ],
                     'grouping' => 'device-fields',
                 ],
-            ) + $this->getAddressColumns(array('group_bys' => FALSE));
+            )
+//            + $this->getAddressColumns(array('group_bys' => FALSE))
+        ;
 
         $this->_groupFilter = TRUE;
         $this->_tagFilter = TRUE;
@@ -355,10 +357,10 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                           )                          
         ";
 
-        $this->joinAddressFromContact();
-        $this->joinPhoneFromContact();
-        $this->joinEmailFromContact();
-        $this->joinCountryFromAddress();
+//        $this->joinAddressFromContact();
+//        $this->joinPhoneFromContact();
+//        $this->joinEmailFromContact();
+//        $this->joinCountryFromAddress();
     }
 
     public function groupBy()
