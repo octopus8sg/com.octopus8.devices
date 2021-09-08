@@ -599,8 +599,9 @@ HERESQL;
 //                CRM_Core_Error::debug_var('component', $component);
 //                CRM_Core_Error::debug_var('row', $rows);
                 foreach ($rows as $rowNum => $row) {
+//                    CRM_Core_Error::debug_var('rows', $rows);
 //                    CRM_Core_Error::debug_var('rowNum', $rowNum);
-//                    CRM_Core_Error::debug_var('row', $rows);
+//                    CRM_Core_Error::debug_var('row', $row);
 //        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
 //
@@ -645,15 +646,15 @@ HERESQL;
                         }
                         if (boolval(CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_civicrm', $row)) === True) {
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_civicrm']
-                                = '&#10004;';}else{
+                                = '+';}else{
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_civicrm']
-                                = '';
+                                = '-';
                         }
                         if (boolval(CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_email', $row)) === True) {
                             $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_email']
-                                = '&#10004;';}else{
+                                = '+';}else{
                                 $componentRows[$contactID][$component][$rowNum]['civicrm_health_alert_rule_alert_rule_email']
-                                    = '';
+                                    = '-';
                             }
 
 

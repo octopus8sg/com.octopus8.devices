@@ -440,7 +440,6 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                 $statistics['count']['amount'] = [
                     'value' => $dao->amount,
                     'title' => ts('Total Pledged'),
-                    'type' => CRM_Utils_Type::T_MONEY,
                 ];
                 $statistics['count']['count '] = [
                     'value' => $dao->count,
