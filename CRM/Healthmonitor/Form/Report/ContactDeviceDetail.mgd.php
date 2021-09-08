@@ -14,7 +14,7 @@ return [
             'class_name' => 'CRM_Healthmonitor_Form_Report_ContactDeviceDetail',
             'report_url' => 'com.octopus8.healthmonitor/contactdevicedetail',
             'component' => '',
-            'group' => 'Devices',
+            'grouping' => 'Devices',
         ],
     ],
 ];
