@@ -61,7 +61,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
     {
     //  common variables and js
 
-        CRM_Utils_System::setTitle(E::ts('HM Data Entries'));
+        CRM_Utils_System::setTitle(E::ts('Device Data'));
 //        $cId = CRM_Utils_Request::retrieve('cid');
 //        CRM_Core_Error::debug_var('cid', $cId);
 //        $contactId = CRM_Utils_Request::retrieve('cid', 'Positive', $this, TRUE);

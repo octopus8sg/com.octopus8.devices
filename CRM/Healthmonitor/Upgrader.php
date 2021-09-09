@@ -30,7 +30,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         $deviceTypeOptionGroupId = civicrm_api3('OptionGroup',
             'create',
             ['name' => 'health_monitor_device_type',
-                'title' => E::ts('HM Device Type')]);
+                'title' => E::ts('Device Type')]);
         $deviceTypeOptionGroupId = $deviceTypeOptionGroupId['id'];
 
         $device_type1 = civicrm_api3('OptionValue', 'create',
