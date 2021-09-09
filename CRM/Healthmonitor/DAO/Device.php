@@ -135,7 +135,7 @@ class CRM_Healthmonitor_DAO_Device extends CRM_Core_DAO {
           'name' => 'name',
           'type' => CRM_Utils_Type::T_STRING,
           'title' => E::ts('Name'),
-          'description' => E::ts('Unique Device Code'),
+          'description' => E::ts('Device Code'),
           'required' => TRUE,
           'maxlength' => 255,
           'size' => CRM_Utils_Type::HUGE,

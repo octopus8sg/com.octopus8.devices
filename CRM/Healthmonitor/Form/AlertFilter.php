@@ -27,7 +27,7 @@ class CRM_Healthmonitor_Form_HealthAlertFilter extends CRM_Core_Form
         // contact - for data and adressee filters
         $this->addEntityRef('alert_contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-        $this->addEntityRef('alert_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+        $this->addEntityRef('alert_addressee_id', E::ts('Alert Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
         $this->addDatePickerRange('alert_dateselect',
             'Select Date',

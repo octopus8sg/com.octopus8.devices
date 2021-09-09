@@ -155,6 +155,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
             ],
             'civicrm_health_alarm_rule' => [
                 'dao' => 'CRM_Healthmonitor_DAO_HealthAlarmRule',
+                'title' => ts('Alarm Rules'),
                 'fields' => [
                     'contact_id' => [
                         'no_display' => TRUE,
@@ -177,12 +178,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                     ],
                     'alarm_rule_sensor_id' => [
                         'name' => 'sensor_id',
-                        'title' => ts('Alarm Sensor'),
+                        'title' => ts('Sensor'),
                         'default' => TRUE,
                     ],
                     'alarm_rule_sensor_value' => [
                         'name' => 'sensor_value',
-                        'title' => ts('Sensor Value'),
+                        'title' => ts('Alarm Rule Value'),
                         'default' => TRUE,
                     ],
                 ],
@@ -212,7 +213,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
 //                        ],
                         'alert_rule_code' => [
                             'name' => 'code',
-                            'title' => ts('Alert Rule Code'),
+                            'title' => ts('Alert Rule Name'),
                             'default' => TRUE,
                         ],
                         'alert_rule_title' => [
@@ -222,7 +223,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         ],
                         'alert_rule_addressee_id' => [
                             'name' => 'addressee_id',
-                            'title' => ts('Alert Rule Contact'),
+                            'title' => ts('Alert Contact'),
                             'default' => TRUE,
                         ],
                         'alert_rule_rule_id' => [
@@ -232,12 +233,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         ],
                         'alert_rule_civicrm' => [
                             'name' => 'civicrm',
-                            'title' => ts('Send Civicrm Note'),
+                            'title' => ts('Civicrm Note'),
                             'default' => TRUE,
                         ],
                         'alert_rule_email' => [
                             'name' => 'email',
-                            'title' => ts('Send Email'),
+                            'title' => ts('Email'),
                             'default' => TRUE,
                         ],
                 ],
@@ -278,6 +279,8 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
             $this->_aliases['civicrm_health_alert_rule'],
         ];
         foreach ($this->_columns as $tableName => $table) {
+            CRM_Core_Error::debug_var('tablename', $tableName);
+            CRM_Core_Error::debug_var('table', $table);
             if (array_key_exists('fields', $table)) {
                 foreach ($table['fields'] as $fieldName => $field) {
                     if (!empty($field['required']) ||

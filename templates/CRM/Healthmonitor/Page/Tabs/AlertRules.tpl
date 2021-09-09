@@ -19,7 +19,7 @@
                         {ts}ID{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Unique Code{/ts}
+                        {ts}Code{/ts}
                     </th>
                     <th scope="col">
                         {ts}Title{/ts}
@@ -28,7 +28,7 @@
                         {ts}Sensor Name{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Addressee{/ts}
+                        {ts}Alert Contact{/ts}
                     </th>
                     <th scope="col">
                         {ts}CiviCRM{/ts}

@@ -94,7 +94,7 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
 
       $this->addEntityRef('alert_contact_id', E::ts('Device Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-      $this->addEntityRef('alert_rule_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+      $this->addEntityRef('alert_rule_addressee_id', E::ts('Alert Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
       $this->addEntityRef('alert_addressee_id', E::ts('Alert Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 

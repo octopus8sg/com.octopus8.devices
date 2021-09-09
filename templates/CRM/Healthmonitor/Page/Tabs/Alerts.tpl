@@ -16,7 +16,7 @@
                         {ts}Date{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Addressee{/ts}
+                        {ts}Alert Contact{/ts}
                     </th>
                     <th scope="col">
                         {ts}Device Data{/ts}

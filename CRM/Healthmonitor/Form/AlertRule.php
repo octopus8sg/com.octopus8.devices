@@ -84,9 +84,9 @@ class CRM_Healthmonitor_Form_AlertRule extends CRM_Core_Form
         if ($this->_action != CRM_Core_Action::DELETE) {
             $contact_id = $this->contact_id;
             if (!$contact_id) {
-                $this->addEntityRef('contact_id', E::ts('Device User'), [], TRUE);
+                $this->addEntityRef('contact_id', E::ts('Device Contact'), [], TRUE);
             }
-            $this->addEntityRef('addressee_id', E::ts('Addressee'), [], TRUE);
+            $this->addEntityRef('addressee_id', E::ts('Alert Contact'), [], TRUE);
             if (!$contact_id) {
                 $this->addEntityRef('rule_id', E::ts('Alarm Rule'), [
                     'entity' => 'HealthAlarmRule',

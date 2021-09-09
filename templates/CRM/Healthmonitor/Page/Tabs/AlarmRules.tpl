@@ -19,13 +19,13 @@
                         {ts}ID{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Unique Code{/ts}
+                        {ts}Code{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Sensor Name{/ts}
+                        {ts}Sensor{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Rule Name{/ts}
+                        {ts}Rule{/ts}
                     </th>
                     <th scope="col">
                         {ts}Sensor Value{/ts}
