@@ -40,11 +40,11 @@ class CRM_Healthmonitor_Form_HealthMonitor extends CRM_Core_Form
         $this->_id = CRM_Utils_Request::retrieve('id', 'Positive', $this, FALSE);
         $contact_id = CRM_Utils_Request::retrieve('cid', 'Positive', $this, FALSE);
         $this->contact_id = $contact_id;
-        CRM_Utils_System::setTitle('Add Device Data Value');
+        CRM_Utils_System::setTitle('Add Device Data');
         $session = CRM_Core_Session::singleton();
         $url = CRM_Utils_System::url('civicrm/healthmonitor/search', 'reset=1');
         if ($this->_id) {
-            CRM_Utils_System::setTitle('Edit Device Data Value');
+            CRM_Utils_System::setTitle('Edit Device Data');
             $entities = civicrm_api4('HealthMonitor', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
             $this->_healthmonitor = false;
             if (!empty($entities)) {
