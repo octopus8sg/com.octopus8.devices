@@ -273,9 +273,9 @@ class CRM_Healthmonitor_Form_Report_DeviceAlarmDetail extends CRM_Report_Form
         $entryFound = FALSE;
         $display_flag = $prev_cid = $cid = 0;
         foreach ($rows as $rowNum => $row) {
-            CRM_Core_Error::debug_var('rows', $rows);
-            CRM_Core_Error::debug_var('rowNum', $rowNum);
-            CRM_Core_Error::debug_var('row', $row);
+//            CRM_Core_Error::debug_var('rows', $rows);
+//            CRM_Core_Error::debug_var('rowNum', $rowNum);
+//            CRM_Core_Error::debug_var('row', $row);
 
             if (!empty($this->_noRepeats) && $this->_outputMode != 'csv') {
                 // don't repeat contact details if its same as the previous row

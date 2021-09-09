@@ -81,26 +81,32 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                 'no_field_disambiguation' => TRUE,
             ]),
             [
-                'civicrm_email' => [
-                    'dao' => 'CRM_Core_DAO_Email',
+                'civicrm_health_alert_rule' => [
+                    'dao' => 'CRM_Healthmonitor_DAO_HealthAlertRule',
                     'fields' => [
-                        'email' => [
-                            'title' => ts('Contact Email'),
+//                        'contact_id' => [
+//                            'no_display' => TRUE,
+//                            'required' => TRUE,
+//                        ],
+                        'alert_rule_id' => [
+                            'name' => 'id',
+                            'no_display' => TRUE,
+                            'required' => TRUE,
+                        ],
+                        'alert_rule_title' => [
+                            'name' => 'title',
+                            'title' => ts('Alert Rule'),
+                            'default' => TRUE,
+                        ],
+                        'alert_rule_addressee_id' => [
+                            'name' => 'addressee_id',
+                            'title' => ts('Alert Contact'),
                             'default' => TRUE,
                         ],
                     ],
-                    'grouping' => 'contact-fields',
-                ],
-                'civicrm_phone' => [
-                    'dao' => 'CRM_Core_DAO_Phone',
-                    'fields' => [
-                        'phone' => [
-                            'title' => ts('Contact Phone'),
-                            'default' => TRUE,
-                            'no_repeat' => TRUE,
-                        ],
+                    'filters' => [
                     ],
-                    'grouping' => 'contact-fields',
+                    'grouping' => 'alert-fields',
                 ],
                 'civicrm_health_alert' => [
                     'dao' => 'CRM_Healthmonitor_DAO_HealthAlert',
@@ -110,30 +116,20 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                             'no_display' => TRUE,
                             'required' => TRUE,
                         ],
-                        'health_alert_rule_id' => [
-                            'name' => 'alarm_rule_id',
-                            'title' => ts('Alarm Rule'),
-                            'required' => TRUE,
+                        'civicrm' => ['type' => CRM_Utils_Type::T_INT,
+                            'title' => ts('CiviCRM'),
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
-                        'health_alert_civicrm' => [
-                            'name' => 'civicrm',
-                            'type' => CRM_Utils_Type::T_INT,
-                            'title' => ts('Note sent time'),
-                            'required' => TRUE,
-                            'default' => TRUE,
-                        ],
-                        'health_alert_civicrm' => [
-                            'name' => 'email',
-                            'type' => CRM_Utils_Type::T_INT,
-                            'title' => ts('Email sent time'),
-                            'required' => TRUE,
+                        'email' => ['type' => CRM_Utils_Type::T_INT,
+                            'title' => ts('Email'),
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
                     ],
-                    'grouping' => 'contact-fields',
+                    'grouping' => 'alert-fields',
                 ],
-                  'civicrm_health_alarm' => [
+                'civicrm_health_alarm' => [
                     'dao' => 'CRM_Healthmonitor_DAO_HealthAlarm',
                     'fields' => [
                         'health_alarm_id' => [
@@ -144,11 +140,11 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                         'health_alarm_rule_id' => [
                             'name' => 'alarm_rule_id',
                             'title' => ts('Alarm Rule'),
-                            'required' => TRUE,
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
                     ],
-                    'grouping' => 'contact-fields',
+                    'grouping' => 'alarm-fields',
                 ],
                 'civicrm_health_monitor' => [
                     'dao' => 'CRM_Healthmonitor_DAO_HealthMonitor',
@@ -159,17 +155,18 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                             'required' => TRUE,
                         ],
                         'date' => ['type' => CRM_Utils_Type::T_INT,
-                            'required' => TRUE,
+                            'title' => ts('Sensor Date'),
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
                         'sensor_id' => [
                             'title' => ts('Sensor'),
-                            'required' => TRUE,
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
                         'sensor_value' => [
                             'title' => ts('Sensor Value'),
-                            'required' => TRUE,
+//                            'required' => TRUE,
                             'default' => TRUE,
                         ],
                     ],
@@ -183,7 +180,7 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                     ],
                     'group_bys' => [
                     ],
-                    'grouping' => 'contact-fields',
+                    'grouping' => 'alarm-fields',
                 ],
             ]
 //      $this->getColumns('Address')
@@ -233,6 +230,9 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
       INNER JOIN civicrm_health_alert {$this->_aliases['civicrm_health_alert']}
         ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_health_alert']}.contact_id
         AND {$this->_aliases['civicrm_health_alarm']}.id = {$this->_aliases['civicrm_health_alert']}.health_alarm_id
+      INNER JOIN civicrm_health_alert_rule {$this->_aliases['civicrm_health_alert_rule']}
+        ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_health_alert_rule']}.contact_id
+        AND {$this->_aliases['civicrm_health_alert_rule']}.id = {$this->_aliases['civicrm_health_alert']}.alert_rule_id
 
 
         ";
@@ -309,9 +309,9 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
         $entryFound = FALSE;
         $display_flag = $prev_cid = $cid = 0;
         foreach ($rows as $rowNum => $row) {
-            CRM_Core_Error::debug_var('rows', $rows);
-            CRM_Core_Error::debug_var('rowNum', $rowNum);
-            CRM_Core_Error::debug_var('row', $row);
+//            CRM_Core_Error::debug_var('rows', $rows);
+//            CRM_Core_Error::debug_var('rowNum', $rowNum);
+//            CRM_Core_Error::debug_var('row', $row);
 
             if (!empty($this->_noRepeats) && $this->_outputMode != 'csv') {
                 // don't repeat contact details if its same as the previous row
@@ -355,6 +355,14 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                 );
                 $rows[$rowNum]['civicrm_contact_sort_name_link'] = $url;
                 $rows[$rowNum]['civicrm_contact_sort_name_hover'] = ts("View Contact Summary for this Contact.");
+            }
+            if ($val = CRM_Utils_Array::value('civicrm_health_alert_rule_alert_rule_addressee_id', $row)) {
+//                            CRM_Core_Error::debug_var('val', $val);
+                $addressee = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $val]) . '">' .
+                    CRM_Contact_BAO_Contact::displayName($val) . '</a>';
+                $rows[$rowNum]['civicrm_health_alert_rule_alert_rule_addressee_id']
+                    = $addressee;
             }
 
             if ($val = CRM_Utils_Array::value('civicrm_health_monitor_sensor_id', $row)) {

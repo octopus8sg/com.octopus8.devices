@@ -392,10 +392,10 @@ function healthmonitor_civicrm_themes(&$themes)
 function healthmonitor_civicrm_navigationMenu(&$menu)
 {
     _healthmonitor_civix_insert_navigation_menu($menu, '', array(
-        'label' => E::ts('Devices'),
+        'label' => E::ts('Device Data'),
         'name' => 'health_monitor',
         'icon' => 'crm-i fa-heartbeat',
-        'url' => 'civicrm/healthmonitor/search',
+        'url' => 'civicrm/devices/data',
         'permission' => 'access CiviCRM',
         'navID' => 10,
         'operator' => 'OR',
@@ -413,7 +413,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Find Devices'),
         'name' => 'search_devices',
-        'url' => 'civicrm/device/search',
+        'url' => 'civicrm/devices/search',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
@@ -422,7 +422,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Add Device'),
         'name' => 'add_device',
-        'url' => 'civicrm/device/form?reset=1&action=add',
+        'url' => 'civicrm/devices/form?reset=1&action=add',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
@@ -431,7 +431,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Find Data'),
         'name' => 'search_health_monitor',
-        'url' => 'civicrm/healthmonitor/search',
+        'url' => 'civicrm/devices/data/search',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
@@ -440,7 +440,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
     _healthmonitor_civix_insert_navigation_menu($menu, 'health_monitor', array(
         'label' => E::ts('Add Data'),
         'name' => 'search_health_monitor',
-        'url' => 'civicrm/healthmonitor/form?reset=1&action=add',
+        'url' => 'civicrm/devices/data/form?reset=1&action=add',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,

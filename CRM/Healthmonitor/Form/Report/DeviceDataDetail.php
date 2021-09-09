@@ -116,7 +116,7 @@ class CRM_Healthmonitor_Form_Report_DeviceDataDetail extends CRM_Report_Form
                         'date' => ['type' => CRM_Utils_Type::T_INT,
 //                            'required' => TRUE,
                             'default' => TRUE,
-                            ],
+                        ],
                         'device_id' => [
                             'title' => ts('Device'),
 //                            'required' => TRUE,
@@ -141,7 +141,7 @@ class CRM_Healthmonitor_Form_Report_DeviceDataDetail extends CRM_Report_Form
                         'sensor_id' => ['title' => ts('Sensor')],
                         'device_id' => ['title' => ts('Device')],
                     ],
-                  'group_bys' => [
+                    'group_bys' => [
 //                    'health_monitor_id' => [
 //                      'name' => 'id',
 //                      'required' => TRUE,
@@ -154,8 +154,8 @@ class CRM_Healthmonitor_Form_Report_DeviceDataDetail extends CRM_Report_Form
 //                      'default' => TRUE,
 //                      'title' => ts('Date'),
 //                    ],
-                  ],
-                  'grouping' => 'contact-fields',
+                    ],
+                    'grouping' => 'contact-fields',
                 ],
 //        'civicrm_contribution' => [
 //          'dao' => 'CRM_Contribute_DAO_Contribution',
@@ -491,14 +491,15 @@ class CRM_Healthmonitor_Form_Report_DeviceDataDetail extends CRM_Report_Form
      * This is called by the api / unit tests and the form layer and is
      * the right place to do 'initial analysis of input'.
      */
-  public function beginPostProcessCommon() {
+    public function beginPostProcessCommon()
+    {
 
-    // 1. use main contribution query to build temp table 1
-      $sql = $this->buildQuery();
-      $this->createTemporaryTable('civireport_contribution_detail_temp1', $sql);
-      $this->limit();
-      $this->setPager();
-  }
+        // 1. use main contribution query to build temp table 1
+        $sql = $this->buildQuery();
+        $this->createTemporaryTable('civireport_contribution_detail_temp1', $sql);
+        $this->limit();
+        $this->setPager();
+    }
 
     /**
      * Store group bys into array - so we can check elsewhere what is grouped.

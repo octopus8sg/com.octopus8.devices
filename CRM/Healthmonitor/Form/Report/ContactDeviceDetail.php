@@ -202,15 +202,15 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
             'civicrm_health_alert_rule' => [
                 'dao' => 'CRM_Healthmonitor_DAO_HealthAlertRule',
                 'fields' => [
-                        'contact_id' => [
-                            'no_display' => TRUE,
-                            'required' => TRUE,
-                        ],
-//                        'alert_rule_id' => [
-//                            'name' => 'id',
+//                        'contact_id' => [
 //                            'no_display' => TRUE,
 //                            'required' => TRUE,
 //                        ],
+                        'alert_rule_id' => [
+                            'name' => 'id',
+                            'no_display' => TRUE,
+                            'required' => TRUE,
+                        ],
                         'alert_rule_code' => [
                             'name' => 'code',
                             'title' => ts('Alert Rule Name'),
@@ -279,8 +279,8 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
             $this->_aliases['civicrm_health_alert_rule'],
         ];
         foreach ($this->_columns as $tableName => $table) {
-            CRM_Core_Error::debug_var('tablename', $tableName);
-            CRM_Core_Error::debug_var('table', $table);
+//            CRM_Core_Error::debug_var('tablename', $tableName);
+//            CRM_Core_Error::debug_var('table', $table);
             if (array_key_exists('fields', $table)) {
                 foreach ($table['fields'] as $fieldName => $field) {
                     if (!empty($field['required']) ||

@@ -2,13 +2,25 @@
 <menu>
   <item>
     <path>civicrm/devices/form</path>
+    <page_callback>CRM_Healthmonitor_Form_Device</page_callback>
+    <title>Device</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/search</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceSearch</page_callback>
+    <title>DeviceSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/data/form</path>
     <page_callback>CRM_Healthmonitor_Form_HealthMonitor</page_callback>
     <title>HealthMonitor</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/devices/search</path>
-    <page_callback>devices</page_callback>
+    <path>civicrm/devices/data/search</path>
+    <page_callback>CRM_Healthmonitor_Form_Search</page_callback>
     <title>Search</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
@@ -16,18 +28,6 @@
     <path>civicrm/devices/contacttab</path>
     <page_callback>CRM_Healthmonitor_Page_ContactTab</page_callback>
     <title>ContactTab</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/device/form</path>
-    <page_callback>CRM_Healthmonitor_Form_Device</page_callback>
-    <title>Device</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/device/search</path>
-    <page_callback>CRM_Healthmonitor_Form_DeviceSearch</page_callback>
-    <title>DeviceSearch</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>

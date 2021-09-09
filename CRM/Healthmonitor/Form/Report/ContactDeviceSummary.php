@@ -91,31 +91,6 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         ),
                     ),
                 ),
-//                'civicrm_email' => array(
-//                    'dao' => 'CRM_Core_DAO_Email',
-//                    'fields' => array(
-//                        'email' => array(
-//                            'title' => ts('Email'),
-//                            'no_repeat' => TRUE,
-//                        ),
-//                    ),
-//                    'grouping' => 'contact-fields',
-//                    'order_bys' => array(
-//                        'email' => array(
-//                            'title' => ts('Email'),
-//                        ),
-//                    ),
-//                ),
-//                'civicrm_phone' => array(
-//                    'dao' => 'CRM_Core_DAO_Phone',
-//                    'fields' => array(
-//                        'phone' => NULL,
-//                        'phone_ext' => array(
-//                            'title' => ts('Phone Extension'),
-//                        ),
-//                    ),
-//                    'grouping' => 'contact-fields',
-//                ),
                 'civicrm_device' => [
                     'dao' => 'CRM_Healthmonitor_DAO_Device',
                     'fields' => [
@@ -166,7 +141,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         'alarm_rules' => [
                             'name' => 'id',
                             'title' => ts('Alarm Rules'),
-//                            'default' => TRUE,
+                            'default' => TRUE,
 //                            'required' => TRUE,
                             'statistics' => TRUE,
                         ],
@@ -189,7 +164,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         'alarms' => [
                             'name' => 'id',
                             'title' => ts('Alarms'),
-//                            'default' => TRUE,
+                            'default' => TRUE,
 //                            'required' => TRUE,
                             'statistics' => TRUE,
                         ],
@@ -204,7 +179,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         'alert_rules' => [
                             'name' => 'id',
                             'title' => ts('Alert Rules'),
-//                            'default' => TRUE,
+                            'default' => TRUE,
 //                            'required' => TRUE,
                             'statistics' => TRUE,
                         ],
@@ -219,7 +194,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                         'alerts' => [
                             'name' => 'id',
                             'title' => ts('Alerts'),
-//                            'default' => TRUE,
+                            'default' => TRUE,
 //                            'required' => TRUE,
                             'statistics' => TRUE,
                         ],
@@ -229,7 +204,6 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                     'grouping' => 'device-fields',
                 ],
             )
-//            + $this->getAddressColumns(array('group_bys' => FALSE))
         ;
 
         $this->_groupFilter = TRUE;
@@ -297,7 +271,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
 
         $this->_selectClauses = $select;
         $this->_select = "SELECT " . implode(', ', $select) . " ";
-        CRM_Core_Error::debug_var('select', $this->_select);
+//        CRM_Core_Error::debug_var('select', $this->_select);
 
 //        print_r($this->_select);
     }
@@ -459,7 +433,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
     {
         $this->beginPostProcess();
         $sql = $this->buildQuery(TRUE);
-        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('sql', $sql);
         $rows = [];
         $this->buildRows($sql, $rows);
         $this->formatDisplay($rows);
