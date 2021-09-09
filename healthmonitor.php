@@ -475,7 +475,7 @@ function healthmonitor_civicrm_tabset($path, &$tabs, $context)
     if ($path === 'civicrm/contact/view') {
         // add a tab to the contact summary screen
         $contactId = $context['contact_id'];
-        $url = CRM_Utils_System::url('civicrm/healthmonitor/contacttab', ['cid' => $contactId]);
+        $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
 
         $myEntities = \Civi\Api4\Device::get()
             ->selectRowCount()
