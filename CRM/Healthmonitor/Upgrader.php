@@ -61,7 +61,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
         $sensorOptionGroupId = civicrm_api3('OptionGroup',
             'create',
             ['name' => 'health_monitor_sensor',
-                'title' => E::ts('HM Sensor')]);
+                'title' => E::ts('Device Sensor')]);
         $sensorOptionGroupId = $sensorOptionGroupId['id'];
 
         $sensor_type1 = civicrm_api3('OptionValue', 'create',
