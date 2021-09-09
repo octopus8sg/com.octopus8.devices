@@ -229,7 +229,7 @@ class CRM_Healthmonitor_DAO_HealthMonitor extends CRM_Core_DAO {
         ],
         'sensor_value' => [
           'name' => 'sensor_value',
-//          'type' => CRM_Utils_Type::T_MONEY,
+          'type' => CRM_Utils_Type::T_FLOAT,
           'title' => E::ts('Sensor Value'),
           'description' => E::ts('Sensor Value'),
           'required' => TRUE,

@@ -448,7 +448,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceSummary extends CRM_Report_Form
                 $statistics['count']['avg   '] = [
                     'value' => $dao->avg,
                     'title' => ts('Average'),
-                    'type' => CRM_Utils_Type::T_MONEY,
+                    'type' => CRM_Utils_Type::T_INT,
                 ];
             }
         }
