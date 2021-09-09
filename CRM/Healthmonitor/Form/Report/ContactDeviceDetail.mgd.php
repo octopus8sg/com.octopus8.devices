@@ -10,9 +10,9 @@ return [
         'params' => [
             'version' => 3,
             'label' => 'Contact Device Detail',
-            'description' => 'Contact Device Detail (com.octopus8.healthmonitor)',
+            'description' => 'Contact Device Detail (com.octopus8.devices)',
             'class_name' => 'CRM_Healthmonitor_Form_Report_ContactDeviceDetail',
-            'report_url' => 'com.octopus8.healthmonitor/contactdevicedetail',
+            'report_url' => 'com.octopus8.devices/contactdevicedetail',
             'component' => '',
             'grouping' => 'Devices',
         ],

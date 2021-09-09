@@ -1,4 +1,4 @@
-{crmScope extensionKey='healthmonitor'}
+{crmScope extensionKey='devices'}
         <div class="healthmonitoring-devices-tab view-content">
 {*            <div class="action-link">*}
 {*                <a class="button" target="_blank" href="{crmURL p="civicrm/device/makedata" q="cid=$contactId"}">*}

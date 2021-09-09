@@ -1,4 +1,4 @@
-{crmScope extensionKey='healthmonitor'}
+{crmScope extensionKey='devices'}
   <div class="crm-content-block">
 
     <div class="crm-block crm-form-block crm-basic-criteria-form-block">
@@ -51,7 +51,7 @@
               {ts}ID{/ts}
             </th>
             <th scope="col">
-              {ts}Device Unique Code{/ts}
+              {ts}Device Code{/ts}
             </th>
             <th scope="col">
               {ts}Device Type{/ts}

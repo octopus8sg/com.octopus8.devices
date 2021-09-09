@@ -10,9 +10,9 @@ return [
         'params' => [
             'version' => 3,
             'label' => 'Device Alarm Details',
-            'description' => 'Device Alarm Details (com.octopus8.healthmonitor)',
+            'description' => 'Device Alarm Details (com.octopus8.devices)',
             'class_name' => 'CRM_Healthmonitor_Form_Report_DeviceAlarmDetail',
-            'report_url' => 'com.octopus8.healthmonitor/devicealarmdetail',
+            'report_url' => 'com.octopus8.devices/devicealarmdetail',
             'component' => '',
             'grouping' => 'Devices',
         ],

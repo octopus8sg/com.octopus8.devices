@@ -31,4 +31,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.healthmonitor file=js/devices.js}
+{crmScript ext=com.octopus8.devices file=js/devices.js}

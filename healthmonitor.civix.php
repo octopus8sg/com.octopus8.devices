@@ -7,8 +7,8 @@
  * extension.
  */
 class CRM_Healthmonitor_ExtensionUtil {
-  const SHORT_NAME = 'healthmonitor';
-  const LONG_NAME = 'com.octopus8.healthmonitor';
+  const SHORT_NAME = 'devices';
+  const LONG_NAME = 'com.octopus8.devices';
   const CLASS_PREFIX = 'CRM_Healthmonitor';
 
   /**

@@ -7,7 +7,7 @@ class CRM_Healthmonitor_Page_Tab extends CRM_Core_Page
     public function browse()
     {
         $this->assign('admin', FALSE);
-        $this->assign('context', 'healthmonitor');
+        $this->assign('context', 'devices');
 
         // also create the form element for the activity filter box
         $controller = new CRM_Core_Controller_Simple(

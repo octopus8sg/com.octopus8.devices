@@ -1,4 +1,4 @@
-{crmScope extensionKey='healthmonitor'}
+{crmScope extensionKey='devices'}
 
 {if $action eq 8}
   {* Are you sure to delete form *}

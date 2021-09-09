@@ -103,7 +103,7 @@ class CRM_Healthmonitor_Form_Alarm extends CRM_Core_Form {
                 E::ts('Data'),
                 $datas,
                 TRUE, ['class' => 'huge crm-select2',
-                    'data-option-edit-path' => 'civicrm/healthmonitor/search']);
+                    'data-option-edit-path' => 'civicrm/devices/search']);
 
             $this->addButtons([
                 [

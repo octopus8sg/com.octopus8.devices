@@ -16,10 +16,10 @@
                         {ts}Date{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Contact{/ts}
+                        {ts}Device Contact{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Addressee{/ts}
+                        {ts}Alert Contact{/ts}
                     </th>
                     <th scope="col">
                         {ts}Device Data{/ts}
@@ -37,4 +37,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.healthmonitor file=js/searchalert.js}
+{crmScript ext=com.octopus8.devices file=js/searchalert.js}

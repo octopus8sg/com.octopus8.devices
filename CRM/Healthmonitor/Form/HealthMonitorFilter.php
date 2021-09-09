@@ -92,11 +92,11 @@ class CRM_Healthmonitor_Form_HealthMonitorFilter extends CRM_Core_Form {
       // contact - for data and adressee filters
       $this->addEntityRef('data_contact_id', E::ts('Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-      $this->addEntityRef('alert_contact_id', E::ts('Device Owner'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+      $this->addEntityRef('alert_contact_id', E::ts('Device Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
       $this->addEntityRef('alert_rule_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
-      $this->addEntityRef('alert_addressee_id', E::ts('Addressee'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
+      $this->addEntityRef('alert_addressee_id', E::ts('Alert Contact'), ['create' => false, 'multiple' => true], false, array('class' => 'huge'));
 
 
       $this->addEntityRef('data_device_id', E::ts('Device'), [

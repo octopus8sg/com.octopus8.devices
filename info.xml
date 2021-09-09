@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<extension key="com.octopus8.healthmonitor" type="module">
+<extension key="com.octopus8.devices" type="module">
   <file>healthmonitor</file>
   <name>Device Data</name>
   <description>Device Data</description>
@@ -9,9 +9,9 @@
     <email>Octopus8</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://Octopus8.com.sg</url>
-    <url desc="Documentation">http://Octopus8.com.sg</url>
-    <url desc="Support">http://Octopus8.com.sg</url>
+    <url desc="Main Extension Page">https://octopus8.com</url>
+    <url desc="Documentation">https://octopus8.com</url>
+    <url desc="Support">https://octopus8.com</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2021-08-19</releaseDate>

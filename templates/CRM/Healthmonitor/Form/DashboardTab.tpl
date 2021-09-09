@@ -1,4 +1,4 @@
-{crmScope extensionKey='healthmonitor'}
+{crmScope extensionKey='devices'}
   {*{debug}*}
 {* Include links to enter HM Data if session has 'edit' permission *}
 {if $action EQ 16 and $permission EQ 'edit' and !$addAssigneeContact and !$addTargetContact}

@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a target="_blank" class="button add-data" href="{crmURL p="civicrm/healthmonitor/form" q="reset=1&action=add" }&cid={$contactId}">
+        <a target="_blank" class="button add-data" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Device Data{/ts}
         </a>
@@ -41,4 +41,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.healthmonitor file=js/data.js}
+{crmScript ext=com.octopus8.devices file=js/data.js}

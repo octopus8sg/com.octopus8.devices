@@ -1,4 +1,4 @@
-# com.octopus8.healthmonitor
+# com.octopus8.devices
 
 ![Screenshot](/images/screenshot.png)
 

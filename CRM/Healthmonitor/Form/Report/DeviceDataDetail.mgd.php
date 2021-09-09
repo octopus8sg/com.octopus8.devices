@@ -10,9 +10,9 @@ return [
         'params' => [
             'version' => 3,
             'label' => 'Device Data Detail',
-            'description' => 'Device Data Detail (com.octopus8.healthmonitor)',
+            'description' => 'Device Data Detail (com.octopus8.devices)',
             'class_name' => 'CRM_Healthmonitor_Form_Report_DeviceDataDetail',
-            'report_url' => 'com.octopus8.healthmonitor/devicedatadetail',
+            'report_url' => 'com.octopus8.devices/devicedatadetail',
             'component' => '',
             'grouping' => 'Devices',
         ],

@@ -39,10 +39,10 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
         // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
         CRM_Utils_System::setTitle(E::ts('ChartPage'));
 
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
+        Civi::resources()->addScriptFile('com.octopus8.devices', 'js/Chart.bundle.min.js', 1);
+        Civi::resources()->addScriptFile('com.octopus8.devices', 'js/chart.js', 2);
         $ajaxUrl = [];
-        $ajaxUrl[] = CRM_Utils_System::url('civicrm/healthmonitor/chart_ajax');
+        $ajaxUrl[] = CRM_Utils_System::url('civicrm/devices/chart_ajax');
         $ajaxUrl[] = $logged_user_id;
         CRM_Core_Resources::singleton()->addVars('ajax_url', $ajaxUrl);
 
@@ -99,8 +99,8 @@ class CRM_Healthmonitor_Page_ChartPage extends CRM_Core_Page
 
         // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
         CRM_Utils_System::setTitle(E::ts('ChartPage'));
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
-        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
+        Civi::resources()->addScriptFile('com.octopus8.devices', 'js/Chart.bundle.min.js', 1);
+        Civi::resources()->addScriptFile('com.octopus8.devices', 'js/chart.js', 2);
         // Example: Assign a variable for use in a template
         $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
 

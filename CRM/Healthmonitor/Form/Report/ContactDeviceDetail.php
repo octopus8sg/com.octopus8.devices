@@ -170,19 +170,19 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         'title' => ts('Alarm Rule Code'),
                         'default' => TRUE,
                     ],
-                    'alarm_rule_sensor_id' => [
-                        'name' => 'sensor_id',
-                        'title' => ts('Alarm Sensor'),
-                        'default' => TRUE,
-                    ],
                     'alarm_rule_rule_id' => [
                         'name' => 'rule_id',
                         'title' => ts('Alarm Rule'),
                         'default' => TRUE,
                     ],
+                    'alarm_rule_sensor_id' => [
+                        'name' => 'sensor_id',
+                        'title' => ts('Alarm Sensor'),
+                        'default' => TRUE,
+                    ],
                     'alarm_rule_sensor_value' => [
                         'name' => 'sensor_value',
-                        'title' => ts('Alarm Sensor Value'),
+                        'title' => ts('Sensor Value'),
                         'default' => TRUE,
                     ],
                 ],
@@ -217,12 +217,12 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                         ],
                         'alert_rule_title' => [
                             'name' => 'title',
-                            'title' => ts('Alert Rule Title'),
+                            'title' => ts('Alert Rule'),
                             'default' => TRUE,
                         ],
                         'alert_rule_addressee_id' => [
                             'name' => 'addressee_id',
-                            'title' => ts('Alert Rule Addressee'),
+                            'title' => ts('Alert Rule Contact'),
                             'default' => TRUE,
                         ],
                         'alert_rule_rule_id' => [

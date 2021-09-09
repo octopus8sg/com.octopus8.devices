@@ -48,7 +48,7 @@ class CRM_Healthmonitor_Upgrader_Base {
   public static function instance() {
     if (!self::$instance) {
       self::$instance = new CRM_Healthmonitor_Upgrader(
-        'com.octopus8.healthmonitor',
+        'com.octopus8.devices',
         E::path()
       );
     }

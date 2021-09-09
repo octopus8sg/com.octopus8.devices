@@ -7,5 +7,5 @@
 </div>
 <div class="clear"></div>
 
-{crmScript ext=com.octopus8.healthmonitor file=js/Chart.bundle.min.js}
-{crmScript ext=com.octopus8.healthmonitor file=js/analytics.js}
+{crmScript ext=com.octopus8.devices file=js/Chart.bundle.min.js}
+{crmScript ext=com.octopus8.devices file=js/analytics.js}

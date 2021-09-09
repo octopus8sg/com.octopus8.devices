@@ -21,7 +21,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
     public function browse()
     {
         $this->assign('admin', FALSE);
-        $this->assign('context', 'healthmonitor');
+        $this->assign('context', 'devices');
 
         // also create the form element for the activity filter box
         $controller_data = new CRM_Core_Controller_Simple(
@@ -85,7 +85,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         $this->assign('dataCount', $datas->rowCount);
 
         // data datatable js and variables
-        $data_sourceUrl = CRM_Utils_System::url('civicrm/healthmonitor/data_ajax', $urlQry, FALSE, NULL, FALSE);
+        $data_sourceUrl = CRM_Utils_System::url('civicrm/devices/data_ajax', $urlQry, FALSE, NULL, FALSE);
         $sourceUrl['data_sourceUrl'] = $data_sourceUrl;
         $this->assign('data_sourceUrl', $data_sourceUrl);
 
@@ -96,7 +96,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
             ->addWhere('contact_id', '=', $contactId)
             ->execute();
         $this->assign('deviceCount', $devices->rowCount);
-        $device_sourceUrl = CRM_Utils_System::url('civicrm/healthmonitor/device_ajax', $urlQry, FALSE, NULL, FALSE);
+        $device_sourceUrl = CRM_Utils_System::url('civicrm/devices/device_ajax', $urlQry, FALSE, NULL, FALSE);
         $sourceUrl['device_sourceUrl'] = $device_sourceUrl;
         $this->assign('device_sourceUrl', $device_sourceUrl);
 
@@ -147,7 +147,7 @@ class CRM_Healthmonitor_Page_ContactTab extends CRM_Core_Page
         // chart js and variables
 //        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/Chart.bundle.min.js', 1);
 //        Civi::resources()->addScriptFile('com.octopus8.healthmonitor', 'js/chart.js', 2);
-        $ajaxUrl[] = CRM_Utils_System::url('civicrm/healthmonitor/chart_ajax');
+        $ajaxUrl[] = CRM_Utils_System::url('civicrm/devices/chart_ajax');
         $ajaxUrl[] = $contactId;
 
 
