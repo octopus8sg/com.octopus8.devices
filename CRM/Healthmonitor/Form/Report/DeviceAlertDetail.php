@@ -165,7 +165,7 @@ class CRM_Healthmonitor_Form_Report_DeviceAlertDetail extends CRM_Report_Form
                             'default' => TRUE,
                         ],
                         'sensor_value' => [
-                            'title' => ts('Sensor Value'),
+                            'title' => ts('Value'),
 //                            'required' => TRUE,
                             'default' => TRUE,
                         ],

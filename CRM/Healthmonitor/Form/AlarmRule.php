@@ -100,7 +100,7 @@ class CRM_Healthmonitor_Form_AlarmRule extends CRM_Core_Form
                 $rules,
                 TRUE, ['class' => 'huge crm-select2',
                     'data-option-edit-path' => 'civicrm/admin/options/health_alarm_rule_type']);
-            $this->add('text', 'sensor_value', E::ts('Sensor Value'), ['size' => 60, 'maxlength' => 100], TRUE);
+            $this->add('text', 'sensor_value', E::ts('Value'), ['size' => 60, 'maxlength' => 100], TRUE);
             $this->add('text', 'code', E::ts('Alarm Rule Code'), ['size' => 60, 'maxlength' => 100, 'disabled' => TRUE], FALSE);
             $this->addRule('code', ts('Device Code already exists in Database.'), 'objectExists', [
                 'CRM_Healthmonitor_DAO_HealthAlarmRule',

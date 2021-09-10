@@ -28,7 +28,7 @@
                         {ts}Rule{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Sensor Value{/ts}
+                        {ts}Value{/ts}
                     </th>
                     <th id="nosort">&nbsp;Action</th>
                 </tr>

@@ -395,7 +395,7 @@ function healthmonitor_civicrm_navigationMenu(&$menu)
         'label' => E::ts('Devices'),
         'name' => 'health_monitor',
         'icon' => 'crm-i fa-heartbeat',
-        'url' => 'civicrm/devices/data',
+        'url' => 'civicrm/devices/dashboard',
         'permission' => 'access CiviCRM',
         'navID' => 10,
         'operator' => 'OR',
