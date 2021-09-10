@@ -1,4 +1,4 @@
-{crmScope extensionKey='healthmonitor'}
+{crmScope extensionKey='devices'}
   <div class="crm-content-block">
 
     <div class="crm-block crm-form-block crm-basic-criteria-form-block">
@@ -32,7 +32,7 @@
     <div class="action-link">
       <a class="button" href="{crmURL p="civicrm/device/form" q="reset=1&action=add" }">
         <i class="crm-i fa-plus-circle">&nbsp;</i>
-        {ts}Add New Device{/ts}
+        {ts}Add Device{/ts}
       </a>
     </div>
 
@@ -40,16 +40,18 @@
 
     <div class="crm-results-block">
       {include file="CRM/common/pager.tpl" location="top"}
+      {include file="CRM/common/enableDisableApi.tpl"}
+      {include file="CRM/common/jsortable.tpl"}
 
       <div class="crm-search-results">
-        <table class="selector row-highlight">
+        <table class="selector row-highlight display">
           <thead class="sticky">
           <tr>
-            <th scope="col">
+            <th id="sortable" scope="col">
               {ts}ID{/ts}
             </th>
             <th scope="col">
-              {ts}Device Name{/ts}
+              {ts}Device Code{/ts}
             </th>
             <th scope="col">
               {ts}Device Type{/ts}
@@ -57,7 +59,7 @@
             <th scope="col">
               {ts}Contact{/ts}
             </th>
-            <th>&nbsp;</th>
+            <th  id="nosort">&nbsp;</th>
           </tr>
           </thead>
           {foreach from=$entities item=row}
@@ -68,8 +70,8 @@
               <td>{$row.contact}</td>
               <td class="right nowrap">
                   <span>
-                    <a class="action-item crm-hover-button" href="{crmURL p='civicrm/device/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
-                    <a class="action-item crm-hover-button" href="{crmURL p='civicrm/device/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
+                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/device/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
+                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/device/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
                   </span>
               </td>
             </tr>

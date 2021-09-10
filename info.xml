@@ -1,26 +1,26 @@
 <?xml version="1.0"?>
-<extension key="com.octopus8.healthmonitor" type="module">
+<extension key="com.octopus8.devices" type="module">
   <file>healthmonitor</file>
-  <name>Health Monitor</name>
-  <description>Health Monitor</description>
+  <name>Device Data</name>
+  <description>Device Data</description>
   <license>AGPL-3.0</license>
   <maintainer>
-    <author>Health Monitor</author>
-    <email>Health Monitor</email>
+    <author>Octopus8</author>
+    <email>Octopus8</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">http://hm.com.sg</url>
-    <url desc="Documentation">http://hm.com.sg</url>
-    <url desc="Support">http://hm.com.sg</url>
+    <url desc="Main Extension Page">https://octopus8.com</url>
+    <url desc="Documentation">https://octopus8.com</url>
+    <url desc="Support">https://octopus8.com</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
-  <releaseDate>2021-07-05</releaseDate>
-  <version>0.0.5</version>
+  <releaseDate>2021-08-19</releaseDate>
+  <version>0.0.11</version>
   <develStage>alpha</develStage>
   <compatibility>
     <ver>5.8.0</ver>
   </compatibility>
-  <comments>This is an extension for Health Monitoring API</comments>
+  <comments>This is an extension for Device Data API</comments>
   <classloader>
     <psr4 prefix="Civi\" path="Civi"/>
   </classloader>

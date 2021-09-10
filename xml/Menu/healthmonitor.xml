@@ -1,33 +1,180 @@
 <?xml version="1.0"?>
 <menu>
   <item>
-    <path>civicrm/healthmonitor/form</path>
-    <page_callback>CRM_Healthmonitor_Form_HealthMonitor</page_callback>
-    <title>HealthMonitor</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/healthmonitor/search</path>
-    <page_callback>CRM_Healthmonitor_Form_Search</page_callback>
-    <title>Search</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/healthmonitor/contacttab</path>
-    <page_callback>CRM_Healthmonitor_Page_ContactTab</page_callback>
-    <title>ContactTab</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/device/form</path>
+    <path>civicrm/devices/form</path>
     <page_callback>CRM_Healthmonitor_Form_Device</page_callback>
     <title>Device</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/device/search</path>
+    <path>civicrm/devices/search</path>
     <page_callback>CRM_Healthmonitor_Form_DeviceSearch</page_callback>
     <title>DeviceSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/data/form</path>
+    <page_callback>CRM_Healthmonitor_Form_HealthMonitor</page_callback>
+    <title>HealthMonitor</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/data/search</path>
+    <page_callback>CRM_Healthmonitor_Form_Search</page_callback>
+    <title>Search</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/contacttab</path>
+    <page_callback>CRM_Healthmonitor_Page_ContactTab</page_callback>
+    <title>ContactTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/device/makedata</path>
+    <page_callback>CRM_Healthmonitor_Upgrader::makeData</page_callback>
+    <title>DeviceSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/device/makerules</path>
+    <page_callback>CRM_Healthmonitor_Upgrader::makeRules</page_callback>
+    <title>DeviceSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/dashboardtab</path>
+    <page_callback>CRM_Healthmonitor_Form_DashboardTab</page_callback>
+    <title>DashboardTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/tab</path>
+    <page_callback>CRM_Healthmonitor_Page_Tab</page_callback>
+    <title>Tab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/chart</path>
+    <page_callback>CRM_Healthmonitor_Page_ChartPage</page_callback>
+    <title>Chart</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_Search::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/data_ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_Search::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/chart_ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_ChartPage::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/device_ajax</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/healthmonitorfilter</path>
+    <page_callback>CRM_Healthmonitor_Form_HealthMonitorFilter</page_callback>
+    <title>HealthMonitorFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/devicefilter</path>
+    <page_callback>CRM_Healthmonitor_Form_DeviceFilter</page_callback>
+    <title>DeviceFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarm/form</path>
+    <page_callback>CRM_Healthmonitor_Form_Alarm</page_callback>
+    <title>Alarm</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarmrule/form</path>
+    <page_callback>CRM_Healthmonitor_Form_AlarmRule</page_callback>
+    <title>AlarmRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/form</path>
+    <page_callback>CRM_Healthmonitor_Form_Alert</page_callback>
+    <title>Alert</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/form</path>
+    <page_callback>CRM_Healthmonitor_Form_AlertRule</page_callback>
+    <title>AlertRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarmrule/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmRuleSearch</page_callback>
+    <title>AlarmRuleSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarmrule/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmRuleSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarm/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmSearch</page_callback>
+    <title>AlarmSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alarm/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlarmSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch</page_callback>
+    <title>AlertRuleSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alertrule/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertRuleSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/search</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch</page_callback>
+    <title>AlertSearch</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/ajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/alert/searchajax</path>
+    <page_callback>CRM_Healthmonitor_Page_AlertSearch::getSearchAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/dashboard</path>
+    <page_callback>CRM_Healthmonitor_Page_DashBoard</page_callback>
+    <title>DashBoard</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/templates</path>
+    <page_callback>CRM_Healthmonitor_Page_Templates</page_callback>
+    <title>Templates</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>

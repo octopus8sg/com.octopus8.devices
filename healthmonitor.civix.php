@@ -7,8 +7,8 @@
  * extension.
  */
 class CRM_Healthmonitor_ExtensionUtil {
-  const SHORT_NAME = 'healthmonitor';
-  const LONG_NAME = 'com.octopus8.healthmonitor';
+  const SHORT_NAME = 'devices';
+  const LONG_NAME = 'com.octopus8.devices';
   const CLASS_PREFIX = 'CRM_Healthmonitor';
 
   /**
@@ -455,6 +455,26 @@ function _healthmonitor_civix_civicrm_entityTypes(&$entityTypes) {
       'class' => 'CRM_Healthmonitor_DAO_Device',
       'table' => 'civicrm_device',
     ],
+    'CRM_Healthmonitor_DAO_HealthAlarm' => [
+      'name' => 'HealthAlarm',
+      'class' => 'CRM_Healthmonitor_DAO_HealthAlarm',
+      'table' => 'civicrm_health_alarm',
+    ],
+    'CRM_Healthmonitor_DAO_HealthAlarmRule' => [
+      'name' => 'HealthAlarmRule',
+      'class' => 'CRM_Healthmonitor_DAO_HealthAlarmRule',
+      'table' => 'civicrm_health_alarm_rule',
+    ],
+    'CRM_Healthmonitor_DAO_HealthAlert' => [
+      'name' => 'HealthAlert',
+      'class' => 'CRM_Healthmonitor_DAO_HealthAlert',
+      'table' => 'civicrm_health_alert',
+    ],
+    'CRM_Healthmonitor_DAO_HealthAlertRule' => [
+      'name' => 'HealthAlertRule',
+      'class' => 'CRM_Healthmonitor_DAO_HealthAlertRule',
+      'table' => 'civicrm_health_alert_rule',
+    ],
     'CRM_Healthmonitor_DAO_HealthMonitor' => [
       'name' => 'HealthMonitor',
       'class' => 'CRM_Healthmonitor_DAO_HealthMonitor',
@@ -462,4 +482,3 @@ function _healthmonitor_civix_civicrm_entityTypes(&$entityTypes) {
     ],
   ]);
 }
-
