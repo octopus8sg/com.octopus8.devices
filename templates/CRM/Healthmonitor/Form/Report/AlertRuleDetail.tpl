@@ -106,7 +106,6 @@
                                 {/foreach}
                             </tr>
                         </table>
-
                         {if $columnHeadersComponent}
                             {assign var=componentContactId value=$row.contactID}
                             {foreach from=$columnHeadersComponent item=pheader key=component}
