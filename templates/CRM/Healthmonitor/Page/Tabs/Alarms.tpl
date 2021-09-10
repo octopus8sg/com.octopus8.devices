@@ -22,7 +22,7 @@
                         {ts}Value{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Alarm Code{/ts}
+                        {ts}Alarm Rule Code{/ts}
                     </th>
                     <th id="nosort">&nbsp;Action</th>
                 </tr>

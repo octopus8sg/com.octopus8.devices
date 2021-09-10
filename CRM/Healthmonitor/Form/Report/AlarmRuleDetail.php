@@ -14,7 +14,7 @@
  * @package CRM
  * @copyright CiviCRM LLC https://civicrm.org/licensing
  */
-class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
+class CRM_Healthmonitor_Form_Report_AlarmRuleDetail extends CRM_Report_Form
 {
 
     protected $_summary = NULL;
@@ -122,36 +122,51 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
                     ],
                 ],
             ],
-            'civicrm_device' => [
-                'dao' => 'CRM_Healthmonitor_DAO_Device',
+            'civicrm_health_alarm_rule' => [
+                'dao' => 'CRM_Healthmonitor_DAO_HealthAlarmRule',
+                'title' => ts('Alarm Rules'),
                 'fields' => [
                     'contact_id' => [
                         'no_display' => TRUE,
                         'required' => TRUE,
                     ],
-//                    'device_id' => [
+//                    'alarm_rule_id' => [
 //                        'name' => 'id',
-//                        'default' => TRUE,
 //                        'no_display' => TRUE,
+//                        'required' => TRUE,
 //                    ],
-                    'name' => [
-                        'title' => ts('Device Code'),
+                    'alarm_rule_code' => [
+                        'name' => 'code',
+                        'title' => ts('Alarm Rule Code'),
                         'default' => TRUE,
                     ],
-                    'device_type_id' => [
-                        'title' => ts('Device Type'),
+                    'alarm_rule_rule_id' => [
+                        'name' => 'rule_id',
+                        'title' => ts('Alarm Rule'),
+                        'default' => TRUE,
+                    ],
+                    'alarm_rule_sensor_id' => [
+                        'name' => 'sensor_id',
+                        'title' => ts('Sensor'),
+                        'default' => TRUE,
+                    ],
+                    'alarm_rule_sensor_value' => [
+                        'name' => 'sensor_value',
+                        'title' => ts('Alarm Rule Value'),
                         'default' => TRUE,
                     ],
                 ],
                 'filters' => [
-//                    'device_type_id' => [
-//                        'title' => ts('Device Type'),
+//                    'alarm_rule_sensor_id' => [
+//                        'name' => 'sensor_id',
+//                        'title' => ts('Alarm Rule Sensor'),
 //                        'type' => CRM_Utils_Type::T_STRING,
 //                        'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-//                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_Device", "device_type_id"),
+//                        'options' => CRM_Core_PseudoConstant::get("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id"),
 //                    ],
+//                        $sensor_name = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id");
                 ],
-                'grouping' => 'device-fields',
+                'grouping' => 'alarm-fields',
             ],
         ];
         $this->_groupFilter = TRUE;
@@ -162,7 +177,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
 
     public function preProcess()
     {
-        $this->_csvSupported = FALSe;
+        $this->_csvSupported = FALSE;
         parent::preProcess();
     }
 
@@ -171,7 +186,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
         $select = [];
         $this->_columnHeaders = [];
         $this->_component = [
-            $this->_aliases['civicrm_device'],
+            $this->_aliases['civicrm_health_alarm_rule'],
         ];
         foreach ($this->_columns as $tableName => $table) {
 //            CRM_Core_Error::debug_var('tablename', $tableName);
@@ -225,7 +240,7 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
 
 
         $civicrm_contact = $this->_aliases['civicrm_contact'];
-        $civicrm_device = $this->_aliases['civicrm_device'];
+        $civicrm_health_alarm_rule = $this->_aliases['civicrm_health_alarm_rule'];
         // only include tables that are in from clause
         $componentTables = array_intersect($this->_aliases, $this->_component);
         $componentTables = array_flip($componentTables);
@@ -235,17 +250,14 @@ class CRM_Healthmonitor_Form_Report_ContactDeviceDetail extends CRM_Report_Form
           ";
         // SELECT ONLY CONTACT WITH DEVICES
 
-        if (!empty($this->_selectComponent[$civicrm_device])) {
-            $this->_formComponent[$civicrm_device] = <<<HERESQL
+        if (!empty($this->_selectComponent[$civicrm_health_alarm_rule])) {
+            $this->_formComponent[$civicrm_health_alarm_rule] = <<<HERESQL
         FROM
         civicrm_contact {$civicrm_contact}
-        INNER JOIN civicrm_device {$civicrm_device}
-          ON {$civicrm_contact}.id = {$civicrm_device}.contact_id
+        INNER JOIN civicrm_health_alarm_rule {$civicrm_health_alarm_rule}
+          ON {$civicrm_contact}.id = {$civicrm_health_alarm_rule}.contact_id
 HERESQL;
         }
-//        CRM_Core_Error::debug_var('_from', $this->_from);
-//        CRM_Core_Error::debug_var('_selectComponent', $this->_selectComponent);
-//        CRM_Core_Error::debug_var('_formComponent', $this->_formComponent);
     }
 
     public function where()
@@ -288,6 +300,7 @@ HERESQL;
             $this->_where = "WHERE " . implode(' AND ', $clauses) . "
             AND {$civicrm_contact}.id IN (SELECT {$civicrm_device}.contact_id from {$civicrm_device})";
         }
+
 
         if ($this->_aclWhere) {
             $this->_where .= " AND {$this->_aclWhere} ";
@@ -485,14 +498,20 @@ HERESQL;
 //        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
 //
-                    if ($component == 'device_civireport') {
 
-                        if ($val = CRM_Utils_Array::value('civicrm_device_device_type_id', $row)) {
+                    if ($component == 'health_alarm_rule_civireport') {
+
+                        if ($val = CRM_Utils_Array::value('civicrm_health_alarm_rule_alarm_rule_rule_id', $row)) {
 //                            CRM_Core_Error::debug_var('val', $val);
-                            $componentRows[$contactID][$component][$rowNum]['civicrm_device_device_type_id'] = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_Device", "device_type_id", $val);
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_rule_id']
+                                = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "rule_id", $val);
+                        }
+                        if ($val = CRM_Utils_Array::value('civicrm_health_alarm_rule_alarm_rule_sensor_id', $row)) {
+//                            CRM_Core_Error::debug_var('val', $val);
+                            $componentRows[$contactID][$component][$rowNum]['civicrm_health_alarm_rule_alarm_rule_sensor_id']
+                                = CRM_Core_PseudoConstant::getLabel("CRM_Healthmonitor_BAO_HealthAlarmRule", "sensor_id", $val);
                         }
                     }
-
 
                 }
             }

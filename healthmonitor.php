@@ -392,7 +392,7 @@ function healthmonitor_civicrm_themes(&$themes)
 function healthmonitor_civicrm_navigationMenu(&$menu)
 {
     _healthmonitor_civix_insert_navigation_menu($menu, '', array(
-        'label' => E::ts('Device Data'),
+        'label' => E::ts('Devices'),
         'name' => 'health_monitor',
         'icon' => 'crm-i fa-heartbeat',
         'url' => 'civicrm/devices/data',

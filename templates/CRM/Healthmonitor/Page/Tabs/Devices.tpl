@@ -19,7 +19,7 @@
                         {ts}ID{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Code{/ts}
+                        {ts}Device Code{/ts}
                     </th>
                     <th scope="col">
                         {ts}Device Type{/ts}

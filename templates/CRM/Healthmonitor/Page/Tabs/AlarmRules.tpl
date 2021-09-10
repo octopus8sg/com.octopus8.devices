@@ -19,7 +19,7 @@
                         {ts}ID{/ts}
                     </th>
                     <th scope="col">
-                        {ts}Code{/ts}
+                        {ts}Alarm Rule Code{/ts}
                     </th>
                     <th scope="col">
                         {ts}Sensor{/ts}

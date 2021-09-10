@@ -42,7 +42,7 @@
     <div class="action-link">
       <a class="button" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }">
         <i class="crm-i fa-plus-circle">&nbsp;</i>
-        {ts}Add New Device Data{/ts}
+        {ts}Add Device Data{/ts}
       </a>
     </div>
 
