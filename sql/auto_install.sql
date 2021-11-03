@@ -64,7 +64,7 @@ CREATE TABLE `civicrm_health_monitor` (
                                           `device_type_id` int DEFAULT 1,
                                           `device_id` int unsigned NOT NULL COMMENT 'FK to Device',
                                           `sensor_id` int NOT NULL DEFAULT 1,
-                                          `sensor_value` decimal(20,2) NOT NULL COMMENT 'Sensor Value',
+                                          `sensor_value` decimal(20,8) NOT NULL COMMENT 'Sensor Value',
                                           PRIMARY KEY (`id`),
                                           CONSTRAINT FK_civicrm_health_monitor_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
                                           CONSTRAINT FK_civicrm_health_monitor_device_id FOREIGN KEY (`device_id`) REFERENCES `civicrm_device`(`id`) ON DELETE CASCADE
@@ -83,7 +83,7 @@ CREATE TABLE `civicrm_health_alarm_rule` (
   `contact_id` int unsigned COMMENT 'FK to Contact',
   `code` varchar(255) NOT NULL COMMENT 'Alarm Rule Code',
   `sensor_id` int NOT NULL DEFAULT 1,
-  `sensor_value` decimal(20,2) NOT NULL COMMENT 'Sensor Value',
+  `sensor_value` decimal(20,8) NOT NULL COMMENT 'Sensor Value',
   `rule_id` int NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `index_code`(code),
