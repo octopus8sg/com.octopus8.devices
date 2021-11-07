@@ -13,7 +13,7 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
     protected $user;
     protected $device_type1;
     protected $sensor_type1; //heart
-    protected $sensor_type2; //weight
+    protected $sensor_type2; //value
     protected $sensor_type3; //temp
     protected $sensor_type4; //diast
     protected $sensor_type5; //syst
@@ -94,6 +94,16 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
             ['value' => 6,
                 'name' => 'height',
                 'label' => E::ts('Height'),
+                'option_group_id' => $sensorOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 7,
+                'name' => 'latitude',
+                'label' => E::ts('Latitude'),
+                'option_group_id' => $sensorOptionGroupId]);
+        civicrm_api3('OptionValue', 'create',
+            ['value' => 8,
+                'name' => 'longitude',
+                'label' => E::ts('Longitude'),
                 'option_group_id' => $sensorOptionGroupId]);
         $this->sensor_type1 = $sensor_type1;
         $this->sensor_type2 = $sensor_type2;

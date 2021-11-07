@@ -135,7 +135,7 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
       t.name,
       dt.label device_type
     FROM civicrm_device t 
-    INNER JOIN civicrm_option_value dt on t.device_type_id = dt.weight
+    INNER JOIN civicrm_option_value dt on t.device_type_id = dt.value
     INNER JOIN civicrm_option_group gdt on dt.option_group_id = gdt.id and gdt.name = 'health_monitor_device_type'    
     WHERE 1";
 

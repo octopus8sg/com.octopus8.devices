@@ -72,9 +72,9 @@ class CRM_Healthmonitor_Page_AlarmSearch extends CRM_Core_Page
 FROM civicrm_health_alarm a
          INNER JOIN civicrm_health_monitor d on a.health_monitor_id = d.id
          INNER JOIN civicrm_health_alarm_rule t on a.alarm_rule_id = t.id
-         INNER JOIN civicrm_option_value r on t.rule_id = r.weight
+         INNER JOIN civicrm_option_value r on t.rule_id = r.value
          INNER JOIN civicrm_option_group gr on r.option_group_id = gr.id and gr.name = 'health_alarm_rule_type'
-         INNER JOIN civicrm_option_value s on t.sensor_id = s.weight
+         INNER JOIN civicrm_option_value s on t.sensor_id = s.value
          INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'
       WHERE 1";
 
