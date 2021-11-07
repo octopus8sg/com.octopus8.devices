@@ -118,9 +118,9 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
       t.sensor_value,
       d.name
     FROM civicrm_health_monitor t INNER JOIN civicrm_device d on t.device_id = d.id
-    INNER JOIN civicrm_option_value s on  t.sensor_id = s.weight
+    INNER JOIN civicrm_option_value s on  t.sensor_id = s.value
     INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'    
-    INNER JOIN civicrm_option_value dt on t.device_type_id = dt.weight
+    INNER JOIN civicrm_option_value dt on t.device_type_id = dt.value
     INNER JOIN civicrm_option_group gdt on dt.option_group_id = gdt.id and gdt.name = 'health_monitor_device_type'    
     WHERE 1";
 

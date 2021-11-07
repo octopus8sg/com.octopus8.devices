@@ -82,7 +82,7 @@ class CRM_Healthmonitor_Page_AlertRuleSearch extends CRM_Core_Page
        t.api
 FROM civicrm_health_alert_rule t
     INNER JOIN civicrm_health_alarm_rule r on  t.rule_id = r.id
-    INNER JOIN civicrm_option_value s on  r.sensor_id = s.weight
+    INNER JOIN civicrm_option_value s on  r.sensor_id = s.value
     INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'
       WHERE 1";
 
