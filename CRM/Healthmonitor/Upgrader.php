@@ -440,9 +440,10 @@ class CRM_Healthmonitor_Upgrader extends CRM_Healthmonitor_Upgrader_Base
     /**
      * Example: Run a simple query when a module is enabled.
      */
-    // public function enable() {
-    //  CRM_Core_DAO::executeQuery('UPDATE foo SET is_active = 1 WHERE bar = "whiz"');
-    // }
+     public function enable() {
+      CRM_Core_DAO::executeQuery('alter table civicrm_health_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+      CRM_Core_DAO::executeQuery('alter table civicrm_health_monitor modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+     }
 
     /**
      * Example: Run a simple query when a module is disabled.

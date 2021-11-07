@@ -15,12 +15,13 @@
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2021-08-19</releaseDate>
-  <version>0.0.11</version>
+  <version>0.0.12</version>
   <develStage>alpha</develStage>
   <compatibility>
     <ver>5.8.0</ver>
   </compatibility>
   <comments>This is an extension for Device Data API</comments>
+  <comments>0.0.12 Changed Device Data Precision</comments>
   <classloader>
     <psr4 prefix="Civi\" path="Civi"/>
   </classloader>

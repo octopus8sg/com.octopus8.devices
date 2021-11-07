@@ -235,11 +235,11 @@ class CRM_Healthmonitor_DAO_HealthMonitor extends CRM_Core_DAO {
           'required' => TRUE,
           'precision' => [
             20,
-            2,
+            8,
           ],
           'import' => TRUE,
           'where' => 'civicrm_health_monitor.sensor_value',
-          'dataPattern' => '/^\d+(\.\d{2})?$/',
+          'dataPattern' => '/^\d+(\.\d{8})?$/',
           'export' => TRUE,
           'table_name' => 'civicrm_health_monitor',
           'entity' => 'HealthMonitor',

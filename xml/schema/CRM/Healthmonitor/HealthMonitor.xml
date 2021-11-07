@@ -104,7 +104,7 @@
     <name>sensor_value</name>
     <title>Sensor Value</title>
     <type>decimal</type>
-    <dataPattern>/^\d+(\.\d{2})?$/</dataPattern>
+    <dataPattern>/^\d+(\.\d{8})?$/</dataPattern>
     <required>true</required>
     <import>true</import>
     <export>true</export>
