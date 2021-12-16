@@ -142,6 +142,7 @@ class CRM_Healthmonitor_Form_Report_DeviceDataDetail extends CRM_Report_Form
                         'device_id' => ['title' => ts('Device')],
                     ],
                     'group_bys' => [
+                        // фыввыфasdфыв
 //                    'health_monitor_id' => [
 //                      'name' => 'id',
 //                      'required' => TRUE,
