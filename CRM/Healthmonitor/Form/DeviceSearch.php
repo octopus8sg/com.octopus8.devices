@@ -172,9 +172,9 @@ class CRM_Healthmonitor_Form_DeviceSearch extends CRM_Core_Form
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update = CRM_Utils_System::url('civicrm/device/form',
+            $r_update = CRM_Utils_System::url('civicrm/devices/form',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete = CRM_Utils_System::url('civicrm/device/form',
+            $r_delete = CRM_Utils_System::url('civicrm/devices/form',
                 ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';

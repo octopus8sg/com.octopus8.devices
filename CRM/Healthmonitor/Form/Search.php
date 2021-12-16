@@ -349,7 +349,7 @@ class CRM_Healthmonitor_Form_Search extends CRM_Core_Form
                     CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
             }
             if (!empty($row['device_id'])) {
-                $row['device'] = '<a href="' . CRM_Utils_System::url('civicrm/device/form',
+                $row['device'] = '<a href="' . CRM_Utils_System::url('civicrm/devices/form',
                         ['reset' => 1, 'id' => $dao->device_id]) . '">' .
                     CRM_Healthmonitor_DAO_Device::getFieldValue('CRM_Healthmonitor_DAO_Device', $dao->device_id) . '</a>';
             }

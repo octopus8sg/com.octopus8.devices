@@ -59,7 +59,7 @@ class CRM_Healthmonitor_Form_Device extends CRM_Core_Form
             }
             $this->assign('device', $this->_device);
 
-            $session->replaceUserContext(CRM_Utils_System::url('civicrm/device/form', ['id' => $this->getEntityId(), 'action' => 'update']));
+            $session->replaceUserContext(CRM_Utils_System::url('civicrm/devices/form', ['id' => $this->getEntityId(), 'action' => 'update']));
             $url = CRM_Utils_System::url('civicrm/device/search', 'reset=1');
             $session->pushUserContext($url);
         }
