@@ -73,13 +73,18 @@ ENGINE=InnoDB;
 -- *
 -- * civicrm_o8_alarm_rule
 -- *
--- * FIXME
+-- * Alarm Rule
 -- *
 -- *******************************************************/
 CREATE TABLE `civicrm_o8_alarm_rule` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique AlarmRule ID',
   `contact_id` int unsigned COMMENT 'FK to Contact',
+  `code` varchar(255) NOT NULL COMMENT 'Alarm Rule Code',
+  `sensor_id` int NOT NULL DEFAULT 1,
+  `sensor_value` decimal(20,2) NOT NULL COMMENT 'Sensor Value',
+  `rule_id` int NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
+  UNIQUE INDEX `index_code`(code),
   CONSTRAINT FK_civicrm_o8_alarm_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
 )
 ENGINE=InnoDB;
@@ -88,14 +93,18 @@ ENGINE=InnoDB;
 -- *
 -- * civicrm_o8_alarm
 -- *
--- * FIXME
+-- * Alarm
 -- *
 -- *******************************************************/
 CREATE TABLE `civicrm_o8_alarm` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique Alarm ID',
   `contact_id` int unsigned COMMENT 'FK to Contact',
+  `device_data_id` int unsigned COMMENT 'FK to Device Data',
+  `alarm_rule_id` int unsigned COMMENT 'FK to Alarm Rule',
   PRIMARY KEY (`id`),
-  CONSTRAINT FK_civicrm_o8_alarm_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
+  CONSTRAINT FK_civicrm_o8_alarm_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alarm_device_data_id FOREIGN KEY (`device_data_id`) REFERENCES `civicrm_o8_device_data`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alarm_alarm_rule_id FOREIGN KEY (`alarm_rule_id`) REFERENCES `civicrm_o8_alarm_rule`(`id`) ON DELETE CASCADE
 )
 ENGINE=InnoDB;
 
@@ -103,14 +112,27 @@ ENGINE=InnoDB;
 -- *
 -- * civicrm_o8_alert_rule
 -- *
--- * FIXME
+-- * Alert Rule
 -- *
 -- *******************************************************/
 CREATE TABLE `civicrm_o8_alert_rule` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique AlertRule ID',
   `contact_id` int unsigned COMMENT 'FK to Contact',
+  `code` varchar(255) NOT NULL COMMENT 'Alert Rule Code',
+  `addressee_id` int unsigned COMMENT 'FK to Address Contact',
+  `rule_id` int unsigned COMMENT 'FK to Alarm Rule',
+  `title` varchar(255) NOT NULL COMMENT 'Alert Title',
+  `message` varchar(1255) NOT NULL COMMENT 'Alert Message',
+  `civicrm` tinyint NOT NULL DEFAULT true,
+  `email` tinyint NOT NULL DEFAULT false,
+  `sms` tinyint NOT NULL DEFAULT false,
+  `telegram` tinyint NOT NULL DEFAULT false,
+  `api` tinyint NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
-  CONSTRAINT FK_civicrm_o8_alert_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
+  UNIQUE INDEX `index_code`(code),
+  CONSTRAINT FK_civicrm_o8_alert_rule_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alert_rule_addressee_id FOREIGN KEY (`addressee_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alert_rule_rule_id FOREIGN KEY (`rule_id`) REFERENCES `civicrm_o8_alarm_rule`(`id`) ON DELETE CASCADE
 )
 ENGINE=InnoDB;
 
@@ -118,13 +140,21 @@ ENGINE=InnoDB;
 -- *
 -- * civicrm_o8_alert
 -- *
--- * FIXME
+-- * Alert
 -- *
 -- *******************************************************/
 CREATE TABLE `civicrm_o8_alert` (
   `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Unique Alert ID',
   `contact_id` int unsigned COMMENT 'FK to Contact',
+  `alarm_id` int unsigned COMMENT 'FK to Alarm Data',
+  `alert_rule_id` int unsigned COMMENT 'FK to Alert Rule',
+  `civicrm` datetime COMMENT 'CiviCRM note created',
+  `email` datetime COMMENT 'Email sent',
+  `sms` datetime COMMENT 'SMS sent',
+  `api` datetime COMMENT 'API alert sent',
   PRIMARY KEY (`id`),
-  CONSTRAINT FK_civicrm_o8_alert_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE
+  CONSTRAINT FK_civicrm_o8_alert_contact_id FOREIGN KEY (`contact_id`) REFERENCES `civicrm_contact`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alert_alarm_id FOREIGN KEY (`alarm_id`) REFERENCES `civicrm_o8_alarm`(`id`) ON DELETE CASCADE,
+  CONSTRAINT FK_civicrm_o8_alert_alert_rule_id FOREIGN KEY (`alert_rule_id`) REFERENCES `civicrm_o8_alert_rule`(`id`) ON DELETE CASCADE
 )
 ENGINE=InnoDB;

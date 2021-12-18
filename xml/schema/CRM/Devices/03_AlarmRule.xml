@@ -4,7 +4,7 @@
   <base>CRM/Devices</base>
   <class>AlarmRule</class>
   <name>civicrm_o8_alarm_rule</name>
-  <comment>FIXME</comment>
+  <comment>Alarm Rule</comment>
   <log>true</log>
 
   <field>
@@ -32,5 +32,71 @@
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>
+
+  <field>
+    <name>code</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alarm Rule Code</label>
+    <comment>Alarm Rule Code</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <index>
+    <name>index_code</name>
+    <fieldName>code</fieldName>
+    <unique>true</unique>
+  </index>
+
+  <field>
+    <name>sensor_id</name>
+    <title>Sensor</title>
+    <type>int</type>
+    <length>3</length>
+    <default>1</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>o8_sensor</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
+  <field>
+    <name>sensor_value</name>
+    <title>Sensor Value</title>
+    <type>decimal</type>
+    <dataPattern>/^\d+(\.\d{8})?$/</dataPattern>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <comment>Sensor Value</comment>
+    <html>
+      <type>Text</type>
+    </html>
+  </field>
+
+  <field>
+    <name>rule_id</name>
+    <title>Rule</title>
+    <type>int</type>
+    <length>5</length>
+    <default>1</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>o8_rule_type</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
 
 </table>

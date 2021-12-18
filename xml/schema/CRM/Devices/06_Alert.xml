@@ -1,36 +1,92 @@
 <?xml version="1.0" encoding="iso-8859-1" ?>
 
 <table>
-  <base>CRM/Devices</base>
-  <class>Alert</class>
-  <name>civicrm_o8_alert</name>
-  <comment>FIXME</comment>
-  <log>true</log>
+    <base>CRM/Devices</base>
+    <class>Alert</class>
+    <name>civicrm_o8_alert</name>
+    <comment>Alert</comment>
+    <log>true</log>
 
-  <field>
-    <name>id</name>
-    <type>int unsigned</type>
-    <required>true</required>
-    <comment>Unique Alert ID</comment>
-    <html>
-      <type>Number</type>
-    </html>
-  </field>
-  <primaryKey>
-    <name>id</name>
-    <autoincrement>true</autoincrement>
-  </primaryKey>
+    <field>
+        <name>id</name>
+        <type>int unsigned</type>
+        <required>true</required>
+        <comment>Unique Alert ID</comment>
+        <html>
+            <type>Number</type>
+        </html>
+    </field>
+    <primaryKey>
+        <name>id</name>
+        <autoincrement>true</autoincrement>
+    </primaryKey>
 
-  <field>
-    <name>contact_id</name>
-    <type>int unsigned</type>
-    <comment>FK to Contact</comment>
-  </field>
-  <foreignKey>
-    <name>contact_id</name>
-    <table>civicrm_contact</table>
-    <key>id</key>
-    <onDelete>CASCADE</onDelete>
-  </foreignKey>
+    <field>
+        <name>contact_id</name>
+        <type>int unsigned</type>
+        <comment>FK to Contact</comment>
+    </field>
+    <foreignKey>
+        <name>contact_id</name>
+        <table>civicrm_contact</table>
+        <key>id</key>
+        <onDelete>CASCADE</onDelete>
+    </foreignKey>
+
+    <field>
+        <name>alarm_id</name>
+        <type>int unsigned</type>
+        <comment>FK to Alarm Data</comment>
+    </field>
+    <foreignKey>
+        <name>alarm_id</name>
+        <table>civicrm_o8_alarm</table>
+        <key>id</key>
+        <onDelete>CASCADE</onDelete>
+    </foreignKey>
+
+    <field>
+        <name>alert_rule_id</name>
+        <type>int unsigned</type>
+        <comment>FK to Alert Rule</comment>
+    </field>
+    <foreignKey>
+        <name>alert_rule_id</name>
+        <table>civicrm_o8_alert_rule</table>
+        <key>id</key>
+        <onDelete>CASCADE</onDelete>
+    </foreignKey>
+
+    <field>
+        <name>civicrm</name>
+        <type>datetime</type>
+        <comment>CiviCRM note created</comment>
+        <import>true</import>
+        <export>true</export>
+    </field>
+
+    <field>
+        <name>email</name>
+        <type>datetime</type>
+        <comment>Email sent</comment>
+        <import>true</import>
+        <export>true</export>
+    </field>
+
+    <field>
+        <name>sms</name>
+        <type>datetime</type>
+        <comment>SMS sent</comment>
+        <import>true</import>
+        <export>true</export>
+    </field>
+
+    <field>
+        <name>api</name>
+        <type>datetime</type>
+        <comment>API alert sent</comment>
+        <import>true</import>
+        <export>true</export>
+    </field>
 
 </table>

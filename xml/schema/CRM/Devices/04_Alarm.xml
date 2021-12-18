@@ -4,7 +4,7 @@
   <base>CRM/Devices</base>
   <class>Alarm</class>
   <name>civicrm_o8_alarm</name>
-  <comment>FIXME</comment>
+  <comment>Alarm</comment>
   <log>true</log>
 
   <field>
@@ -29,6 +29,30 @@
   <foreignKey>
     <name>contact_id</name>
     <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>device_data_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Device Data</comment>
+  </field>
+  <foreignKey>
+    <name>device_data_id</name>
+    <table>civicrm_o8_device_data</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>alarm_rule_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Alarm Rule</comment>
+  </field>
+  <foreignKey>
+    <name>alarm_rule_id</name>
+    <table>civicrm_o8_alarm_rule</table>
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>

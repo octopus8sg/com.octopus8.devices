@@ -4,7 +4,7 @@
   <base>CRM/Devices</base>
   <class>AlertRule</class>
   <name>civicrm_o8_alert_rule</name>
-  <comment>FIXME</comment>
+  <comment>Alert Rule</comment>
   <log>true</log>
 
   <field>
@@ -32,5 +32,133 @@
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>
+
+  <field>
+    <name>code</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alert Rule Code</label>
+    <comment>Alert Rule Code</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <index>
+    <name>index_code</name>
+    <fieldName>code</fieldName>
+    <unique>true</unique>
+  </index>
+
+  <field>
+    <name>addressee_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Address Contact</comment>
+  </field>
+  <foreignKey>
+    <name>addressee_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>rule_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Alarm Rule</comment>
+  </field>
+  <foreignKey>
+    <name>rule_id</name>
+    <table>civicrm_o8_alarm_rule</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>title</name>
+    <type>varchar</type>
+    <length>255</length>
+    <label>Alert Title</label>
+    <comment>Alert Title</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <field>
+    <name>message</name>
+    <type>varchar</type>
+    <length>1255</length>
+    <label>Alert Message</label>
+    <comment>Alert Message</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <field>
+    <name>civicrm</name>
+    <title>CiviCRM</title>
+    <type>boolean</type>
+    <default>true</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>email</name>
+    <title>Email</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>sms</name>
+    <title>SMS</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>telegram</name>
+    <title>Telegram</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
+
+  <field>
+    <name>api</name>
+    <title>Api</title>
+    <type>boolean</type>
+    <default>false</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <html>
+      <type>CheckBox</type>
+    </html>
+  </field>
 
 </table>
