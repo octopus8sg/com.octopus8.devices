@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Devices</base>
+  <class>Device</class>
+  <name>civicrm_o8_device</name>
+  <comment>o8 Device</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique Device ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>code</name>
+    <type>varchar</type>
+    <length>255</length>
+    <comment>Unique Device Code</comment>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <index>
+    <name>index_device_code</name>
+    <fieldName>code</fieldName>
+    <unique>true</unique>
+  </index>
+
+
+  <field>
+    <name>device_type_id</name>
+    <title>Device Type</title>
+    <type>int</type>
+    <length>3</length>
+    <default>1</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>o8_device_type</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
+</table>

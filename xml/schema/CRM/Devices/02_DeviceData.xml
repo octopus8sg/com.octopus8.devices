@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1" ?>
+
+<table>
+  <base>CRM/Devices</base>
+  <class>DeviceData</class>
+  <name>civicrm_o8_device_data</name>
+  <comment>Device Data</comment>
+  <log>true</log>
+
+  <field>
+    <name>id</name>
+    <type>int unsigned</type>
+    <required>true</required>
+    <comment>Unique Device Data ID</comment>
+    <html>
+      <type>Number</type>
+    </html>
+  </field>
+  <primaryKey>
+    <name>id</name>
+    <autoincrement>true</autoincrement>
+  </primaryKey>
+
+  <field>
+    <name>contact_id</name>
+    <type>int unsigned</type>
+    <comment>FK to Contact</comment>
+  </field>
+  <foreignKey>
+    <name>contact_id</name>
+    <table>civicrm_contact</table>
+    <key>id</key>
+    <onDelete>CASCADE</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>date</name>
+    <type>datetime</type>
+    <comment>Device Data Time</comment>
+    <html>
+      <type>Select Date</type>
+      <formatType>activityDateTime</formatType>
+    </html>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+  </field>
+
+  <field>
+    <name>device_id</name>
+    <type>int unsigned</type>
+    <import>true</import>
+    <export>true</export>
+    <comment>FK to Device</comment>
+    <required>true</required>
+  </field>
+
+  <foreignKey>
+    <name>device_id</name>
+    <table>civicrm_o8_device</table>
+    <key>id</key>
+    <onDelete>RESTRICT</onDelete>
+  </foreignKey>
+
+  <field>
+    <name>sensor_id</name>
+    <title>Sensor</title>
+    <type>int</type>
+    <length>3</length>
+    <default>1</default>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <pseudoconstant>
+      <optionGroupName>o8_sensor</optionGroupName>
+    </pseudoconstant>
+    <html>
+      <type>Select</type>
+    </html>
+  </field>
+
+  <field>
+    <name>sensor_value</name>
+    <title>Sensor Value</title>
+    <type>decimal</type>
+    <dataPattern>/^\d+(\.\d{8})?$/</dataPattern>
+    <required>true</required>
+    <import>true</import>
+    <export>true</export>
+    <comment>Sensor Value</comment>
+    <html>
+      <type>Text</type>
+    </html>
+  </field>
+
+</table>
