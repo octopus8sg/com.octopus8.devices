@@ -40,7 +40,7 @@
 
 
     <div class="action-link">
-      <a class="button" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }">
+      <a class="button add-device" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }">
         <i class="crm-i fa-plus-circle">&nbsp;</i>
         {ts}Add Device Data{/ts}
       </a>
@@ -91,8 +91,8 @@
               <td>{$row.sensor_value}</td>
               <td class="right nowrap">
                   <span>
-                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/devices/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
-                    <a class="action-item crm-hover-button" target="_blank" href="{crmURL p='civicrm/devices/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
+                    <a class="action-item crm-hover-button edit-device" target="_blank" href="{crmURL p='civicrm/devices/form' q="id=`$row.id`&action=update"}"><i class="crm-i fa-pencil"></i>&nbsp;{ts}Edit{/ts}</a>
+                    <a class="action-item crm-hover-button delete-device" target="_blank" href="{crmURL p='civicrm/devices/form' q="id=`$row.id`&action=delete"}"><i class="crm-i fa-trash"></i>&nbsp;{ts}Delete{/ts}</a>
                   </span>
               </td>
             </tr>
