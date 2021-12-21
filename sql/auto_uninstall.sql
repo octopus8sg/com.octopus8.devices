@@ -15,11 +15,11 @@
 
 SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS `civicrm_o8_alert`;
-DROP TABLE IF EXISTS `civicrm_o8_alert_rule`;
-DROP TABLE IF EXISTS `civicrm_o8_alarm`;
-DROP TABLE IF EXISTS `civicrm_o8_alarm_rule`;
+DROP TABLE IF EXISTS `civicrm_o8_device_alert`;
+DROP TABLE IF EXISTS `civicrm_o8_device_alert_rule`;
+DROP TABLE IF EXISTS `civicrm_o8_device_alarm`;
+DROP TABLE IF EXISTS `civicrm_o8_device_alarm_rule`;
 DROP TABLE IF EXISTS `civicrm_o8_device_data`;
-DROP TABLE IF EXISTS `civicrm_o8_device`;
+DROP TABLE IF EXISTS `civicrm_o8_device_device`;
 
 SET FOREIGN_KEY_CHECKS=1;

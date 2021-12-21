@@ -3,7 +3,7 @@
 <table>
   <base>CRM/Devices</base>
   <class>AlarmRule</class>
-  <name>civicrm_o8_alarm_rule</name>
+  <name>civicrm_o8_device_alarm_rule</name>
   <comment>Alarm Rule</comment>
   <log>true</log>
 
@@ -60,7 +60,7 @@
     <import>true</import>
     <export>true</export>
     <pseudoconstant>
-      <optionGroupName>o8_sensor</optionGroupName>
+      <optionGroupName>o8_device_sensor</optionGroupName>
     </pseudoconstant>
     <html>
       <type>Select</type>
@@ -91,7 +91,7 @@
     <import>true</import>
     <export>true</export>
     <pseudoconstant>
-      <optionGroupName>o8_rule_type</optionGroupName>
+      <optionGroupName>o8_device_rule_type</optionGroupName>
     </pseudoconstant>
     <html>
       <type>Select</type>

@@ -22,7 +22,7 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
    *
    * @var string
    */
-  public static $_tableName = 'civicrm_o8_alarm';
+  public static $_tableName = 'civicrm_o8_device_alarm';
 
   /**
    * Should CiviCRM log any modifications to this table in the civicrm_log table.
@@ -63,7 +63,7 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
    * Class constructor.
    */
   public function __construct() {
-    $this->__table = 'civicrm_o8_alarm';
+    $this->__table = 'civicrm_o8_device_alarm';
     parent::__construct();
   }
 
@@ -88,7 +88,7 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
       Civi::$statics[__CLASS__]['links'] = static::createReferenceColumns(__CLASS__);
       Civi::$statics[__CLASS__]['links'][] = new CRM_Core_Reference_Basic(self::getTableName(), 'contact_id', 'civicrm_contact', 'id');
       Civi::$statics[__CLASS__]['links'][] = new CRM_Core_Reference_Basic(self::getTableName(), 'device_data_id', 'civicrm_o8_device_data', 'id');
-      Civi::$statics[__CLASS__]['links'][] = new CRM_Core_Reference_Basic(self::getTableName(), 'alarm_rule_id', 'civicrm_o8_alarm_rule', 'id');
+      Civi::$statics[__CLASS__]['links'][] = new CRM_Core_Reference_Basic(self::getTableName(), 'alarm_rule_id', 'civicrm_o8_device_alarm_rule', 'id');
       CRM_Core_DAO_AllCoreTables::invoke(__CLASS__, 'links_callback', Civi::$statics[__CLASS__]['links']);
     }
     return Civi::$statics[__CLASS__]['links'];
@@ -107,8 +107,8 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('Unique Alarm ID'),
           'required' => TRUE,
-          'where' => 'civicrm_o8_alarm.id',
-          'table_name' => 'civicrm_o8_alarm',
+          'where' => 'civicrm_o8_device_alarm.id',
+          'table_name' => 'civicrm_o8_device_alarm',
           'entity' => 'Alarm',
           'bao' => 'CRM_Devices_DAO_Alarm',
           'localizable' => 0,
@@ -122,8 +122,8 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
           'name' => 'contact_id',
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('FK to Contact'),
-          'where' => 'civicrm_o8_alarm.contact_id',
-          'table_name' => 'civicrm_o8_alarm',
+          'where' => 'civicrm_o8_device_alarm.contact_id',
+          'table_name' => 'civicrm_o8_device_alarm',
           'entity' => 'Alarm',
           'bao' => 'CRM_Devices_DAO_Alarm',
           'localizable' => 0,
@@ -134,8 +134,8 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
           'name' => 'device_data_id',
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('FK to Device Data'),
-          'where' => 'civicrm_o8_alarm.device_data_id',
-          'table_name' => 'civicrm_o8_alarm',
+          'where' => 'civicrm_o8_device_alarm.device_data_id',
+          'table_name' => 'civicrm_o8_device_alarm',
           'entity' => 'Alarm',
           'bao' => 'CRM_Devices_DAO_Alarm',
           'localizable' => 0,
@@ -146,8 +146,8 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
           'name' => 'alarm_rule_id',
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('FK to Alarm Rule'),
-          'where' => 'civicrm_o8_alarm.alarm_rule_id',
-          'table_name' => 'civicrm_o8_alarm',
+          'where' => 'civicrm_o8_device_alarm.alarm_rule_id',
+          'table_name' => 'civicrm_o8_device_alarm',
           'entity' => 'Alarm',
           'bao' => 'CRM_Devices_DAO_Alarm',
           'localizable' => 0,
@@ -199,7 +199,7 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
    * @return array
    */
   public static function &import($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_alarm', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_device_alarm', $prefix, []);
     return $r;
   }
 
@@ -211,7 +211,7 @@ class CRM_Devices_DAO_Alarm extends CRM_Core_DAO {
    * @return array
    */
   public static function &export($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_alarm', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_device_alarm', $prefix, []);
     return $r;
   }
 

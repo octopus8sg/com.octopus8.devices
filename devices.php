@@ -155,7 +155,7 @@ function devices_civicrm_themes(&$themes) {
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-//function devices_civicrm_navigationMenu(&$menu) {
+function devices_civicrm_navigationMenu(&$menu) {
 //  _devices_civix_insert_navigation_menu($menu, 'Mailings', [
 //    'label' => E::ts('New subliminal message'),
 //    'name' => 'mailing_subliminal_message',
@@ -165,4 +165,77 @@ function devices_civicrm_themes(&$themes) {
 //    'separator' => 0,
 //  ]);
 //  _devices_civix_navigationMenu($menu);
-//}
+    _devices_civix_insert_navigation_menu($menu, '', array(
+        'label' => E::ts('Devices'),
+        'name' => 'o8_device_devices',
+        'icon' => 'crm-i fa-heartbeat',
+        'url' => 'civicrm/devices/dashboard',
+        'permission' => 'access CiviCRM',
+        'navID' => 10,
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Dashboard'),
+        'name' => 'search_devices',
+        'url' => 'civicrm/devices/dashboard',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Find Devices'),
+        'name' => 'search_devices',
+        'url' => 'civicrm/devices/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Add Device'),
+        'name' => 'add_device',
+        'url' => 'civicrm/devices/form?reset=1&action=add',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Find Data'),
+        'name' => 'search_o8_device_devices',
+        'url' => 'civicrm/devices/data/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Add Data'),
+        'name' => 'search_o8_device_devices',
+        'url' => 'civicrm/devices/data/form?reset=1&action=add',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Search Alerts'),
+        'name' => 'search_alert',
+        'url' => 'civicrm/alert/search',
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 0,
+    ));
+    _devices_civix_navigationMenu($menu);
+    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+        'label' => E::ts('Device Reports'),
+        'name' => 'search_devices',
+        'url' => CRM_Utils_System::url('civicrm/report/list', ['grp' => 'devices', 'reset' => 1]),
+        'permission' => 'access CiviCRM',
+        'operator' => 'OR',
+        'separator' => 2,
+    ));
+    _devices_civix_navigationMenu($menu);    
+}

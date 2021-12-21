@@ -57,7 +57,7 @@
 
   <foreignKey>
     <name>device_id</name>
-    <table>civicrm_o8_device</table>
+    <table>civicrm_o8_device_device</table>
     <key>id</key>
     <onDelete>RESTRICT</onDelete>
   </foreignKey>
@@ -72,7 +72,7 @@
     <import>true</import>
     <export>true</export>
     <pseudoconstant>
-      <optionGroupName>o8_sensor</optionGroupName>
+      <optionGroupName>o8_device_sensor</optionGroupName>
     </pseudoconstant>
     <html>
       <type>Select</type>

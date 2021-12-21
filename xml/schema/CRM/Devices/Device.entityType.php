@@ -5,6 +5,6 @@ return [
   [
     'name' => 'Device',
     'class' => 'CRM_Devices_DAO_Device',
-    'table' => 'civicrm_o8_device',
+    'table' => 'civicrm_o8_device_device',
   ],
 ];

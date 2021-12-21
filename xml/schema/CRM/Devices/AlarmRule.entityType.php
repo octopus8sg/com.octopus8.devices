@@ -5,6 +5,6 @@ return [
   [
     'name' => 'AlarmRule',
     'class' => 'CRM_Devices_DAO_AlarmRule',
-    'table' => 'civicrm_o8_alarm_rule',
+    'table' => 'civicrm_o8_device_alarm_rule',
   ],
 ];

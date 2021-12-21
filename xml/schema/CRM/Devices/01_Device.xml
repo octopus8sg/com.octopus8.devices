@@ -3,7 +3,7 @@
 <table>
   <base>CRM/Devices</base>
   <class>Device</class>
-  <name>civicrm_o8_device</name>
+  <name>civicrm_o8_device_device</name>
   <comment>o8 Device</comment>
   <log>true</log>
 

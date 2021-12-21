@@ -66,7 +66,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         //sensor types
         $sensorOptionGroupId = civicrm_api3('OptionGroup',
             'create',
-            ['name' => 'o8_sensor',
+            ['name' => 'o8_device_sensor',
                 'title' => E::ts('Device Sensor')]);
         $sensorOptionGroupId = $sensorOptionGroupId['id'];
 
@@ -128,7 +128,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
 
         $ruleTypeGroupId = civicrm_api3('OptionGroup',
             'create',
-            ['name' => 'o8_rule_type',
+            ['name' => 'o8_device_rule_type',
                 'title' => E::ts('Alarm Rule Type')]);
         $ruleTypeGroupId = $ruleTypeGroupId['id'];
 
@@ -306,7 +306,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         }
         try {
             $optionGroupId = civicrm_api3('OptionGroup',
-                'getvalue', ['return' => 'id', 'name' => 'o8_sensor']);
+                'getvalue', ['return' => 'id', 'name' => 'o8_device_sensor']);
             $optionValues = civicrm_api3('OptionValue',
                 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
             foreach ($optionValues['values'] as $optionValue) {
@@ -319,7 +319,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
 
         try {
             $optionGroupId = civicrm_api3('OptionGroup',
-                'getvalue', ['return' => 'id', 'name' => 'o8_rule_type']);
+                'getvalue', ['return' => 'id', 'name' => 'o8_device_rule_type']);
             $optionValues = civicrm_api3('OptionValue',
                 'get', ['option_group_id' => $optionGroupId, 'options' => ['limit' => 0]]);
             foreach ($optionValues['values'] as $optionValue) {

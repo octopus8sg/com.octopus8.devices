@@ -5,6 +5,6 @@ return [
   [
     'name' => 'AlertRule',
     'class' => 'CRM_Devices_DAO_AlertRule',
-    'table' => 'civicrm_o8_alert_rule',
+    'table' => 'civicrm_o8_device_alert_rule',
   ],
 ];

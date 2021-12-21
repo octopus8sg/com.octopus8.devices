@@ -3,7 +3,7 @@
 <table>
   <base>CRM/Devices</base>
   <class>Alarm</class>
-  <name>civicrm_o8_alarm</name>
+  <name>civicrm_o8_device_alarm</name>
   <comment>Alarm</comment>
   <log>true</log>
 
@@ -52,7 +52,7 @@
   </field>
   <foreignKey>
     <name>alarm_rule_id</name>
-    <table>civicrm_o8_alarm_rule</table>
+    <table>civicrm_o8_device_alarm_rule</table>
     <key>id</key>
     <onDelete>CASCADE</onDelete>
   </foreignKey>

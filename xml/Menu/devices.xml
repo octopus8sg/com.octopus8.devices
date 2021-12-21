@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<menu>
+  <item>
+    <path>civicrm/devices/commonfilter</path>
+    <page_callback>CRM_Devices_Form_CommonFilter</page_callback>
+    <title>CommonFilter</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/search</path>
+    <page_callback>CRM_Devices_Page_SearchDevice</page_callback>
+    <title>Search Device</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/device_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchDevice::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/device</path>
+    <page_callback>CRM_Devices_Form_Device</page_callback>
+    <title>Device</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/alertrule</path>
+    <page_callback>CRM_Devices_Form_AlertRule</page_callback>
+    <title>AlertRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/alarmrule</path>
+    <page_callback>CRM_Devices_Form_AlarmRule</page_callback>
+    <title>AlarmRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/alert</path>
+    <page_callback>CRM_Devices_Form_Alert</page_callback>
+    <title>Alert</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/alarm</path>
+    <page_callback>CRM_Devices_Form_Alarm</page_callback>
+    <title>Alarm</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/devicedata</path>
+    <page_callback>CRM_Devices_Form_DeviceData</page_callback>
+    <title>DeviceData</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+</menu>

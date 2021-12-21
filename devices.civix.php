@@ -453,27 +453,27 @@ function _devices_civix_civicrm_entityTypes(&$entityTypes) {
     'CRM_Devices_DAO_Alarm' => [
       'name' => 'Alarm',
       'class' => 'CRM_Devices_DAO_Alarm',
-      'table' => 'civicrm_o8_alarm',
+      'table' => 'civicrm_o8_device_alarm',
     ],
     'CRM_Devices_DAO_AlarmRule' => [
       'name' => 'AlarmRule',
       'class' => 'CRM_Devices_DAO_AlarmRule',
-      'table' => 'civicrm_o8_alarm_rule',
+      'table' => 'civicrm_o8_device_alarm_rule',
     ],
     'CRM_Devices_DAO_Alert' => [
       'name' => 'Alert',
       'class' => 'CRM_Devices_DAO_Alert',
-      'table' => 'civicrm_o8_alert',
+      'table' => 'civicrm_o8_device_alert',
     ],
     'CRM_Devices_DAO_AlertRule' => [
       'name' => 'AlertRule',
       'class' => 'CRM_Devices_DAO_AlertRule',
-      'table' => 'civicrm_o8_alert_rule',
+      'table' => 'civicrm_o8_device_alert_rule',
     ],
     'CRM_Devices_DAO_Device' => [
       'name' => 'Device',
       'class' => 'CRM_Devices_DAO_Device',
-      'table' => 'civicrm_o8_device',
+      'table' => 'civicrm_o8_device_device',
     ],
     'CRM_Devices_DAO_DeviceData' => [
       'name' => 'DeviceData',

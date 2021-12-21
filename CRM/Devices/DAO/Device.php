@@ -22,7 +22,7 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
    *
    * @var string
    */
-  public static $_tableName = 'civicrm_o8_device';
+  public static $_tableName = 'civicrm_o8_device_device';
 
   /**
    * Should CiviCRM log any modifications to this table in the civicrm_log table.
@@ -61,7 +61,7 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
    * Class constructor.
    */
   public function __construct() {
-    $this->__table = 'civicrm_o8_device';
+    $this->__table = 'civicrm_o8_device_device';
     parent::__construct();
   }
 
@@ -103,8 +103,8 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('Unique Device ID'),
           'required' => TRUE,
-          'where' => 'civicrm_o8_device.id',
-          'table_name' => 'civicrm_o8_device',
+          'where' => 'civicrm_o8_device_device.id',
+          'table_name' => 'civicrm_o8_device_device',
           'entity' => 'Device',
           'bao' => 'CRM_Devices_DAO_Device',
           'localizable' => 0,
@@ -118,8 +118,8 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
           'name' => 'contact_id',
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('FK to Contact'),
-          'where' => 'civicrm_o8_device.contact_id',
-          'table_name' => 'civicrm_o8_device',
+          'where' => 'civicrm_o8_device_device.contact_id',
+          'table_name' => 'civicrm_o8_device_device',
           'entity' => 'Device',
           'bao' => 'CRM_Devices_DAO_Device',
           'localizable' => 0,
@@ -135,9 +135,9 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
           'maxlength' => 255,
           'size' => CRM_Utils_Type::HUGE,
           'import' => TRUE,
-          'where' => 'civicrm_o8_device.code',
+          'where' => 'civicrm_o8_device_device.code',
           'export' => TRUE,
-          'table_name' => 'civicrm_o8_device',
+          'table_name' => 'civicrm_o8_device_device',
           'entity' => 'Device',
           'bao' => 'CRM_Devices_DAO_Device',
           'localizable' => 0,
@@ -149,10 +149,10 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
           'title' => E::ts('Device Type'),
           'required' => TRUE,
           'import' => TRUE,
-          'where' => 'civicrm_o8_device.device_type_id',
+          'where' => 'civicrm_o8_device_device.device_type_id',
           'export' => TRUE,
           'default' => '1',
-          'table_name' => 'civicrm_o8_device',
+          'table_name' => 'civicrm_o8_device_device',
           'entity' => 'Device',
           'bao' => 'CRM_Devices_DAO_Device',
           'localizable' => 0,
@@ -210,7 +210,7 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
    * @return array
    */
   public static function &import($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_device', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_device_device', $prefix, []);
     return $r;
   }
 
@@ -222,7 +222,7 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
    * @return array
    */
   public static function &export($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_device', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_device_device', $prefix, []);
     return $r;
   }
 
@@ -242,7 +242,7 @@ class CRM_Devices_DAO_Device extends CRM_Core_DAO {
         ],
         'localizable' => FALSE,
         'unique' => TRUE,
-        'sig' => 'civicrm_o8_device::1::code',
+        'sig' => 'civicrm_o8_device_device::1::code',
       ],
     ];
     return ($localize && !empty($indices)) ? CRM_Core_DAO_AllCoreTables::multilingualize(__CLASS__, $indices) : $indices;

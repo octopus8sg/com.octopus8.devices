@@ -22,7 +22,7 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
    *
    * @var string
    */
-  public static $_tableName = 'civicrm_o8_alarm_rule';
+  public static $_tableName = 'civicrm_o8_device_alarm_rule';
 
   /**
    * Should CiviCRM log any modifications to this table in the civicrm_log table.
@@ -73,7 +73,7 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
    * Class constructor.
    */
   public function __construct() {
-    $this->__table = 'civicrm_o8_alarm_rule';
+    $this->__table = 'civicrm_o8_device_alarm_rule';
     parent::__construct();
   }
 
@@ -115,8 +115,8 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('Unique AlarmRule ID'),
           'required' => TRUE,
-          'where' => 'civicrm_o8_alarm_rule.id',
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'where' => 'civicrm_o8_device_alarm_rule.id',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -130,8 +130,8 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
           'name' => 'contact_id',
           'type' => CRM_Utils_Type::T_INT,
           'description' => E::ts('FK to Contact'),
-          'where' => 'civicrm_o8_alarm_rule.contact_id',
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'where' => 'civicrm_o8_device_alarm_rule.contact_id',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -147,9 +147,9 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
           'maxlength' => 255,
           'size' => CRM_Utils_Type::HUGE,
           'import' => TRUE,
-          'where' => 'civicrm_o8_alarm_rule.code',
+          'where' => 'civicrm_o8_device_alarm_rule.code',
           'export' => TRUE,
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -161,10 +161,10 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
           'title' => E::ts('Sensor'),
           'required' => TRUE,
           'import' => TRUE,
-          'where' => 'civicrm_o8_alarm_rule.sensor_id',
+          'where' => 'civicrm_o8_device_alarm_rule.sensor_id',
           'export' => TRUE,
           'default' => '1',
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -172,8 +172,8 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
             'type' => 'Select',
           ],
           'pseudoconstant' => [
-            'optionGroupName' => 'o8_sensor',
-            'optionEditPath' => 'civicrm/admin/options/o8_sensor',
+            'optionGroupName' => 'o8_device_sensor',
+            'optionEditPath' => 'civicrm/admin/options/o8_device_sensor',
           ],
           'add' => NULL,
         ],
@@ -188,10 +188,10 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
             2,
           ],
           'import' => TRUE,
-          'where' => 'civicrm_o8_alarm_rule.sensor_value',
+          'where' => 'civicrm_o8_device_alarm_rule.sensor_value',
           'dataPattern' => '/^\d+(\.\d{8})?$/',
           'export' => TRUE,
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -206,10 +206,10 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
           'title' => E::ts('Rule'),
           'required' => TRUE,
           'import' => TRUE,
-          'where' => 'civicrm_o8_alarm_rule.rule_id',
+          'where' => 'civicrm_o8_device_alarm_rule.rule_id',
           'export' => TRUE,
           'default' => '1',
-          'table_name' => 'civicrm_o8_alarm_rule',
+          'table_name' => 'civicrm_o8_device_alarm_rule',
           'entity' => 'AlarmRule',
           'bao' => 'CRM_Devices_DAO_AlarmRule',
           'localizable' => 0,
@@ -217,8 +217,8 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
             'type' => 'Select',
           ],
           'pseudoconstant' => [
-            'optionGroupName' => 'o8_rule_type',
-            'optionEditPath' => 'civicrm/admin/options/o8_rule_type',
+            'optionGroupName' => 'o8_device_rule_type',
+            'optionEditPath' => 'civicrm/admin/options/o8_device_rule_type',
           ],
           'add' => NULL,
         ],
@@ -267,7 +267,7 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
    * @return array
    */
   public static function &import($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_alarm_rule', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getImports(__CLASS__, 'o8_device_alarm_rule', $prefix, []);
     return $r;
   }
 
@@ -279,7 +279,7 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
    * @return array
    */
   public static function &export($prefix = FALSE) {
-    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_alarm_rule', $prefix, []);
+    $r = CRM_Core_DAO_AllCoreTables::getExports(__CLASS__, 'o8_device_alarm_rule', $prefix, []);
     return $r;
   }
 
@@ -299,7 +299,7 @@ class CRM_Devices_DAO_AlarmRule extends CRM_Core_DAO {
         ],
         'localizable' => FALSE,
         'unique' => TRUE,
-        'sig' => 'civicrm_o8_alarm_rule::1::code',
+        'sig' => 'civicrm_o8_device_alarm_rule::1::code',
       ],
     ];
     return ($localize && !empty($indices)) ? CRM_Core_DAO_AllCoreTables::multilingualize(__CLASS__, $indices) : $indices;

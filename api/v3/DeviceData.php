@@ -36,7 +36,7 @@ function civicrm_api3_device_data_create($params)
     $types = CRM_Core_OptionGroup::values('o8_device_type');
 //    CRM_Core_Error::debug_var('anyway times', $params);
 
-    $sensors = CRM_Core_OptionGroup::values('o8_sensor');
+    $sensors = CRM_Core_OptionGroup::values('o8_device_sensor');
 
     $value = $params['sensor_id'];
     $options = $sensors;
