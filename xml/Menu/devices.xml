@@ -53,4 +53,10 @@
     <title>DeviceData</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/devices/contacttab</path>
+    <page_callback>CRM_Devices_Page_ContactTab</page_callback>
+    <title>ContactTab</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>

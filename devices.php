@@ -156,15 +156,6 @@ function devices_civicrm_themes(&$themes) {
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
 function devices_civicrm_navigationMenu(&$menu) {
-//  _devices_civix_insert_navigation_menu($menu, 'Mailings', [
-//    'label' => E::ts('New subliminal message'),
-//    'name' => 'mailing_subliminal_message',
-//    'url' => 'civicrm/mailing/subliminal',
-//    'permission' => 'access CiviMail',
-//    'operator' => 'OR',
-//    'separator' => 0,
-//  ]);
-//  _devices_civix_navigationMenu($menu);
     _devices_civix_insert_navigation_menu($menu, '', array(
         'label' => E::ts('Devices'),
         'name' => 'o8_device_devices',
@@ -239,3 +230,36 @@ function devices_civicrm_navigationMenu(&$menu) {
     ));
     _devices_civix_navigationMenu($menu);    
 }
+
+
+/**
+ * Implementation of hook_civicrm_tabset
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_tabset
+ */
+function devices_civicrm_tabset($path, &$tabs, $context)
+{
+    if ($path === 'civicrm/contact/view') {
+        // add a tab to the contact summary screen
+        $contactId = $context['contact_id'];
+        $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
+
+        $myEntities = \Civi\Api4\Device::get()
+            ->selectRowCount()
+            ->addWhere('contact_id', '=', $contactId)
+            ->execute();
+
+        $tabs[] = array(
+            'id' => 'contact_devices',
+            'url' => $url,
+            'count' => $myEntities->count(),
+            'title' => E::ts('Devices'),
+            'weight' => 310,
+            'icon' => 'crm-i fa-heartbeat',
+            'rows' => [
+                ['id' => 1],
+                ['id' => 2]]
+        );
+    }
+
+}
+
