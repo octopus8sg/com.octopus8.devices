@@ -28,7 +28,74 @@ CRM.$(function ($) {
         devices_dtsettings.sDom = '<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
         //turn of search field
         devices_dtsettings.sAjaxSource = devices_sourceUrl;
-        // devices_dtsettings.Buttons = ["csv", "pdf", "copy"];
+        devices_dtsettings.fnInitComplete = function (oSettings, json) {
+            // $("a.view-device").css('background','red');
+            // $("a.view-device").click(function (event) {
+            //     event.preventDefault();
+            //     var href = $(this).attr('href');
+            //     // alert(href);
+            //     var $el = CRM.loadForm(href, {
+            //         dialog: {width: '50%', height: '50%'}
+            //     }).on('crmFormSuccess', function () {
+            //         var hm_tab = $('.selector-devices');
+            //         var hm_table = hm_tab.DataTable();
+            //         hm_table.draw();
+            //     });
+            // });
+            // // $("a.update-device").css('background','blue');
+            // $("a.update-device").click(function (event) {
+            //     event.preventDefault();
+            //     var href = $(this).attr('href');
+            //     // alert(href);
+            //     var $el = CRM.loadForm(href, {
+            //         dialog: {width: '50%', height: '50%'}
+            //     }).on('crmFormSuccess', function () {
+            //         var hm_tab = $('.selector-devices');
+            //         var hm_table = hm_tab.DataTable();
+            //         hm_table.draw();
+            //     });
+            // });
+        };
+        devices_dtsettings.fnDrawCallback = function (oSettings) {
+            // $("a.view-device").css('background','red');
+            $("a.view-device").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-devices');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+            // $("a.update-device").css('background','blue');
+            $("a.update-device").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-devices');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+            $("a.delete-device").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-devices');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+        };
         devices_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
             aoData.push({ "name": "device_type_id",
                 "value": $('#device_device_type_id').val() });

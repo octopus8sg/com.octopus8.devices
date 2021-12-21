@@ -88,7 +88,8 @@ class CRM_Devices_Page_SearchDevice extends CRM_Core_Page
       t.code,
       dt.label device_type,
       c.sort_name,
-      c.display_name
+      c.display_name,
+      t.contact_id
     FROM civicrm_o8_device_device t 
     INNER JOIN civicrm_contact c on t.contact_id = c.id
     INNER JOIN civicrm_option_value dt on t.device_type_id = dt.value
@@ -145,18 +146,24 @@ class CRM_Devices_Page_SearchDevice extends CRM_Core_Page
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update = CRM_Utils_System::url('civicrm/device/form',
+            if (!empty($dao->contact_id)) {
+                $contact = '<a href="' . CRM_Utils_System::url('civicrm/contact/view',
+                        ['reset' => 1, 'cid' => $dao->contact_id]) . '">' .
+                    CRM_Contact_BAO_Contact::displayName($dao->contact_id) . '</a>';
+            }
+
+            $r_update = CRM_Utils_System::url('civicrm/devices/device',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete = CRM_Utils_System::url('civicrm/device/form',
+            $r_delete = CRM_Utils_System::url('civicrm/devices/device',
                 ['action' => 'delete', 'id' => $dao->id]);
-            $update = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
-            $delete = '<a class="action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $update = '<a class="update-device action-item crm-hover-button" target="_blank" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
+            $delete = '<a class="delete-device action-item crm-hover-button" target="_blank" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $action = "<span>$update $delete</span>";
             $rows[$count][] = $dao->id;
             $rows[$count][] = $dao->code;
             $rows[$count][] = $dao->device_type;
             if ($cid === null) {
-                $rows[$count][] = $dao->display_name;
+                $rows[$count][] = $contact;
             }
             $rows[$count][] = $action;
             $count++;
