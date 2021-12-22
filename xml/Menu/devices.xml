@@ -13,11 +13,6 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
-    <path>civicrm/devices/device_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchDevice::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
     <path>civicrm/devices/device</path>
     <page_callback>CRM_Devices_Form_Device</page_callback>
     <title>Device</title>
@@ -65,4 +60,16 @@
     <title>SearchDeviceData</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+<!--AJAX SEARCHES-->
+  <item>
+    <path>civicrm/devices/device_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchDevice::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/devicedata_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchDeviceData::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+
 </menu>
