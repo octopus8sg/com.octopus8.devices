@@ -87,6 +87,21 @@ function civicrm_api3_device_data_create($params)
             $params['device_id'] = $device_id;
         }
     }
+    if (!isset($params['contact_id']) and isset($params['device_id'])) {
+        $devices = civicrm_api4('Device', 'get', [
+            'select' => [
+                'contact_id',
+            ],
+            'where' => [
+                ['id', '=', $params['device_id']],
+            ],
+            'limit' => 2,
+        ]);
+        if (!empty($devices)) {
+            $contact_id = $devices[0]['contact_id'];
+            $params['contact_id'] = $contact_id;
+        }
+    }
     if (!isset($params['device_id'])) {
         throw new API_Exception('device_code is not valid');
     }
@@ -96,7 +111,7 @@ function civicrm_api3_device_data_create($params)
     $newparams = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'DeviceData');
     $id = $newparams['id'];
     unset($newparams['values'][$id]['contact_id']);
-//    CRM_Core_Error::debug_var('paramsnew', $newparams);
+    CRM_Core_Error::debug_var('paramsnew', $newparams);
     return $newparams;
 }
 

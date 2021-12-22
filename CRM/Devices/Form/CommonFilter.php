@@ -157,7 +157,6 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             null,
             '_to',
             '_from');
-
     }
 
 
