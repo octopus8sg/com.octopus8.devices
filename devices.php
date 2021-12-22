@@ -158,7 +158,7 @@ function devices_civicrm_themes(&$themes) {
 function devices_civicrm_navigationMenu(&$menu) {
     _devices_civix_insert_navigation_menu($menu, '', array(
         'label' => E::ts('Devices'),
-        'name' => 'o8_device_devices',
+        'name' => 'o8_devices',
         'icon' => 'crm-i fa-heartbeat',
         'url' => 'civicrm/devices/dashboard',
         'permission' => 'access CiviCRM',
@@ -166,63 +166,63 @@ function devices_civicrm_navigationMenu(&$menu) {
         'operator' => 'OR',
         'separator' => 0,
     ));
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Dashboard'),
-        'name' => 'search_devices',
+        'name' => 'o8_devices_dashboard',
         'url' => 'civicrm/devices/dashboard',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Find Devices'),
-        'name' => 'search_devices',
+        'name' => 'o8_devices_devicessearch',
         'url' => 'civicrm/devices/search',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Add Device'),
-        'name' => 'add_device',
-        'url' => 'civicrm/devices/form?reset=1&action=add',
+        'name' => 'o8_devices_add_device',
+        'url' => 'civicrm/devices/device?reset=1&action=add',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Find Data'),
-        'name' => 'search_o8_device_devices',
-        'url' => 'civicrm/devices/data/search',
+        'name' => 'o8_devices_devicedatasearch',
+        'url' => 'civicrm/devices/searchdevicedata',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Add Data'),
-        'name' => 'search_o8_device_devices',
-        'url' => 'civicrm/devices/data/form?reset=1&action=add',
+        'name' => 'o8_devices_devicedata_add',
+        'url' => 'civicrm/devices/devicedata?reset=1&action=add',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Search Alerts'),
-        'name' => 'search_alert',
-        'url' => 'civicrm/alert/search',
+        'name' => 'o8_devices_alertsearch',
+        'url' => 'civicrm/devices/alertsearch',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,
     ));
     _devices_civix_navigationMenu($menu);
-    _devices_civix_insert_navigation_menu($menu, 'o8_device_devices', array(
+    _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Device Reports'),
-        'name' => 'search_devices',
+        'name' => 'o8_devices_report_devices',
         'url' => CRM_Utils_System::url('civicrm/report/list', ['grp' => 'devices', 'reset' => 1]),
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
