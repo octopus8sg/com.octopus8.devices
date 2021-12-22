@@ -11,7 +11,13 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 {
     protected $_device_types;
     protected $_sensors;
-
+    protected $_cid; // cid is contact for contact tab. if it's present, contact is freezed
+    public function preProcess()
+    {
+        parent::preProcess();
+        $cid = CRM_Utils_Request::retrieve('cid', 'Positive', $this, FALSE);
+        $this->_cid = $cid;
+    }
     // Devices
     // Device Data
     // Alarm Rules
@@ -52,6 +58,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $sensors = CRM_Core_OptionGroup::values('o8_device_sensor');
         $this->_device_types = $device_types;
         $this->_sensors = $sensors;
+        $this->_cid = CRM_Utils_Request::retrieve('cid', 'Positive');
         //
         $this->device_filter();
         $this->device_data_filter();
@@ -71,9 +78,16 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Device ID or Code'),
             ['size' => 28, 'maxlength' => 128]);
 
+        CRM_Core_Error::debug_var('cid', $this->_cid);
+
+        if($this->_cid){
         $this->addEntityRef('device_contact_id', E::ts('Device Owner'),
-            ['create' => false, 'multiple' => true, 'class' => 'huge'],
-            false);
+            false)->freeze();
+        }else{
+            $this->addEntityRef('device_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
 
         $this->add('select', 'device_device_type_id',
             E::ts('Device Type'),
@@ -121,10 +135,14 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             'device_data_device_id',
             ts('Device ID or Code'),
             ['size' => 28, 'maxlength' => 128]);
-
-        $this->addEntityRef('device_data_contact_id', E::ts('Device Owner'),
-            ['create' => false, 'multiple' => true, 'class' => 'huge'],
-            false);
+        if($this->_cid){
+            $this->addEntityRef('device_data_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        }else{
+            $this->addEntityRef('device_data_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
 
         $this->add('select', 'device_data_device_type_id',
             E::ts('Device Type'),
@@ -159,5 +177,14 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             '_from');
     }
 
-
+    public function setDefaultValues()
+    {
+        if ($this->_cid) {
+            $defaults['device_contact_id'] =
+                $this->_cid;
+            $defaults['device_data_contact_id'] =
+                $this->_cid;
+        }
+        return $defaults;
+    }
 }

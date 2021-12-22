@@ -19,6 +19,7 @@ class CRM_Devices_Page_ContactTab extends CRM_Core_Page
             FALSE, FALSE, TRUE
         );
         $controller_data->set('contactId', $this->_contactId);
+        $controller_data->set('cid', $this->_contactId);
         $controller_data->setEmbedded(TRUE);
         $controller_data->run();
 

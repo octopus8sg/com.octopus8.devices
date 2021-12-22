@@ -42,7 +42,7 @@ class CRM_Devices_Page_SearchDevice extends CRM_Core_Page
 //        CRM_Core_Error::debug_var('cid', $cid);
 
         $contactId = CRM_Utils_Request::retrieve('contact_id', 'String');
-        CRM_Core_Error::debug_var('contact', $contactId);
+//        CRM_Core_Error::debug_var('contact', $contactId);
         $device_device_id = CRM_Utils_Request::retrieveValue('device_device_id', 'String', null);
 
         $offset = CRM_Utils_Request::retrieveValue('iDisplayStart', 'Positive', 0);
@@ -143,7 +143,7 @@ class CRM_Devices_Page_SearchDevice extends CRM_Core_Page
         }
 
 
-        CRM_Core_Error::debug_var('device_sql', $sql);
+//        CRM_Core_Error::debug_var('device_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");

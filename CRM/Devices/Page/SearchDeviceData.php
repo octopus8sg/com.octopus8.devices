@@ -222,7 +222,7 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
         }
 
 
-        CRM_Core_Error::debug_var('sql', $sql);
+//        CRM_Core_Error::debug_var('sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
@@ -236,7 +236,7 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
             }
 
             $r_update = CRM_Utils_System::url('civicrm/devices/devicedata',
-                ['action' => 'update', 'id' => $dao->id]);
+                ['action' => 'update', 'id' => $dao->id, 'cid' => $dao->contact_id]);
             $r_delete = CRM_Utils_System::url('civicrm/devices/devicedata',
                 ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a target="_blank" class="edit-devicedata action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';

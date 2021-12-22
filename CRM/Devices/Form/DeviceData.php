@@ -88,6 +88,8 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
                         'params' => ['contact_id' => $contact_id],
                     ]
                 ], TRUE);
+                $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE)->freeze();
+
             } else {
                 $this->addEntityRef('device_id', E::ts('Device'), [
                     'entity' => 'device',
@@ -118,8 +120,7 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
         parent::buildQuickForm();
     }
 
-    public
-    function setDefaultValues()
+    public function setDefaultValues()
     {
         if ($this->_devicedata) {
             $defaults = $this->_devicedata;
