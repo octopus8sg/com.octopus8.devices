@@ -52,25 +52,25 @@
             </ul>
 
             <div id="data-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/Data.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/Data.tpl"}*}
             </div>
             <div id="devices-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/Devices.tpl"}*}
+                {include file="CRM/Devices/Page/Tabs/Devices.tpl"}
             </div>
             <div id="analytics-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/Analytics.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/Analytics.tpl"}*}
             </div>
             <div id="alarms-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/AlarmRules.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/AlarmRules.tpl"}*}
             </div>
             <div id="alarms-subtab2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/Alarms.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/Alarms.tpl"}*}
             </div>
             <div id="alarms-subtab3" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/AlertRules.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/AlertRules.tpl"}*}
             </div>
             <div id="alarms-subtab4" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Healthmonitor/Page/Tabs/Alerts.tpl"}*}
+{*                {include file="CRM/Devices/Page/Tabs/Alerts.tpl"}*}
             </div>
             <div class="clear"></div>
         </div>

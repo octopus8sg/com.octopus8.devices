@@ -98,7 +98,11 @@ class CRM_Devices_Page_SearchDevice extends CRM_Core_Page
     WHERE 1";
 
         if (isset($cid)) {
-            $sql .= " AND t.`contact_id` = " . $contactId . " ";
+            if (is_numeric($cid)) {
+                if (intval($cid) > 0) {
+                    $sql .= " AND t.`contact_id` = " . $cid . " ";
+                }
+            }
         } elseif (isset($contactId)) {
             if (strval($contactId) != "") {
                 $sql .= " AND t.`contact_id` in (" . $contactId . ") ";
