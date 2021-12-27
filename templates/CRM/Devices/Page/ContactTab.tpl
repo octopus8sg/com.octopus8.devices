@@ -52,7 +52,7 @@
             </ul>
 
             <div id="data-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Devices/Page/Tabs/Data.tpl"}*}
+                {include file="CRM/Devices/Page/Tabs/Data.tpl"}
             </div>
             <div id="devices-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
                 {include file="CRM/Devices/Page/Tabs/Devices.tpl"}

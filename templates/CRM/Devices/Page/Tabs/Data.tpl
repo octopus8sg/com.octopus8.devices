@@ -1,19 +1,13 @@
 <div class="crm-content-block">
-    <div class="action-link">
-        <a target="_blank" class="button add-data" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }&cid={$contactId}">
-            <i class="crm-i fa-plus-circle">&nbsp;</i>
-            {ts}Add Device Data{/ts}
-        </a>
-    </div>
     <div class="clear"></div>
-    {include file="CRM/Healthmonitor/Form/HealthMonitorFilter.tpl"}
+    {include file="CRM/Devices/Form/DeviceDataFilter.tpl"}
     <div class="clear"></div>
 
     <div class="crm-results-block">
         <div class="crm-search-results">
             {include file="CRM/common/enableDisableApi.tpl"}
             {include file="CRM/common/jsortable.tpl"}
-            <table class="selector selector-data row-highlight pagerDisplay" id="myTable" name="myTable">
+            <table class="selector-devicedata row-highlight pagerDisplay" id="myTable" name="myTable">
                 <thead class="sticky">
                 <tr>
                     <th id="sortable" scope="col">
@@ -41,4 +35,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.devices file=js/data.js}
+{crmScript ext=com.octopus8.devices file=js/tabdevicedata.js}
