@@ -33,6 +33,8 @@ function civicrm_api3_device_data_create($params)
 
 {
 
+    //check for sensors
+
     $types = CRM_Core_OptionGroup::values('o8_device_type');
 //    CRM_Core_Error::debug_var('anyway times', $params);
 
@@ -110,8 +112,105 @@ function civicrm_api3_device_data_create($params)
     }
     $newparams = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'DeviceData');
     $id = $newparams['id'];
+    $contact_id = $newparams['values'][$id]['contact_id'];
     unset($newparams['values'][$id]['contact_id']);
-    CRM_Core_Error::debug_var('paramsnew', $newparams);
+    $device_data_id = $id;
+    $sensor_id = $newparams['values'][$id]['sensor_id'];
+//    CRM_Core_Error::debug_var('params', $params);
+    $sensor = $sensors[$sensor_id];
+//    CRM_Core_Error::debug_var('sensor', $sensor);
+
+    $alarmrules = civicrm_api3('AlarmRule', 'get', [
+        'contact_id' => $contact_id,
+        'sensor_id' => $sensor_id,
+        'options' => ['sort' => "id desc"],
+    ]);
+//        \Civi\Api4\AlarmRule::get()
+//            ->setWhere([])->setOrderBy(['id' => 'DESC'])
+//            ->execute()->jsonSerialize();
+
+//    CRM_Core_Error::debug_var('alarmrules', $alarmrules);
+    $break = false;
+    $rules = CRM_Core_OptionGroup::values('o8_device_rule_type', FALSE, FALSE, FALSE, null, 'name');
+//    CRM_Core_Error::debug_var('rules', $rules);
+
+    foreach ($alarmrules['values'] as $alarmrule) {
+//        CRM_Core_Error::debug_var('alarmrule', $alarmrule);
+        $rule = $rules[$alarmrule['rule_id']];
+        $result = 'All OK! ' . $params['sensor_value']  . ' === ' . $rule . ' === ' .  $alarmrule['sensor_value'] ;
+        switch ($rule) {
+            case 'eq':
+                if ($alarmrule['sensor_value'] == $params['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+
+            case 'ne':
+                if ($params['sensor_value'] <> $alarmrule['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+
+            case 'le':
+                if ($params['sensor_value'] <= $alarmrule['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+
+            case 'lt':
+                if ($params['sensor_value'] < $alarmrule['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+            case 'ge':
+                if ($params['sensor_value'] >= $alarmrule['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+            case 'gt':
+                if ($params['sensor_value'] > $alarmrule['sensor_value']) {
+                    $result = civicrm_api3('Alarm', 'create', [
+                        'contact_id' => $contact_id,
+                        'device_data_id' => $device_data_id,
+                        'alarm_rule_id' => $alarmrule['id'],
+                    ]);
+                    $break = true;
+                }
+                break;
+        }
+//        CRM_Core_Error::debug_var('result', $result);
+        if ($break == true) return $newparams;
+    }
+    //    check and create health monitor
+    // check for rule - contact, sensor_id
+    // check rule case
+    // create / return
+
     return $newparams;
 }
 

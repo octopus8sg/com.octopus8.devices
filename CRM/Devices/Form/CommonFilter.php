@@ -78,7 +78,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Device ID or Code'),
             ['size' => 28, 'maxlength' => 128]);
 
-        CRM_Core_Error::debug_var('cid', $this->_cid);
+//        CRM_Core_Error::debug_var('cid', $this->_cid);
 
         if($this->_cid){
         $this->addEntityRef('device_contact_id', E::ts('Device Owner'),

@@ -89,7 +89,7 @@ class CRM_Devices_Page_DevicesDashboard extends CRM_Core_Page
     ";
         $last_year_alerts_Count = CRM_Core_DAO::singleValueQuery($last_year_alerts_sql);
         $this->assign('last_year_alerts_Count', $last_year_alerts_Count);
-        CRM_Core_Error::debug_var('last_year_alerts_Count', $last_year_alerts_Count);
+//        CRM_Core_Error::debug_var('last_year_alerts_Count', $last_year_alerts_Count);
 
         $this_year_alerts_sql = "
     SELECT COUNT(DISTINCT t.id) from
