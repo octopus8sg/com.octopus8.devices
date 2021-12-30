@@ -72,9 +72,20 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
+    <path>civicrm/devices/alarmrule_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchAlarmRule::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
     <path>civicrm/devices/dashboard</path>
     <page_callback>CRM_Devices_Page_DevicesDashboard</page_callback>
     <title>DevicesDashboard</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/searchalarmrule</path>
+    <page_callback>CRM_Devices_Page_SearchAlarmRule</page_callback>
+    <title>SearchAlarmRule</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>

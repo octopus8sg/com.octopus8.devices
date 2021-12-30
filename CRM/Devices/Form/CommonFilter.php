@@ -62,6 +62,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         //
         $this->device_filter();
         $this->device_data_filter();
+        $this->alarm_rule_filter();
         $this->assign('suppressForm', FALSE);
         parent::buildQuickForm();
     }
@@ -178,12 +179,57 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
+    function alarm_rule_filter()
+    {
+        /*
+            aoData.push({ "name": "alarm_rule_id",
+                "value": $('#alarm_rule_id').val() });
+            aoData.push({ "name": "contact_id",
+                "value": $('#alarm_rule_contact_id').val() });
+            aoData.push({ "name": "sensor_id",
+                "value": $('#alarm_rule_sensor_id').val() });
+         */
+        // ID or Code
+        // Contact (Owner)
+        // SensorID
+
+        $this->add(
+            'text',
+            'alarm_rule_id',
+            ts('Alarm Rule ID or Code'),
+            ['size' => 28, 'maxlength' => 128]);
+
+        if($this->_cid){
+            $this->addEntityRef('alarm_rule_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        }else{
+            $this->addEntityRef('alarm_rule_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
+
+
+        $this->add('select', 'alarm_rule_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+    }
+
     public function setDefaultValues()
     {
         if ($this->_cid) {
             $defaults['device_contact_id'] =
                 $this->_cid;
             $defaults['device_data_contact_id'] =
+                $this->_cid;
+            $defaults['alarm_rule_contact_id'] =
                 $this->_cid;
         }
         return $defaults;

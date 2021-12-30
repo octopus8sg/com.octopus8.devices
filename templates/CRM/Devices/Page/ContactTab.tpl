@@ -61,7 +61,7 @@
 {*                {include file="CRM/Devices/Page/Tabs/Analytics.tpl"}*}
             </div>
             <div id="alarms-subtab1" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Devices/Page/Tabs/AlarmRules.tpl"}*}
+                {include file="CRM/Devices/Page/Tabs/AlarmRules.tpl"}
             </div>
             <div id="alarms-subtab2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 {*                {include file="CRM/Devices/Page/Tabs/Alarms.tpl"}*}

@@ -73,7 +73,7 @@ class CRM_Devices_Page_ContactTab extends CRM_Core_Page
             ->execute();
         $this->assign('alarmRuleCount', $alarmRules->rowCount);
         $alarmRules_sourceUrl = CRM_Utils_System::url('civicrm/devices/alarmrule_ajax', $urlQry, FALSE, NULL, FALSE);
-        $sourceUrl['alarmrules_sourceUrl'] = $alarmRules_sourceUrl;
+        $sourceUrl['alarm_rules_sourceUrl'] = $alarmRules_sourceUrl;
         $this->assign('alarmrules_sourceUrl', $alarmRules_sourceUrl);
 
         // alert rules datatable js and variables
