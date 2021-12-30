@@ -83,7 +83,7 @@ CRM.$(function ($) {
                     hm_table.draw();
                 });
             });
-            $("a.delete-device").click(function (event) {
+            $("a.delete-alarm-rule").click(function (event) {
                 event.preventDefault();
                 var href = $(this).attr('href');
                 // alert(href);
