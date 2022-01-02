@@ -1,12 +1,12 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button add-alert-rule" href="{crmURL p="civicrm/alertrule/form" q="reset=1&action=add" }&cid={$contactId}">
+        <a class="button add-alert-rule" href="{crmURL p="civicrm/devices/alertrule" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Alert Rule{/ts}
         </a>
     </div>
     <div class="clear"></div>
-    {include file="CRM/Healthmonitor/Form/AlertRuleFilter.tpl"}
+    {include file="CRM/Devices/Form/AlertRuleFilter.tpl"}
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
@@ -49,4 +49,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.devices file=js/alertrules.js}
+{*{crmScript ext=com.octopus8.devices file=js/alertrules.js}*}

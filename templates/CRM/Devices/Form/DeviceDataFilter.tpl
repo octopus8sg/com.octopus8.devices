@@ -10,12 +10,12 @@
             <tr>
               <td class="label">{$form.device_data_id.label}</td>
               <td>{$form.device_data_id.html}</td>
-              <td class="label">{$form.device_data_device_id.label}</td>
-              <td>{$form.device_data_device_id.html}</td>
-            </tr>
-            <tr>
               <td class="label">{$form.device_data_contact_id.label}</td>
               <td>{$form.device_data_contact_id.html}</td>
+            </tr>
+            <tr>
+              <td class="label">{$form.device_data_device_id.label}</td>
+              <td>{$form.device_data_device_id.html}</td>
             </tr>
             <tr>
               <td class="label">{$form.device_data_device_type_id.label}</td>
@@ -24,8 +24,6 @@
               <td>{$form.device_data_sensor_id.html}</td>
             </tr>
             <tr>
-{*              <td class="label">{$form.device_data_dateselect_relative.label}</td>*}
-{*              <td>{$form.device_data_dateselect_relative.html}</td>*}
               <td class="label">{$form.device_data_dateselect_from.label}</td>
               <td>{$form.device_data_dateselect_from.html}</td>
               <td class="label">{$form.device_data_dateselect_to.label}</td>

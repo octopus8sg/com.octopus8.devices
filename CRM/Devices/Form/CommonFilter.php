@@ -64,7 +64,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $this->device_data_filter();
         $this->alarm_rule_filter();
         $this->alarm_filter();
-        $this->assign('suppressForm', FALSE);
+        $this->alert_rule_filter();
+        $this->assign('suppressForm', TRUE);
         parent::buildQuickForm();
     }
 
@@ -224,6 +225,70 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
+
+    function alert_rule_filter()
+    {
+        /*
+            aoData.push({ "name": "alarm_rule_id",
+                "value": $('#alarm_rule_id').val() });
+            aoData.push({ "name": "contact_id",
+                "value": $('#alarm_rule_contact_id').val() });
+            aoData.push({ "name": "sensor_id",
+                "value": $('#alarm_rule_sensor_id').val() });
+         */
+        // ID or Code
+        // Contact (Owner)
+        // SensorID
+
+        $this->add(
+            'text',
+            'alert_rule_id',
+            ts('Alert Rule ID or Code'),
+            ['size' => 28, 'maxlength' => 128]);
+
+        if($this->_cid){
+            $this->addEntityRef('alert_rule_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        }else{
+            $this->addEntityRef('alert_rule_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
+
+        $this->addEntityRef('alert_rule_addressee_id', E::ts('Device Owner'),
+            ['create' => false, 'multiple' => true, 'class' => 'huge'],
+            false);
+
+        $this->add('select', 'alert_rule_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+        $alert_rule_types = [
+            0 => 'CiviCRM',
+            1 => 'Email',
+            2 => 'SMS',
+            3 => 'API'
+        ];
+        $this->add('select', 'alert_rule_type',
+            E::ts('Alert Type'),
+            $alert_rule_types,
+            FALSE,
+            ['class' => 'huge crm-select2',
+//                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Alert Type -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+
+    }
+
     function alarm_filter()
     {
         /*
@@ -306,6 +371,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             $defaults['alarm_rule_contact_id'] =
                 $this->_cid;
             $defaults['alarm_contact_id'] =
+                $this->_cid;
+            $defaults['alert_rule_contact_id'] =
+                $this->_cid;
+            $defaults['alert_contact_id'] =
                 $this->_cid;
         }
         return $defaults;

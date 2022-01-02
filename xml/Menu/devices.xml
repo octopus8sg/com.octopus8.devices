@@ -82,6 +82,16 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
+    <path>civicrm/devices/alertrule_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchAlertRule::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/alert_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchAlert::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
     <path>civicrm/devices/dashboard</path>
     <page_callback>CRM_Devices_Page_DevicesDashboard</page_callback>
     <title>DevicesDashboard</title>
@@ -97,6 +107,18 @@
     <path>civicrm/devices/searchalarm</path>
     <page_callback>CRM_Devices_Page_SearchAlarm</page_callback>
     <title>SearchAlarm</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/searchalert</path>
+    <page_callback>CRM_Devices_Page_SearchAlert</page_callback>
+    <title>SearchAlert</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/searchalertrule</path>
+    <page_callback>CRM_Devices_Page_SearchAlertRule</page_callback>
+    <title>SearchAlertRule</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>

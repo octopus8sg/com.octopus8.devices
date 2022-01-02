@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="action-link">
-        <a class="button add-alarm-rule" href="{crmURL p="civicrm/alarmrule/form" q="reset=1&action=add" }&cid={$contactId}">
+        <a class="button add-alarm-rule" href="{crmURL p="civicrm/devices/alarmrule" q="reset=1&action=add" }&cid={$contactId}">
             <i class="crm-i fa-plus-circle">&nbsp;</i>
             {ts}Add Alarm Rule{/ts}
         </a>

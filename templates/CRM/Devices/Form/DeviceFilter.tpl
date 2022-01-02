@@ -10,14 +10,12 @@
             <tr>
               <td class="label">{$form.device_device_id.label}</td>
               <td>{$form.device_device_id.html}</td>
+              <td class="label">{$form.device_contact_id.label}</td>
+              <td>{$form.device_contact_id.html}</td>
             </tr>
             <tr>
               <td class="label">{$form.device_device_type_id.label}</td>
               <td>{$form.device_device_type_id.html}</td>
-            </tr>
-            <tr>
-              <td class="label">{$form.device_contact_id.label}</td>
-              <td>{$form.device_contact_id.html}</td>
             </tr>
             </tbody>
           </table>

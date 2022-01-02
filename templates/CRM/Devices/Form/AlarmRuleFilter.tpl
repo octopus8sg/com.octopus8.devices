@@ -9,8 +9,6 @@
           <tr>
             <td class="label">{$form.alarm_rule_id.label}</td>
             <td>{$form.alarm_rule_id.html}</td>
-          </tr>
-          <tr>
             <td class="label">{$form.alarm_rule_contact_id.label}</td>
             <td>{$form.alarm_rule_contact_id.html}</td>
           </tr>
