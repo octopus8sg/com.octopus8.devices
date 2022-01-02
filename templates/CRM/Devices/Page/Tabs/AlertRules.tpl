@@ -10,9 +10,10 @@
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
-            {include file="CRM/common/enableDisableApi.tpl"}
-            {include file="CRM/common/jsortable.tpl"}
-            <table class="selector selector-alertrules row-highlight pagerDisplay" id="myAlertRules" name="myAlertRules">
+{*            {include file="CRM/common/enableDisableApi.tpl"}*}
+{*            {include file="CRM/common/jsortable.tpl"}*}
+            <table class="selector-alertrules row-highlight pagerDisplay" id="myAlertRules" name="myAlertRules">
+{*            <table class="selector-alertrules row-highlight " id="myAlertRules" name="myAlertRules">*}
                 <thead class="sticky">
                 <tr>
                     <th id="sortable" scope="col">
@@ -37,6 +38,9 @@
                         {ts}Email{/ts}
                     </th>
                     <th scope="col">
+                        {ts}SMS{/ts}
+                    </th>
+                    <th scope="col">
                         {ts}Telegram{/ts}
                     </th>
                     <th scope="col">
@@ -49,4 +53,4 @@
         </div>
     </div>
 </div>
-{*{crmScript ext=com.octopus8.devices file=js/alertrules.js}*}
+{crmScript ext=com.octopus8.devices file=js/tabalertrules.js}

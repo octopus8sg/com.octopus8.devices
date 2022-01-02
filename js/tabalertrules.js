@@ -15,6 +15,7 @@ CRM.$(function ($) {
 
 
         var alertrules_sourceUrl = CRM.vars.source_url['alertrules_sourceUrl'];
+        // alert(alertrules_sourceUrl);
         // var alertrules_sourceUrl = "";
     $(document).ready(function () {
     // $("a.alert-rules-subtab").click(function (event) {
@@ -26,38 +27,38 @@ CRM.$(function ($) {
         alertrules_dtsettings.bFilter = true;
         //turn on search
 
-        alertrules_dtsettings.sDom = '<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
+        // alertrules_dtsettings.sDom = '<"crm-datatable-pager-top"lp>Brt<"crm-datatable-pager-bottom"ip>';
         //turn of search field
         alertrules_dtsettings.sAjaxSource = alertrules_sourceUrl;
-        alertrules_dtsettings.Buttons = ["csv", "pdf", "copy"];
-        alertrules_dtsettings.fnInitComplete = function (oSettings, json) {
-            // $("a.view-device").css('background','red');
-            // $("a.view-device").click(function (event) {
-            //     event.preventDefault();
-            //     var href = $(this).attr('href');
-            //     // alert(href);
-            //     var $el = CRM.loadForm(href, {
-            //         dialog: {width: '50%', height: '50%'}
-            //     }).on('crmFormSuccess', function () {
-            //         var hm_tab = $('.selector-devices');
-            //         var hm_table = hm_tab.DataTable();
-            //         hm_table.draw();
-            //     });
-            // });
-            // // $("a.update-device").css('background','blue');
-            // $("a.update-device").click(function (event) {
-            //     event.preventDefault();
-            //     var href = $(this).attr('href');
-            //     // alert(href);
-            //     var $el = CRM.loadForm(href, {
-            //         dialog: {width: '50%', height: '50%'}
-            //     }).on('crmFormSuccess', function () {
-            //         var hm_tab = $('.selector-devices');
-            //         var hm_table = hm_tab.DataTable();
-            //         hm_table.draw();
-            //     });
-            // });
-        };
+        // alertrules_dtsettings.Buttons = ["csv", "pdf", "copy"];
+        // alertrules_dtsettings.fnInitComplete = function (oSettings, json) {
+        //     // $("a.view-device").css('background','red');
+        //     // $("a.view-device").click(function (event) {
+        //     //     event.preventDefault();
+        //     //     var href = $(this).attr('href');
+        //     //     // alert(href);
+        //     //     var $el = CRM.loadForm(href, {
+        //     //         dialog: {width: '50%', height: '50%'}
+        //     //     }).on('crmFormSuccess', function () {
+        //     //         var hm_tab = $('.selector-devices');
+        //     //         var hm_table = hm_tab.DataTable();
+        //     //         hm_table.draw();
+        //     //     });
+        //     // });
+        //     // // $("a.update-device").css('background','blue');
+        //     // $("a.update-device").click(function (event) {
+        //     //     event.preventDefault();
+        //     //     var href = $(this).attr('href');
+        //     //     // alert(href);
+        //     //     var $el = CRM.loadForm(href, {
+        //     //         dialog: {width: '50%', height: '50%'}
+        //     //     }).on('crmFormSuccess', function () {
+        //     //         var hm_tab = $('.selector-devices');
+        //     //         var hm_table = hm_tab.DataTable();
+        //     //         hm_table.draw();
+        //     //     });
+        //     // });
+        // };
         alertrules_dtsettings.fnDrawCallback = function (oSettings) {
             // $("a.view-device").css('background','red');
             $("a.view-alert-rule").click(function (event) {

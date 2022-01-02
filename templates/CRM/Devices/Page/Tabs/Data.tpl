@@ -7,6 +7,7 @@
         <div class="crm-search-results">
             {include file="CRM/common/enableDisableApi.tpl"}
             {include file="CRM/common/jsortable.tpl"}
+{*            <table class="selector-devicedata row-highlight pagerDisplay" id="myTable" name="myTable">*}
             <table class="selector-devicedata row-highlight pagerDisplay" id="myTable" name="myTable">
                 <thead class="sticky">
                 <tr>

@@ -10,8 +10,9 @@
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
-            {include file="CRM/common/enableDisableApi.tpl"}
-            {include file="CRM/common/jsortable.tpl"}
+{*            {include file="CRM/common/enableDisableApi.tpl"}*}
+{*            {include file="CRM/common/jsortable.tpl"}*}
+{*            <table class="selector-devices row-highlight pagerDisplay" id="myDevices" name="myDevices">*}
             <table class="selector-devices row-highlight pagerDisplay" id="myDevices" name="myDevices">
                 <thead class="sticky">
                 <tr>

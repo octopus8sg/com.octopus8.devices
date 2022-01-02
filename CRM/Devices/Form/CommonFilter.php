@@ -229,12 +229,16 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
     function alert_rule_filter()
     {
         /*
-            aoData.push({ "name": "alarm_rule_id",
-                "value": $('#alarm_rule_id').val() });
+            aoData.push({ "name": "alert_rule_id",
+                "value": $('#alert_rule_id').val() });
             aoData.push({ "name": "contact_id",
-                "value": $('#alarm_rule_contact_id').val() });
+                "value": $('#alert_rule_contact_id').val() });
             aoData.push({ "name": "sensor_id",
-                "value": $('#alarm_rule_sensor_id').val() });
+                "value": $('#alert_rule_sensor_id').val() });
+            aoData.push({ "name": "alert_rule_addressee_id",
+                "value": $('#alert_rule_addressee_id').val() });
+            aoData.push({ "name": "alert_rule_type",
+                "value": $('#alert_rule_type').val() });
          */
         // ID or Code
         // Contact (Owner)
@@ -243,7 +247,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $this->add(
             'text',
             'alert_rule_id',
-            ts('Alert Rule ID or Code'),
+            ts('Alert Rule ID, Code or Title'),
             ['size' => 28, 'maxlength' => 128]);
 
         if($this->_cid){
@@ -255,7 +259,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
                 false);
         }
 
-        $this->addEntityRef('alert_rule_addressee_id', E::ts('Device Owner'),
+        $this->addEntityRef('alert_rule_addressee_id', E::ts('Alert Addressee'),
             ['create' => false, 'multiple' => true, 'class' => 'huge'],
             false);
 
@@ -273,7 +277,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             0 => 'CiviCRM',
             1 => 'Email',
             2 => 'SMS',
-            3 => 'API'
+            3 => 'Telegram',
+            4 => 'API'
         ];
         $this->add('select', 'alert_rule_type',
             E::ts('Alert Type'),

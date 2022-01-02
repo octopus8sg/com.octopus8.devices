@@ -4,8 +4,9 @@
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
-            {include file="CRM/common/enableDisableApi.tpl"}
-            {include file="CRM/common/jsortable.tpl"}
+{*            {include file="CRM/common/enableDisableApi.tpl"}*}
+{*            {include file="CRM/common/jsortable.tpl"}*}
+{*            <table class="selector selector-alarm row-highlight pagerDisplay" id="myAlarms" name="myAlarms">*}
             <table class="selector selector-alarm row-highlight pagerDisplay" id="myAlarms" name="myAlarms">
                 <thead class="sticky">
                 <tr>
@@ -32,4 +33,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.devices file=js/alarm.js}
+{crmScript ext=com.octopus8.devices file=js/tabalarms.js}

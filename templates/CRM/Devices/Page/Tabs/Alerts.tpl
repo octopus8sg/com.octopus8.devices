@@ -4,9 +4,10 @@
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
-            {include file="CRM/common/enableDisableApi.tpl"}
-            {include file="CRM/common/jsortable.tpl"}
-            <table class="selector selector-alert row-highlight pagerDisplay" id="myAlerts" name="myAlerts">
+{*            {include file="CRM/common/enableDisableApi.tpl"}*}
+{*            {include file="CRM/common/jsortable.tpl"}*}
+{*            <table class="selector selector-alert row-highlight pagerDisplay" id="myAlerts" name="myAlerts">*}
+            <table class="selector-alert row-highlight pagerDisplay" id="myAlerts" name="myAlerts">
                 <thead class="sticky">
                 <tr>
                     <th id="sortable" scope="col">
@@ -34,4 +35,4 @@
         </div>
     </div>
 </div>
-{crmScript ext=com.octopus8.devices file=js/alert.js}
+{*{crmScript ext=com.octopus8.devices file=js/tabalerts.js}*}

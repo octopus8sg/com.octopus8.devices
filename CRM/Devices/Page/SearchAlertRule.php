@@ -19,10 +19,11 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
     public function getAjax()
     {
 //
-//        CRM_Core_Error::debug_var('request', $_REQUEST);
-//        CRM_Core_Error::debug_var('post', $_POST);
+        CRM_Core_Error::debug_var('request', $_REQUEST);
+        CRM_Core_Error::debug_var('post', $_POST);
 
-        $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
+        $cid = CRM_Utils_Request::retrieve('cid', 'Positive');
+        $contactId = CRM_Utils_Request::retrieve('contact_id', 'CommaSeparatedIntegers');
 //        CRM_Core_Error::debug_var('contact', $contactId);
 
 
@@ -32,23 +33,45 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
         $limit = CRM_Utils_Request::retrieveValue('iDisplayLength', 'Positive', 10);
 //        CRM_Core_Error::debug_var('limit', $limit);
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('alert_rule_sensor_id', 'Positive', null);
+        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'CommaSeparatedIntegers', null);
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
-        $civicrm = CRM_Utils_Request::retrieveValue('alert_rule_civicrm', 'Boolean', null);
-//        CRM_Core_Error::debug_var('civicrm', strval($civicrm));
+        $alert_rule_id = CRM_Utils_Request::retrieveValue('alert_rule_id', 'String', null);
+        CRM_Core_Error::debug_var('alert_rule_id', $alert_rule_id);
 
-        $email = CRM_Utils_Request::retrieveValue('alert_rule_email', 'Boolean', null);
-//        CRM_Core_Error::debug_var('email', $email);
+        $alert_rule_type = CRM_Utils_Request::retrieveValue('alert_rule_type', 'CommaSeparatedIntegers', null);
+        CRM_Core_Error::debug_var('alert_rule_type', $alert_rule_type);
+        $alert_rule_types = [];
+        if (!empty($alert_rule_type)) {
+            if (strpos($alert_rule_type, ',')) {
+                $alert_rule_types = explode(',', $alert_rule_type);
+            } else {
+                $alert_rule_types = [$alert_rule_type];
+            }
+        }else{
+            if(strlen('alert_rule_type') > 0){
+                $alert_rule_types[] = $alert_rule_type;
+            };
+        }
+        CRM_Core_Error::debug_var('alert_rule_types', strval($alert_rule_types));
 
-        $telegram = CRM_Utils_Request::retrieveValue('alert_rule_telegram', 'Boolean', null);
-//        CRM_Core_Error::debug_var('telegram', $telegram);
+        $civicrm = boolval(in_array('0', $alert_rule_types));
+        CRM_Core_Error::debug_var('civicrm', strval($civicrm));
 
-        $api = CRM_Utils_Request::retrieveValue('alert_rule_api', 'Boolean', null);
-//        CRM_Core_Error::debug_var('api', $api);
+        $email = boolval(in_array('1', $alert_rule_types));
+        CRM_Core_Error::debug_var('email', $email);
+
+        $sms = boolval(in_array('2', $alert_rule_types));
+        CRM_Core_Error::debug_var('sms', $sms);
+
+        $telegram = boolval(in_array('3', $alert_rule_types));
+        CRM_Core_Error::debug_var('telegram', $telegram);
+
+        $api = boolval(in_array('4', $alert_rule_types));
+        CRM_Core_Error::debug_var('api', $api);
 
 
-        $addressee_id = CRM_Utils_Request::retrieveValue('alert_rule_addressee_id', 'String', null);
+        $addressee_id = CRM_Utils_Request::retrieveValue('alert_rule_addressee_id', 'CommaSeparatedIntegers', null);
 //        CRM_Core_Error::debug_var('addressee_id', $addressee_id);
 
 
@@ -60,8 +83,9 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
             4 => 'addressee_id',
             5 => 'civicrm',
             6 => 'email',
-            7 => 'telegram',
-            8 => 'api',
+            7 => 'sms',
+            8 => 'telegram',
+            9 => 'api',
         ];
 
         $sort = isset($_REQUEST['iSortCol_0']) ? CRM_Utils_Array::value(CRM_Utils_Type::escape($_REQUEST['iSortCol_0'], 'Integer'), $sortMapper) : NULL;
@@ -77,50 +101,70 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
        t.addressee_id,
        t.civicrm,
        t.email,
+       t.sms,
        t.telegram,
        t.api
-FROM civicrm_health_alert_rule t
-    INNER JOIN civicrm_health_alarm_rule r on  t.rule_id = r.id
+    FROM civicrm_o8_device_alert_rule t
+    INNER JOIN civicrm_o8_device_alarm_rule r on  t.rule_id = r.id
     INNER JOIN civicrm_option_value s on  r.sensor_id = s.value
-    INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'health_monitor_sensor'
+    INNER JOIN civicrm_option_group gs on s.option_group_id = gs.id and gs.name = 'o8_device_sensor'
       WHERE 1";
 
-        if (isset($contactId)) {
-            $sql .= " AND t.contact_id = " . $contactId . " ";
+        if (isset($alert_rule_id)) {
+            if (strval($alert_rule_id) != "") {
+                $sql .= " AND (t.`code` like '%" . strval($alert_rule_id) . "%' OR t.`title` like '%" . strval($alert_rule_id) . "%') ";
+                if (is_numeric($alert_rule_id)) {
+                    $sql .= " OR t.`id` = " . intval($alert_rule_id) . " ";
+                }
+            }
+        }
+
+        if (isset($cid)) {
+            if (is_numeric($cid)) {
+                if (intval($cid) > 0) {
+                    $sql .= " AND t.`contact_id` = " . $cid . " ";
+                }
+            }
+        } elseif (isset($contactId)) {
+            if (strval($contactId) != "") {
+                $sql .= " AND t.`contact_id` in (" . $contactId . ") ";
+            }
         }
 
         if (isset($addressee_id)) {
-            if ($addressee_id != "") {
-                $sql .= " AND t.addressee_id in (" . $addressee_id . ") ";
+            if (strval($addressee_id) != "") {
+                $sql .= " AND t.`adressee_id` in (" . $addressee_id . ") ";
             }
         }
-
 
         if (isset($sensor_id)) {
-            if ($sensor_id > 0) {
-                $sql .= " AND r.sensor_id = " . $sensor_id . " ";
+            if (strval($sensor_id) != "") {
+                if (is_numeric($sensor_id)) {
+                    $sql .= " AND r.`sensor_id` = " . $sensor_id . " ";
+                } else {
+                    $sql .= " AND r.`sensor_id` in (" . $sensor_id . ") ";
+                }
             }
         }
 
-        if (!(strval($civicrm) === strval($email)
-            and strval($civicrm) === strval($telegram)
-            and strval($civicrm) === strval($api)
-            and strval($civicrm) === 'false')) {
-            if (isset($civicrm)) {
-                $sql .= " AND t.civicrm = " . strval($civicrm);
-            }
+        if ($civicrm) {
+            $sql .= " AND t.civicrm = " . strval($civicrm);
+        }
 
-            if (isset($email)) {
-                $sql .= " AND t.email = " . strval($email);
-            }
+        if ($email) {
+            $sql .= " AND t.email = " . strval($email);
+        }
 
-            if (isset($telegram)) {
-                $sql .= " AND t.telegram = " . strval($telegram);
-            }
+        if ($sms) {
+            $sql .= " AND t.sms = " . strval($sms);
+        }
 
-            if (isset($api)) {
-                $sql .= " AND t.api = " . strval($api);
-            }
+        if ($telegram) {
+            $sql .= " AND t.telegram = " . strval($telegram);
+        }
+
+        if ($api) {
+            $sql .= " AND t.api = " . strval($api);
         }
 
         if ($sort !== NULL) {
@@ -140,16 +184,16 @@ FROM civicrm_health_alert_rule t
         }
 
 
-//        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
+        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
         $rows = array();
         $count = 0;
         while ($dao->fetch()) {
-            $r_update = CRM_Utils_System::url('civicrm/alertrule/form',
+            $r_update = CRM_Utils_System::url('civicrm/devices/alertrule',
                 ['action' => 'update', 'id' => $dao->id]);
-            $r_delete = CRM_Utils_System::url('civicrm/alertrule/form',
+            $r_delete = CRM_Utils_System::url('civicrm/devices/alertrule',
                 ['action' => 'delete', 'id' => $dao->id]);
             $update = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
             $delete = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
@@ -164,6 +208,8 @@ FROM civicrm_health_alert_rule t
             if ($dao->civicrm) $civicrm = '&#10004;';
             $email = '';
             if ($dao->email) $email = '&#10004;';
+            $sms = '';
+            if ($dao->sms) $sms = '&#10004;';
             $telegram = '';
             if ($dao->telegram) $telegram = '&#10004;';
             $api = '';
@@ -176,6 +222,7 @@ FROM civicrm_health_alert_rule t
             $rows[$count][] = $addressee;
             $rows[$count][] = $civicrm;
             $rows[$count][] = $email;
+            $rows[$count][] = $sms;
             $rows[$count][] = $telegram;
             $rows[$count][] = $api;
             $rows[$count][] = $action;
