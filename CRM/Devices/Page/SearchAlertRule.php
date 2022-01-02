@@ -184,7 +184,7 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
         }
 
 
-        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
+//        CRM_Core_Error::debug_var('alert_rule_sql', $sql);
 
         $dao = CRM_Core_DAO::executeQuery($sql);
         $iFilteredTotal = CRM_Core_DAO::singleValueQuery("SELECT FOUND_ROWS()");
@@ -195,8 +195,8 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
                 ['action' => 'update', 'id' => $dao->id]);
             $r_delete = CRM_Utils_System::url('civicrm/devices/alertrule',
                 ['action' => 'delete', 'id' => $dao->id]);
-            $update = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
-            $delete = '<a target="_blank" class="action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
+            $update = '<a target="_blank" class="update-alert-rule action-item crm-hover-button" href="' . $r_update . '"><i class="crm-i fa-pencil"></i>&nbsp;Edit</a>';
+            $delete = '<a target="_blank" class="delete-alert-rule action-item crm-hover-button" href="' . $r_delete . '"><i class="crm-i fa-trash"></i>&nbsp;Delete</a>';
             $civicrm = '';
             $addressee = "";
             if (!empty($dao->addressee_id)) {
