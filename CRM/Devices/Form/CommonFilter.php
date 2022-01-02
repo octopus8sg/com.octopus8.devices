@@ -63,6 +63,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $this->device_filter();
         $this->device_data_filter();
         $this->alarm_rule_filter();
+        $this->alarm_filter();
         $this->assign('suppressForm', FALSE);
         parent::buildQuickForm();
     }
@@ -169,7 +170,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
         $this->addDatePickerRange('device_data_dateselect',
             'Select Date',
-            TRUE,
+            FALSE,
             FALSE,
             'From: ',
             'To: ',
@@ -222,6 +223,77 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
+
+    function alarm_filter()
+    {
+        /*
+            aoData.push({ "name": "alarm_id",
+                "value": $('#alarm_id').val() });
+            aoData.push({ "name": "contact_id",
+                "value": $('#alarm_contact_id').val() });
+            aoData.push({ "name": "sensor_id",
+                "value": $('#alarm_sensor_id').val() });
+            aoData.push({ "name": "dateselect_from",
+                "value": $('#alarm_dateselect_from').val() });
+            aoData.push({ "name": "dateselect_to",
+                "value": $('#alarm_dateselect_to').val() });
+         */
+        // ID or Code
+        // Contact (Owner)
+        // SensorID
+
+        $this->add(
+            'text',
+            'alarm_id',
+            ts('Alarm ID'),
+            ['size' => 28, 'maxlength' => 128]);
+
+        if($this->_cid){
+            $this->addEntityRef('alarm_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        }else{
+            $this->addEntityRef('alarm_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
+
+
+        $this->add('select', 'alarm_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+
+        $this->add('select', 'alarm_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+        $this->addDatePickerRange('alarm_dateselect',
+            'Select Date',
+            FALSE,
+            FALSE,
+            'From: ',
+            'To: ',
+            null,
+            '_to',
+            '_from');
+        
+        
+    }
+
     public function setDefaultValues()
     {
         if ($this->_cid) {
@@ -230,6 +302,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             $defaults['device_data_contact_id'] =
                 $this->_cid;
             $defaults['alarm_rule_contact_id'] =
+                $this->_cid;
+            $defaults['alarm_contact_id'] =
                 $this->_cid;
         }
         return $defaults;

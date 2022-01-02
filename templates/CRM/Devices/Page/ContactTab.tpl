@@ -64,7 +64,7 @@
                 {include file="CRM/Devices/Page/Tabs/AlarmRules.tpl"}
             </div>
             <div id="alarms-subtab2" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-{*                {include file="CRM/Devices/Page/Tabs/Alarms.tpl"}*}
+                {include file="CRM/Devices/Page/Tabs/Alarms.tpl"}
             </div>
             <div id="alarms-subtab3" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 {*                {include file="CRM/Devices/Page/Tabs/AlertRules.tpl"}*}

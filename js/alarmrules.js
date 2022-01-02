@@ -65,7 +65,7 @@ CRM.$(function ($) {
                 var $el = CRM.loadForm(href, {
                     dialog: {width: '50%', height: '50%'}
                 }).on('crmFormSuccess', function () {
-                    var hm_tab = $('.selector-devices');
+                    var hm_tab = $('.selector-alarmrules');
                     var hm_table = hm_tab.DataTable();
                     hm_table.draw();
                 });

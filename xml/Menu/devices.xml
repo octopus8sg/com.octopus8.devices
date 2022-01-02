@@ -88,4 +88,10 @@
     <title>SearchAlarmRule</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
+  <item>
+    <path>civicrm/devices/searchalarm</path>
+    <page_callback>CRM_Devices_Page_SearchAlarm</page_callback>
+    <title>SearchAlarm</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
 </menu>
