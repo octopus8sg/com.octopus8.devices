@@ -89,5 +89,18 @@
                 });
 
         });
-    </script>
+    // CRM.$(function($) {
+    //   $("input[name='dateselect_to']").datepicker({
+    //     format: "yy-mm-dd",
+    //     altFormat: "yy-mm-dd",
+    //     dateFormat: "yy-mm-dd"
+    //   });
+    //   $("input[name='dateselect_from']").datepicker({
+    //     format: "yy-mm-dd",
+    //     altFormat: "yy-mm-dd",
+    //     dateFormat: "yy-mm-dd"
+    //   });
+    // });
+  </script>
+
 {/literal}

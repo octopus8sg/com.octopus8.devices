@@ -7,6 +7,14 @@
           <table class="form-layout alarm-filter">
             <tbody>
             <tr>
+              <td class="label">{$form.alarm_id.label}</td>
+              <td>{$form.alarm_id.html}</td>
+              <td class="label">{$form.alarm_contact_id.label}</td>
+              <td>{$form.alarm_contact_id.html}</td>
+            </tr>
+            <tr>
+{*              <td class="label">{$form.alarm_dateselect_relative.label}</td>*}
+{*              <td>{$form.alarm_dateselect_relative.html}</td>*}
               <td class="label">{$form.alarm_dateselect_from.label}</td>
               <td>{$form.alarm_dateselect_from.html}</td>
               <td class="label">{$form.alarm_dateselect_to.label}</td>
@@ -15,10 +23,6 @@
             <tr>
               <td class="label">{$form.alarm_sensor_id.label}</td>
               <td>{$form.alarm_sensor_id.html}</td>
-            </tr>
-            <tr>
-              <td class="label">{$form.alarm_contact_id.label}</td>
-              <td>{$form.alarm_contact_id.html}</td>
             </tr>
             </tbody>
           </table>
@@ -29,3 +33,4 @@
       </div><!-- /.crm-accordion-wrapper -->
     </div><!-- /.crm-form-block -->
  </div>
+ {debug}

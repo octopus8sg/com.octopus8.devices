@@ -181,7 +181,7 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
         if (isset($dateselect_from)) {
             if ($dateselect_from != null) {
                 if ($dateselect_from != '') {
-                    $sql .= " AND t.`date` >= '" . $dateselect_from . "' ";
+                    $sql .= " AND t.`date` >= '" . $dateselect_from . " 00:00:00' ";
                 }
             }
         }
@@ -190,7 +190,7 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
         if (isset($dateselect_to)) {
             if ($dateselect_to != null) {
                 if ($dateselect_to != '') {
-                    $sql .= " AND t.`date` <= '" . $dateselect_to . "' ";
+                    $sql .= " AND t.`date` <= '" . $dateselect_to . " 23:59:59' ";
                 } else {
                     $sql .= " AND t.`date` <= '" . $date_today . "' ";
                 }

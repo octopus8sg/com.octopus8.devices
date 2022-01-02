@@ -171,12 +171,13 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $this->addDatePickerRange('device_data_dateselect',
             'Select Date',
             FALSE,
-            FALSE,
-            'From: ',
-            'To: ',
-            null,
+            NULL,
+            "From: ",
+            "To: ",
+            [],
             '_to',
-            '_from');
+            '_from'
+        );
 
     }
 
@@ -222,7 +223,6 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ]);
 
     }
-
 
     function alarm_filter()
     {
@@ -282,14 +282,16 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ]);
 
         $this->addDatePickerRange('alarm_dateselect',
-            'Select Date',
+            'Select Date'
+            ,
             FALSE,
-            FALSE,
-            'From: ',
-            'To: ',
-            null,
+            NULL,
+            "From: ",
+            "To: ",
+            [],
             '_to',
-            '_from');
+            '_from'
+        );
         
         
     }

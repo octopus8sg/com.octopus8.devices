@@ -52,7 +52,7 @@ function civicrm_api3_alarm_create($params)
         'rule_id' => $alarm_rule_id,
     ]);
     $alertrules = $alertrulesv['values'];
-    CRM_Core_Error::debug_var('alertrules', $alertrules);
+//    CRM_Core_Error::debug_var('alertrules', $alertrules);
 
     $siteurl = CRM_Utils_System::absoluteURL('');
 

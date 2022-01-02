@@ -15,10 +15,87 @@ CRM.$(function ($) {
         //turn of search field
         alarm_dtsettings.sAjaxSource = alarm_sourceUrl;
         alarm_dtsettings.Buttons = ["csv", "pdf", "copy"];
+        alarm_dtsettings.fnInitComplete = function (oSettings, json) {
+            // $("a.view-device").css('background','red');
+            // $("a.view-device").click(function (event) {
+            //     event.preventDefault();
+            //     var href = $(this).attr('href');
+            //     // alert(href);
+            //     var $el = CRM.loadForm(href, {
+            //         dialog: {width: '50%', height: '50%'}
+            //     }).on('crmFormSuccess', function () {
+            //         var hm_tab = $('.selector-devices');
+            //         var hm_table = hm_tab.DataTable();
+            //         hm_table.draw();
+            //     });
+            // });
+            // // $("a.update-device").css('background','blue');
+            // $("a.update-device").click(function (event) {
+            //     event.preventDefault();
+            //     var href = $(this).attr('href');
+            //     // alert(href);
+            //     var $el = CRM.loadForm(href, {
+            //         dialog: {width: '50%', height: '50%'}
+            //     }).on('crmFormSuccess', function () {
+            //         var hm_tab = $('.selector-devices');
+            //         var hm_table = hm_tab.DataTable();
+            //         hm_table.draw();
+            //     });
+            // });
+        };
+        alarm_dtsettings.fnDrawCallback = function (oSettings) {
+            // $("a.view-device").css('background','red');
+            $("a.view-alarm").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-alarm');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+            // $("a.update-device").css('background','blue');
+            $("a.update-alarm").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-alarm');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+            $("a.delete-alarm").click(function (event) {
+                event.preventDefault();
+                var href = $(this).attr('href');
+                // alert(href);
+                var $el = CRM.loadForm(href, {
+                    dialog: {width: '50%', height: '50%'}
+                }).on('crmFormSuccess', function () {
+                    var hm_tab = $('.selector-alarm');
+                    var hm_table = hm_tab.DataTable();
+                    hm_table.draw();
+                });
+            });
+        };
         alarm_dtsettings.fnServerData = function ( sSource, aoData, fnCallback ) {
-            aoData.push({ "name": "alarm_sensor_id", "value": $('#alarm_sensor_id').val() });
-            aoData.push({ "name": "alarm_dateselect_from", "value": $('#alarm_dateselect_from').val() });
-            aoData.push({ "name": "alarm_dateselect_to", "value": $('#alarm_dateselect_to').val() });
+            aoData.push({ "name": "alarm_id",
+                "value": $('#alarm_id').val() });
+            aoData.push({ "name": "contact_id",
+                "value": $('#alarm_contact_id').val() });
+            aoData.push({ "name": "sensor_id",
+                "value": $('#alarm_sensor_id').val() });
+            aoData.push({ "name": "dateselect_relative",
+                "value": $('#alarm_dateselect_relative').val() });
+            aoData.push({ "name": "dateselect_from",
+                "value": $('#alarm_dateselect_from').val() });
+            aoData.push({ "name": "dateselect_to",
+                "value": $('#alarm_dateselect_to').val() });
             $.ajax( {
                 "dataType": 'json',
                 "type": "POST",
