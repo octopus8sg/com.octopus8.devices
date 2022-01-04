@@ -40,7 +40,7 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
 
         $cid = CRM_Utils_Request::retrieve('cid', 'Positive');
 
-        $contactId = CRM_Utils_Request::retrieve('contact_id', 'String');
+        $contactId = CRM_Utils_Request::retrieve('contact_id', 'CommaSeparatedIntegers');
 //        CRM_Core_Error::debug_var('contact', $contactId);
 
 
@@ -56,10 +56,10 @@ class CRM_Devices_Page_SearchDeviceData extends CRM_Core_Page
         $device_id = CRM_Utils_Request::retrieveValue('device_id', 'String', null);
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
-        $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'String', null);
+        $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'CommaSeparatedIntegers', null);
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'String', null);
+        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'CommaSeparatedIntegers', null);
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
         $dateselect_to = CRM_Utils_Request::retrieveValue('dateselect_to', 'String', null);

@@ -12,6 +12,7 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
     protected $_device_types;
     protected $_sensors;
     protected $_cid; // cid is contact for contact tab. if it's present, contact is freezed
+
     public function preProcess()
     {
         parent::preProcess();
@@ -62,10 +63,13 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         //
         $this->device_filter();
         $this->device_data_filter();
-        $this->alarm_rule_filter();
-        $this->alarm_filter();
-        $this->alert_rule_filter();
         $this->alert_filter();
+        if ($this->_cid) {
+            $this->alarm_rule_filter();
+            $this->alarm_filter();
+            $this->alert_rule_filter();
+            $this->chart_filter();
+        }
         $this->assign('suppressForm', FALSE);
         parent::buildQuickForm();
     }
@@ -84,10 +88,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
 //        CRM_Core_Error::debug_var('cid', $this->_cid);
 
-        if($this->_cid){
-        $this->addEntityRef('device_contact_id', E::ts('Device Owner'),
-            false)->freeze();
-        }else{
+        if ($this->_cid) {
+            $this->addEntityRef('device_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        } else {
             $this->addEntityRef('device_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -139,10 +143,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             'device_data_device_id',
             ts('Device ID or Code'),
             ['size' => 28, 'maxlength' => 128]);
-        if($this->_cid){
+        if ($this->_cid) {
             $this->addEntityRef('device_data_contact_id', E::ts('Device Owner'),
                 false)->freeze();
-        }else{
+        } else {
             $this->addEntityRef('device_data_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -183,6 +187,60 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
+
+    function chart_filter()
+    {
+        /*
+*/
+        // Contact (Owner)
+        // Device Type
+        // Sensor
+
+
+        if ($this->_cid) {
+            $this->addEntityRef('chart_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        } else {
+            $this->addEntityRef('chart_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
+
+        $this->add('select', 'chart_device_type_id',
+            E::ts('Device Type'),
+            $this->_device_types,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_type',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Device Type -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+        $this->add('select', 'chart_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+        $this->addDatePickerRange('chart_dateselect',
+            'Select Date',
+            FALSE,
+            NULL,
+            "From: ",
+            "To: ",
+            [],
+            '_to',
+            '_from'
+        );
+
+    }
+
     function alarm_rule_filter()
     {
         /*
@@ -203,10 +261,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Alarm Rule ID or Code'),
             ['size' => 28, 'maxlength' => 128]);
 
-        if($this->_cid){
+        if ($this->_cid) {
             $this->addEntityRef('alarm_rule_contact_id', E::ts('Device Owner'),
                 false)->freeze();
-        }else{
+        } else {
             $this->addEntityRef('alarm_rule_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -250,10 +308,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Alert Rule ID, Code or Title'),
             ['size' => 28, 'maxlength' => 128]);
 
-        if($this->_cid){
+        if ($this->_cid) {
             $this->addEntityRef('alert_rule_contact_id', E::ts('Device Owner'),
                 false)->freeze();
-        }else{
+        } else {
             $this->addEntityRef('alert_rule_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -294,8 +352,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
-
-    function alert_filter() {
+    function alert_filter()
+    {
         /*
             aoData.push({ "name": "alert_id",
                 "value": $('#alert_id').val() });
@@ -322,10 +380,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Alert ID'),
             ['size' => 28, 'maxlength' => 128]);
 
-        if($this->_cid){
+        if ($this->_cid) {
             $this->addEntityRef('alert_contact_id', E::ts('Device Owner'),
                 false)->freeze();
-        }else{
+        } else {
             $this->addEntityRef('alert_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -410,10 +468,10 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ts('Alarm ID'),
             ['size' => 28, 'maxlength' => 128]);
 
-        if($this->_cid){
+        if ($this->_cid) {
             $this->addEntityRef('alarm_contact_id', E::ts('Device Owner'),
                 false)->freeze();
-        }else{
+        } else {
             $this->addEntityRef('alarm_contact_id', E::ts('Device Owner'),
                 ['create' => false, 'multiple' => true, 'class' => 'huge'],
                 false);
@@ -472,6 +530,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             $defaults['alert_rule_contact_id'] =
                 $this->_cid;
             $defaults['alert_contact_id'] =
+                $this->_cid;
+            $defaults['chart_contact_id'] =
                 $this->_cid;
         }
         return $defaults;

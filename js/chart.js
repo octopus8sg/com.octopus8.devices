@@ -125,6 +125,13 @@ CRM.$(function ($) {
             ,
             scales: {
                 xAxes: [{
+                    type: 'time',
+                    distribution: 'linear',
+                    unit: 'hour',
+                    bounds: 'ticks',
+                    ticks: {
+                        source: 'labels'
+                    },
                     display: true,
                     scaleLabel: {
                         display: true,
@@ -141,6 +148,16 @@ CRM.$(function ($) {
                     }]
             },
                 maintainAspectRatio: false,
+            /*
+options: {
+        scales: {
+            xAxes: [{
+                type: 'time',
+                distribution: 'linear'
+            }]
+        }
+    }
+             */
         }
     });
 
@@ -155,14 +172,10 @@ CRM.$(function ($) {
 
 
         newdata["dateselect_from"] = $('#chart_dateselect_from').val();
-
-        
         newdata["dateselect_to"] = $('#chart_dateselect_to').val();
-
         newdata["device_type_id"] = $('#chart_device_type_id').val();
-
         newdata["sensor_id"] = $('#chart_sensor_id').val();
-        newdata["contact_id"] = contact_id;
+        newdata["contact_id"] = $('#chart_contact_id').val();;
 
         // alarm(newdata["dateselect_from"] );
         // alarm(newdata["dateselect_to"] );

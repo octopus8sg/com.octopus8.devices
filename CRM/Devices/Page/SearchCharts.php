@@ -1,17 +1,20 @@
 <?php
+
 use CRM_Devices_ExtensionUtil as E;
 
-class CRM_Devices_Page_SearchCharts extends CRM_Core_Page {
+class CRM_Devices_Page_SearchCharts extends CRM_Core_Page
+{
 
-  public function run() {
-    // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
-    CRM_Utils_System::setTitle(E::ts('SearchCharts'));
+    public function run()
+    {
+        // Example: Set the page-title dynamically; alternatively, declare a static title in xml/Menu/*.xml
+        CRM_Utils_System::setTitle(E::ts('SearchCharts'));
 
-    // Example: Assign a variable for use in a template
-    $this->assign('currentTime', date('Y-m-d H:i:s'));
+        // Example: Assign a variable for use in a template
+        $this->assign('currentTime', date('Y-m-d H:i:s'));
 
-    parent::run();
-  }
+        parent::run();
+    }
 
     public function getAjax()
     {
@@ -19,17 +22,26 @@ class CRM_Devices_Page_SearchCharts extends CRM_Core_Page {
 //        CRM_Core_Error::debug_var('request', $_REQUEST);
 //        CRM_Core_Error::debug_var('post', $_POST);
 
-        $contactId = CRM_Utils_Request::retrieve('cid', 'Positive');
-//        CRM_Core_Error::debug_var('contact', $contactId);
+        $cid = CRM_Utils_Request::retrieve('cid', 'Positive');
+        //cid = contact for tabset
+//        CRM_Core_Error::debug_var('cid', $cid);
 
-
-        $contactId = CRM_Utils_Request::retrieveValue('contact_id', 'Positive', null);
+        $contactId = CRM_Utils_Request::retrieve('contact_id', 'CommaSeparatedIntegers');
+        if(is_array($contactId)){
+            $contactId = implode(",", $contactId);
+        }
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
-        $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'Positive', null);
+        $device_type_id = CRM_Utils_Request::retrieveValue('device_type_id', 'CommaSeparatedIntegers', null);
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
+        if(is_array($device_type_id)){
+            $device_type_id = implode(",", $device_type_id);
+        }
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'Positive', null);
+        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'CommaSeparatedIntegers', null);
+        if(is_array($sensor_id)){
+            $sensor_id = implode(",", $sensor_id);
+        }
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
         $dateselect_to = CRM_Utils_Request::retrieveValue('dateselect_to', 'String', null);
@@ -54,37 +66,38 @@ class CRM_Devices_Page_SearchCharts extends CRM_Core_Page {
         Civi::resources()->addScriptFile('com.octopus8.devices', 'js/Chart.bundle.min.js', 1);
         Civi::resources()->addScriptFile('com.octopus8.devices', 'js/chart.js', 2);
         // Example: Assign a variable for use in a template
-        $sensors = CRM_Core_OptionGroup::values('health_monitor_sensor');
+        $sensors = CRM_Core_OptionGroup::values('o8_device_sensor');
 
         $sql = "SELECT 
       `hmh`.`date` as `label`,
       `hmh`.`sensor_value`,
       `hmh`.`sensor_id`
-    FROM `civicrm_health_monitor` `hmh` 
+    FROM `civicrm_o8_device_data` `hmh` 
+    INNER JOIN civicrm_o8_device_device hmd on hmh.device_id = hmd.id
     WHERE 1";
 
         $user_id = CRM_Core_Session::singleton()->getLoggedInContactID();
         if (isset($contactId)) {
-            $sql .= " AND `hmh`.`contact_id` = " . $contactId . " ";
+            $sql .= " AND `hmh`.`contact_id` in (" . $contactId . ") ";
         } else {
             $sql .= " AND `hmh`.`contact_id` = " . $user_id . " ";
 
         }
 
         if (isset($device_type_id)) {
-            if ($device_type_id > 0) {
-                $sql .= " AND `hmh`.`device_type_id` = " . $device_type_id . " ";
+            if (strval($device_type_id) != "") {
+                $sql .= " AND `hmd`.`device_type_id` in (" . $device_type_id . ") ";
             }
         }
 
         if (isset($sensor_id)) {
-            if ($sensor_id > 0) {
-                $sql .= " AND `hmh`.`sensor_id` = " . $sensor_id . " ";
+            if (strval($sensor_id) != "") {
+                $sql .= " AND `hmh`.`sensor_id` in ( " . $sensor_id . ") ";
             } else {
-                $sql .= " AND `hmh`.`sensor_id` = 1 ";
+                $sql .= " AND `hmh`.`sensor_id` in (1) ";
             }
         } else {
-            $sql .= " AND `hmh`.`sensor_id` = 1 ";
+            $sql .= " AND `hmh`.`sensor_id` in (2) ";
         }
 
         $month_ago = strtotime("-1 month", time());
