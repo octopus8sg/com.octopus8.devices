@@ -19,8 +19,8 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
     public function getAjax()
     {
 //
-        CRM_Core_Error::debug_var('request', $_REQUEST);
-        CRM_Core_Error::debug_var('post', $_POST);
+//        CRM_Core_Error::debug_var('request', $_REQUEST);
+//        CRM_Core_Error::debug_var('post', $_POST);
 
         $cid = CRM_Utils_Request::retrieve('cid', 'Positive');
         $contactId = CRM_Utils_Request::retrieve('contact_id', 'CommaSeparatedIntegers');
