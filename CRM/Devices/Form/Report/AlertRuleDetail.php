@@ -478,11 +478,11 @@ HERESQL;
         foreach ($componentRows as $contactID => $components) {
 //        CRM_Core_Error::debug_var('components', $components);
             foreach ($components as $component => $rows) {
-                CRM_Core_Error::debug_var('component', $component);
+//                CRM_Core_Error::debug_var('component', $component);
 //                CRM_Core_Error::debug_var('row', $rows);
                 foreach ($rows as $rowNum => $row) {
-                    CRM_Core_Error::debug_var('rows', $rows);
-                    CRM_Core_Error::debug_var('rowNum', $rowNum);
+//                    CRM_Core_Error::debug_var('rows', $rows);
+//                    CRM_Core_Error::debug_var('rowNum', $rowNum);
 //                    CRM_Core_Error::debug_var('row', $row);
 //        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
