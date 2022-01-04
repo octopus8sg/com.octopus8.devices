@@ -230,8 +230,8 @@ function devices_civicrm_navigationMenu(&$menu)
     _devices_civix_navigationMenu($menu);
     _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
         'label' => E::ts('Search Alerts'),
-        'name' => 'o8_devices_alertsearch',
-        'url' => 'civicrm/devices/alertsearch',
+        'name' => 'o8_devices_searchalert',
+        'url' => 'civicrm/devices/searchalert',
         'permission' => 'access CiviCRM',
         'operator' => 'OR',
         'separator' => 0,

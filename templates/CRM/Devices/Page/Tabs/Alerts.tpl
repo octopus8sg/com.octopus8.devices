@@ -1,6 +1,6 @@
 <div class="crm-content-block">
     <div class="clear"></div>
-    {include file="CRM/Healthmonitor/Form/AlertFilter.tpl"}
+    {include file="CRM/Devices/Form/AlertFilter.tpl"}
     <div class="clear"></div>
     <div class="crm-results-block">
         <div class="crm-search-results">
@@ -35,4 +35,4 @@
         </div>
     </div>
 </div>
-{*{crmScript ext=com.octopus8.devices file=js/tabalerts.js}*}
+{crmScript ext=com.octopus8.devices file=js/tabalerts.js}

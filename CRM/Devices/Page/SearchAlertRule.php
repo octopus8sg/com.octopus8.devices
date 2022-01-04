@@ -37,10 +37,10 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
         $alert_rule_id = CRM_Utils_Request::retrieveValue('alert_rule_id', 'String', null);
-        CRM_Core_Error::debug_var('alert_rule_id', $alert_rule_id);
+//        CRM_Core_Error::debug_var('alert_rule_id', $alert_rule_id);
 
         $alert_rule_type = CRM_Utils_Request::retrieveValue('alert_rule_type', 'CommaSeparatedIntegers', null);
-        CRM_Core_Error::debug_var('alert_rule_type', $alert_rule_type);
+//        CRM_Core_Error::debug_var('alert_rule_type', $alert_rule_type);
         $alert_rule_types = [];
         if (!empty($alert_rule_type)) {
             if (strpos($alert_rule_type, ',')) {
@@ -53,22 +53,22 @@ class CRM_Devices_Page_SearchAlertRule extends CRM_Core_Page
                 $alert_rule_types[] = $alert_rule_type;
             };
         }
-        CRM_Core_Error::debug_var('alert_rule_types', strval($alert_rule_types));
+//        CRM_Core_Error::debug_var('alert_rule_types', strval($alert_rule_types));
 
         $civicrm = boolval(in_array('0', $alert_rule_types));
-        CRM_Core_Error::debug_var('civicrm', strval($civicrm));
+//        CRM_Core_Error::debug_var('civicrm', strval($civicrm));
 
         $email = boolval(in_array('1', $alert_rule_types));
-        CRM_Core_Error::debug_var('email', $email);
+//        CRM_Core_Error::debug_var('email', $email);
 
         $sms = boolval(in_array('2', $alert_rule_types));
-        CRM_Core_Error::debug_var('sms', $sms);
+//        CRM_Core_Error::debug_var('sms', $sms);
 
         $telegram = boolval(in_array('3', $alert_rule_types));
-        CRM_Core_Error::debug_var('telegram', $telegram);
+//        CRM_Core_Error::debug_var('telegram', $telegram);
 
         $api = boolval(in_array('4', $alert_rule_types));
-        CRM_Core_Error::debug_var('api', $api);
+//        CRM_Core_Error::debug_var('api', $api);
 
 
         $addressee_id = CRM_Utils_Request::retrieveValue('alert_rule_addressee_id', 'CommaSeparatedIntegers', null);

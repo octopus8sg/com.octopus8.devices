@@ -77,7 +77,7 @@
                 {include file="CRM/Devices/Page/Tabs/AlertRules.tpl"}
             </div>
             <div id="alerts-subtab" class="alerts-subtab ui-tabs-panel ui-widget-content ui-corner-bottom">
-                {*                {include file="CRM/Devices/Page/Tabs/Alerts.tpl"}*}
+                {include file="CRM/Devices/Page/Tabs/Alerts.tpl"}
             </div>
             <div class="clear"></div>
         </div>

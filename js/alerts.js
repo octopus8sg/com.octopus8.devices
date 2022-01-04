@@ -1,7 +1,7 @@
 CRM.$(function ($) {
     // var alert_sourceUrl = "";
     $(document).ready(function () {
-        var alert_sourceUrl = CRM.vars.source_url['alert_sourceUrl'];
+        var alert_sourceUrl = CRM.vars.source_url['alerts_source_url'];
         //Reset Table, add Filter and Search Possibility
         //alertrules datatable
         var alert_tab = $('.selector-alert');

@@ -65,7 +65,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
         $this->alarm_rule_filter();
         $this->alarm_filter();
         $this->alert_rule_filter();
-        $this->assign('suppressForm', TRUE);
+        $this->alert_filter();
+        $this->assign('suppressForm', FALSE);
         parent::buildQuickForm();
     }
 
@@ -225,7 +226,6 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
 
     }
 
-
     function alert_rule_filter()
     {
         /*
@@ -292,6 +292,98 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             ]);
 
 
+    }
+
+
+    function alert_filter() {
+        /*
+            aoData.push({ "name": "alert_id",
+                "value": $('#alert_id').val() });
+            aoData.push({ "name": "contact_id",
+                "value": $('#contact_id').val() });
+            aoData.push({ "name": "alert_sensor_id",
+                "value": $('#alert_sensor_id').val() });
+            aoData.push({ "name": "alert_addressee_id",
+                "value": $('#alert_addressee_id').val() });
+            aoData.push({ "name": "alert_rule_type",
+                "value": $('#alert_rule_type').val() });
+            aoData.push({ "name": "dateselect_from",
+                "value": $('#alert_dateselect_from').val() });
+            aoData.push({ "name": "dateselect_to",
+                "value": $('#alert_dateselect_to').val() });
+         */
+        // ID or Code
+        // Contact (Owner)
+        // SensorID
+
+        $this->add(
+            'text',
+            'alert_id',
+            ts('Alert ID'),
+            ['size' => 28, 'maxlength' => 128]);
+
+        if($this->_cid){
+            $this->addEntityRef('alert_contact_id', E::ts('Device Owner'),
+                false)->freeze();
+        }else{
+            $this->addEntityRef('alert_contact_id', E::ts('Device Owner'),
+                ['create' => false, 'multiple' => true, 'class' => 'huge'],
+                false);
+        }
+
+        $this->addEntityRef('alert_addressee_id', E::ts('Alert Addressee'),
+            ['create' => false, 'multiple' => true, 'class' => 'huge'],
+            false);
+
+        $this->add('select', 'alert_sensor_id',
+            E::ts('Sensor'),
+            $this->_sensors,
+            FALSE,
+            ['class' => 'huge crm-select2',
+                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Sensor -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+        $alert_rule_types = [
+            0 => 'CiviCRM',
+            1 => 'Email',
+            2 => 'SMS',
+            3 => 'Telegram',
+            4 => 'API'
+        ];
+//        $this->add('select', 'alert_rule_type',
+//            E::ts('Alert Type'),
+//            $alert_rule_types,
+//            FALSE,
+//            ['class' => 'huge crm-select2',
+////                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+//                'multiple' => TRUE,
+//                'placeholder' => ts('- Select Alert Type -'),
+//                'select' => ['minimumInputLength' => 0]
+//            ]);
+
+        $this->add('select', 'alert_alert_rule_type',
+            E::ts('Alert Type'),
+            $alert_rule_types,
+            FALSE,
+            ['class' => 'huge crm-select2',
+//                'data-option-edit-path' => 'civicrm/admin/options/o8_device_sensor',
+                'multiple' => TRUE,
+                'placeholder' => ts('- Select Alert Type -'),
+                'select' => ['minimumInputLength' => 0]
+            ]);
+
+        $this->addDatePickerRange('alert_dateselect',
+            'Select Date',
+            FALSE,
+            NULL,
+            "From: ",
+            "To: ",
+            [],
+            '_to',
+            '_from'
+        );
     }
 
     function alarm_filter()
@@ -362,8 +454,8 @@ class CRM_Devices_Form_CommonFilter extends CRM_Core_Form
             '_to',
             '_from'
         );
-        
-        
+
+
     }
 
     public function setDefaultValues()
