@@ -174,7 +174,7 @@ class CRM_Devices_Form_Report_AlertRuleDetail extends CRM_Report_Form
         $select = [];
         $this->_columnHeaders = [];
         $this->_component = [
-            $this->_aliases['civicrm_device'],
+            $this->_aliases['civicrm_o8_device_device'],
             $this->_aliases['civicrm_o8_device_alert_rule'],
         ];
         foreach ($this->_columns as $tableName => $table) {
@@ -280,7 +280,7 @@ HERESQL;
             }
         }
         $civicrm_contact = $this->_aliases['civicrm_contact'];
-        $civicrm_device = 'civicrm_device';
+        $civicrm_device = 'civicrm_o8_device_device';
 
         if (empty($clauses)) {
             $this->_where = "
@@ -478,16 +478,16 @@ HERESQL;
         foreach ($componentRows as $contactID => $components) {
 //        CRM_Core_Error::debug_var('components', $components);
             foreach ($components as $component => $rows) {
-//                CRM_Core_Error::debug_var('component', $component);
+                CRM_Core_Error::debug_var('component', $component);
 //                CRM_Core_Error::debug_var('row', $rows);
                 foreach ($rows as $rowNum => $row) {
-//                    CRM_Core_Error::debug_var('rows', $rows);
-//                    CRM_Core_Error::debug_var('rowNum', $rowNum);
+                    CRM_Core_Error::debug_var('rows', $rows);
+                    CRM_Core_Error::debug_var('rowNum', $rowNum);
 //                    CRM_Core_Error::debug_var('row', $row);
 //        CRM_Core_Error::debug_var('_from', $this->_from);
 //                    // handle contribution
 //
-                    if ($component == 'civicrm_o8_device_alert_rule') {
+                    if ($component == 'o8_device_alert_rule_civireport') {
 
                         if ($val = CRM_Utils_Array::value('civicrm_o8_device_alert_rule_alert_rule_rule_id', $row)) {
 //                            CRM_Core_Error::debug_var('val', $val);
