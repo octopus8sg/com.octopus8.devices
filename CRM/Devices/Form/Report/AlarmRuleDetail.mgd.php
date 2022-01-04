@@ -9,11 +9,12 @@ return [
     'entity' => 'ReportTemplate',
     'params' => [
       'version' => 3,
-      'label' => 'AlarmRuleDetail',
-      'description' => 'AlarmRuleDetail (com.octopus8.devices)',
+      'label' => 'Alarm Rule Details',
+      'description' => 'Alarm Rule Details (com.octopus8.devices)',
       'class_name' => 'CRM_Devices_Form_Report_AlarmRuleDetail',
       'report_url' => 'com.octopus8.devices/alarmruledetail',
       'component' => '',
+      'grouping' => 'Devices',
     ],
   ],
 ];
