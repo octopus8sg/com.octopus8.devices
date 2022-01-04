@@ -1,7 +1,7 @@
 <?php
 use CRM_Devices_ExtensionUtil as E;
 
-class CRM_Devices_Form_Report_ContactDeviceSumary extends CRM_Report_Form
+class CRM_Devices_Form_Report_ContactDeviceSummary extends CRM_Report_Form
 {
 
     public $_summary = NULL;

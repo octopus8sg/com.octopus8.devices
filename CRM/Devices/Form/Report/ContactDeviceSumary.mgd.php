@@ -5,14 +5,14 @@
 // https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
 return [
     [
-        'name' => 'CRM_Devices_Form_Report_ContactDeviceSumary',
+        'name' => 'CRM_Devices_Form_Report_ContactDeviceSummary',
         'entity' => 'ReportTemplate',
         'params' => [
             'version' => 3,
-            'label' => 'Contact Device Sumary',
-            'description' => 'Contact Device Sumary (com.octopus8.devices)',
-            'class_name' => 'CRM_Devices_Form_Report_ContactDeviceSumary',
-            'report_url' => 'com.octopus8.devices/contactdevicesumary',
+            'label' => 'Contact Device Summary',
+            'description' => 'Contact Device Summary (com.octopus8.devices)',
+            'class_name' => 'CRM_Devices_Form_Report_ContactDeviceSummary',
+            'report_url' => 'com.octopus8.devices/contactdevicesummary',
             'component' => '',
             'grouping' => 'Devices',
         ],
