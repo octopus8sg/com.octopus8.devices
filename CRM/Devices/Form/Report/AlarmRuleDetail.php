@@ -141,7 +141,7 @@ class CRM_Devices_Form_Report_AlarmRuleDetail extends CRM_Report_Form
 
     public function preProcess()
     {
-        $this->_csvSupported = TRUE;
+        $this->_csvSupported = FALSE;
         parent::preProcess();
     }
 

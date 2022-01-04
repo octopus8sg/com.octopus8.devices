@@ -4,16 +4,17 @@
 // database as appropriate. For more details, see "hook_civicrm_managed" at:
 // https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_managed
 return [
-  [
-    'name' => 'CRM_Devices_Form_Report_DeviceDataDetail',
-    'entity' => 'ReportTemplate',
-    'params' => [
-      'version' => 3,
-      'label' => 'DeviceDataDetail',
-      'description' => 'DeviceDataDetail (com.octopus8.devices)',
-      'class_name' => 'CRM_Devices_Form_Report_DeviceDataDetail',
-      'report_url' => 'com.octopus8.devices/devicedatadetail',
-      'component' => '',
+    [
+        'name' => 'CRM_Devices_Form_Report_DeviceDataDetail',
+        'entity' => 'ReportTemplate',
+        'params' => [
+            'version' => 3,
+            'label' => 'Device Data Details',
+            'description' => 'Device Data Details (com.octopus8.devices)',
+            'class_name' => 'CRM_Devices_Form_Report_DeviceDataDetail',
+            'report_url' => 'com.octopus8.devices/devicedatadetail',
+            'component' => '',
+            'grouping' => 'Devices',
+        ],
     ],
-  ],
 ];
