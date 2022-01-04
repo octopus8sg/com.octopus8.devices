@@ -1,6 +1,6 @@
 <h3>Device Data Chart</h3>
 <div class="clear"></div>
-{include file="CRM/Healthmonitor/Form/ChartFilter.tpl"}
+{include file="CRM/Devices/Form/ChartFilter.tpl"}
 <div class="clear"></div>
 <div style="display: block; height: 300px !important; width: 100% !important;">
 <canvas id="ChartLine" style="display: block; width: 100% !important;"></canvas>

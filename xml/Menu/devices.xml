@@ -92,6 +92,11 @@
     <access_arguments>access CiviCRM</access_arguments>
   </item>
   <item>
+    <path>civicrm/devices/chart_ajax</path>
+    <page_callback>CRM_Devices_Page_SearchCharts::getAjax</page_callback>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
     <path>civicrm/devices/dashboard</path>
     <page_callback>CRM_Devices_Page_DevicesDashboard</page_callback>
     <title>DevicesDashboard</title>
@@ -119,6 +124,12 @@
     <path>civicrm/devices/searchalertrule</path>
     <page_callback>CRM_Devices_Page_SearchAlertRule</page_callback>
     <title>SearchAlertRule</title>
+    <access_arguments>access CiviCRM</access_arguments>
+  </item>
+  <item>
+    <path>civicrm/devices/searchcharts</path>
+    <page_callback>CRM_Devices_Page_SearchCharts</page_callback>
+    <title>SearchCharts</title>
     <access_arguments>access CiviCRM</access_arguments>
   </item>
 </menu>
