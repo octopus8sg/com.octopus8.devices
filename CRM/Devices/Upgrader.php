@@ -1,4 +1,5 @@
 <?php
+
 use CRM_Devices_ExtensionUtil as E;
 
 /**
@@ -171,17 +172,6 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         /* now create 1 device for the 1 user
         and create data for 1 last month for this user
         */
-        $users = civicrm_api3('Contact', 'get', [
-            'sequential' => 1,
-            'return' => ["id"],
-            'contact_type' => "Individual",
-            'deceased_date' => ['IS NULL' => 1],
-        ]);
-        $this->user1 = $users['values'][0];
-        $this->user2 = $users['values'][1];
-        $this->user3 = $users['values'][2];
-        $this->user4 = $users['values'][3];
-        $this->user5 = $users['values'][4];
 
 //        $device_type1
 
@@ -197,46 +187,59 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
      */
     public function postInstall()
     {
-        if (!empty($this->user1)) {
-            $user = $this->user1;
-            $this->createforauser($user);
-//                        CRM_Core_Error::debug_var('user', $user);
-        } else {
-            return;
-        }
-        if (!empty($this->user2)) {
-            $user = $this->user2;
-            $this->createforauser($user);
-//                        CRM_Core_Error::debug_var('user', $user);
-        } else {
-            return;
-        }
-        if (!empty($this->user3)) {
-            $user = $this->user3;
-            $this->createforauser($user);
-//                        CRM_Core_Error::debug_var('user', $user);
-        } else {
-            return;
-        }
-        if (!empty($this->user4)) {
-            $user = $this->user4;
-            $this->createforauser($user);
-//                        CRM_Core_Error::debug_var('user', $user);
-        } else {
-            return;
-        }
-        if (!empty($this->user5)) {
-            $user = $this->user5;
-            $this->createforauser($user);
-//                        CRM_Core_Error::debug_var('user', $user);
-        } else {
-            return;
-        }
+
+        $this->createFor5Users();
 
     }
 
+    public function createFor5Users()
+    {
+        $users = civicrm_api3('Contact', 'get', [
+            'sequential' => 1,
+            'return' => ["id"],
+            'contact_type' => "Individual",
+            'deceased_date' => ['IS NULL' => 1],
+        ]);
+        if (!empty($users['values'][0])) {
+            $user = $users['values'][0];
+            $this->createforauser($user);
+//                        CRM_Core_Error::debug_var('user', $user);
+        } else {
+            return;
+        }
+        if (!empty($users['values'][1])) {
+            $user = $users['values'][1];
+            $this->createforauser($user);
+//                        CRM_Core_Error::debug_var('user', $user);
+        } else {
+            return;
+        }
+        if (!empty($users['values'][2])) {
+            $user = $users['values'][2];
+            $this->createforauser($user);
+//                        CRM_Core_Error::debug_var('user', $user);
+        } else {
+            return;
+        }
+        if (!empty($users['values'][3])) {
+            $user = $users['values'][3];
+            $this->createforauser($user);
+//                        CRM_Core_Error::debug_var('user', $user);
+        } else {
+            return;
+        }
+        if (!empty($users['values'][4])) {
+            $user = $users['values'][4];
+            $this->createforauser($user);
+//                        CRM_Core_Error::debug_var('user', $user);
+        } else {
+            return;
+        }
+    }
+
     //Create data for a user
-    function createforauser($user){
+    function createforauser($user)
+    {
         $contact_id = $user['contact_id'];
         $device_type1 = $this->device_type1;
         $sensor_type1 = $this->sensor_type1;
@@ -255,7 +258,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         $this->generateAlarmRule('hypothermia', $contact_id, $sensor_type3, 35, "le");
         $this->generateAlarmRule('fever', $contact_id, $sensor_type3, 37.1);
         $this->generateAlarmRule('hyperthermia', $contact_id, $sensor_type3, 37.9);
-        $this->generateAlarmRule('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+        $this->generateAlarmRule('diast_hypotension', $contact_id, $sensor_type4, 60.01, "le");
         $this->generateAlarmRule('diast_hypertension', $contact_id, $sensor_type4, 90.01);
         $this->generateAlarmRule('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
         $this->generateAlarmRule('syst_hypertension', $contact_id, $sensor_type5, 140.01);
@@ -285,6 +288,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
             $contact_id);
 
     }
+
     /**
      * Example: Run an external SQL script when the module is uninstalled.
      */
@@ -353,7 +357,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('hypothermia', $contact_id, $sensor_type3, 35, "le");
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('fever', $contact_id, $sensor_type3, 37.1);
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('hyperthermia', $contact_id, $sensor_type3, 37.9);
-        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('diast_hypotension', $contact_id, $sensor_type4, 60.01,"le");
+        CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('diast_hypotension', $contact_id, $sensor_type4, 60.01, "le");
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('diast_hypertension', $contact_id, $sensor_type4, 90.01);
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('syst_hypotension', $contact_id, $sensor_type5, 90.01, "le");
         CRM_Healthmonitor_Upgrader::generateAlarmRuleSensorName('syst_hypertension', $contact_id, $sensor_type5, 140.01);
@@ -412,11 +416,12 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
                 'code' => $contact_id . "_" . $alarm_code,
                 'title' =>
                     strtoupper($zone_name . ' ' . $sensor_type1name),
-                'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
+                'message' => "Attention Message. Contact #" . $contact_id . " has reached the " . $zone_name . "."],
         ]);
 //        CRM_Core_Error::debug_var('result1', $result);
         return $result;
     }
+
     public function generateAlarmRuleSensorName($zone_name,
                                                 $contact_id,
                                                 $sensor_name,
@@ -438,7 +443,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
                 'code' => $contact_id . "_" . $alarm_code,
                 'title' =>
                     strtoupper($zone_name . ' ' . $sensor_name),
-                'message' => "Attention Message. Contact #" . $contact_id .  " has reached the " . $zone_name . "."],
+                'message' => "Attention Message. Contact #" . $contact_id . " has reached the " . $zone_name . "."],
         ]);
 //       CRM_Core_Error::debug_var('result1', $result);
         return $result;
@@ -455,7 +460,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
         $sensor_type1id = $sensor_type['id'];
         $sensor_type1name = $sensor_type['values'][$sensor_type1id]['name'];
         $device_name = $contact_id . "_" . $device_type1name . '_' . rand(10000, 99999);
-        $device_name = preg_replace( '/[^a-z0-9 ]/i', '', $device_name);
+        $device_name = preg_replace('/[^a-z0-9 ]/i', '', $device_name);
 
         $device = civicrm_api3('Device', 'create', [
             'contact_id' => $contact_id,
@@ -542,7 +547,8 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
     /**
      * Example: Run a simple query when a module is enabled.
      */
-    public function enable() {
+    public function enable()
+    {
 //        CRM_Core_DAO::executeQuery('alter table civicrm_health_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
 //        CRM_Core_DAO::executeQuery('alter table civicrm_health_monitor modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
     }
