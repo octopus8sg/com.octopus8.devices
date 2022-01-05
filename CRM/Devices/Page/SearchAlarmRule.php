@@ -38,7 +38,10 @@ class CRM_Devices_Page_SearchAlarmRule extends CRM_Core_Page
 //        CRM_Core_Error::debug_var('device_type_id', $device_type_id);
 
 
-        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'Positive', null);
+        $sensor_id = CRM_Utils_Request::retrieveValue('sensor_id', 'CommaSeparatedIntegers', null);
+        if(is_array($sensor_id)){
+            $sensor_id = implode(",", $sensor_id);
+        }
 //        CRM_Core_Error::debug_var('sensor_id', $sensor_id);
 
 
