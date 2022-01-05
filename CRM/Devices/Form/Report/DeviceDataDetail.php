@@ -1,247 +1,443 @@
 <?php
 use CRM_Devices_ExtensionUtil as E;
 
-class CRM_Devices_Form_Report_DeviceDataDetail extends CRM_Report_Form {
+class CRM_Devices_Form_Report_DeviceDataDetail extends CRM_Report_Form
+{
 
-  protected $_addressField = FALSE;
+    protected $_summary = NULL;
 
-  protected $_emailField = FALSE;
+    protected $_softFrom = NULL;
 
-  protected $_summary = NULL;
+    protected $noDisplayContributionOrSoftColumn = FALSE;
 
-  protected $_customGroupExtends = array('Membership');
-  protected $_customGroupGroupBy = FALSE; function __construct() {
-    $this->_columns = array(
-      'civicrm_contact' => array(
-        'dao' => 'CRM_Contact_DAO_Contact',
-        'fields' => array(
-          'sort_name' => array(
-            'title' => E::ts('Contact Name'),
-            'required' => TRUE,
-            'default' => TRUE,
-            'no_repeat' => TRUE,
-          ),
-          'id' => array(
-            'no_display' => TRUE,
-            'required' => TRUE,
-          ),
-          'first_name' => array(
-            'title' => E::ts('First Name'),
-            'no_repeat' => TRUE,
-          ),
-          'id' => array(
-            'no_display' => TRUE,
-            'required' => TRUE,
-          ),
-          'last_name' => array(
-            'title' => E::ts('Last Name'),
-            'no_repeat' => TRUE,
-          ),
-          'id' => array(
-            'no_display' => TRUE,
-            'required' => TRUE,
-          ),
-        ),
-        'filters' => array(
-          'sort_name' => array(
-            'title' => E::ts('Contact Name'),
-            'operator' => 'like',
-          ),
-          'id' => array(
-            'no_display' => TRUE,
-          ),
-        ),
-        'grouping' => 'contact-fields',
-      ),
-      'civicrm_membership' => array(
-        'dao' => 'CRM_Member_DAO_Membership',
-        'fields' => array(
-          'membership_type_id' => array(
-            'title' => 'Membership Type',
-            'required' => TRUE,
-            'no_repeat' => TRUE,
-          ),
-          'join_date' => array(
-            'title' => E::ts('Join Date'),
-            'default' => TRUE,
-          ),
-          'source' => array('title' => 'Source'),
-        ),
-        'filters' => array(
-          'join_date' => array(
-            'operatorType' => CRM_Report_Form::OP_DATE,
-          ),
-          'owner_membership_id' => array(
-            'title' => E::ts('Membership Owner ID'),
-            'operatorType' => CRM_Report_Form::OP_INT,
-          ),
-          'tid' => array(
-            'name' => 'membership_type_id',
-            'title' => E::ts('Membership Types'),
-            'type' => CRM_Utils_Type::T_INT,
-            'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-            'options' => CRM_Member_PseudoConstant::membershipType(),
-          ),
-        ),
-        'grouping' => 'member-fields',
-      ),
-      'civicrm_membership_status' => array(
-        'dao' => 'CRM_Member_DAO_MembershipStatus',
-        'alias' => 'mem_status',
-        'fields' => array(
-          'name' => array(
-            'title' => E::ts('Status'),
-            'default' => TRUE,
-          ),
-        ),
-        'filters' => array(
-          'sid' => array(
-            'name' => 'id',
-            'title' => E::ts('Status'),
-            'type' => CRM_Utils_Type::T_INT,
-            'operatorType' => CRM_Report_Form::OP_MULTISELECT,
-            'options' => CRM_Member_PseudoConstant::membershipStatus(NULL, NULL, 'label'),
-          ),
-        ),
-        'grouping' => 'member-fields',
-      ),
-      'civicrm_address' => array(
-        'dao' => 'CRM_Core_DAO_Address',
-        'fields' => array(
-          'street_address' => NULL,
-          'city' => NULL,
-          'postal_code' => NULL,
-          'state_province_id' => array('title' => E::ts('State/Province')),
-          'country_id' => array('title' => E::ts('Country')),
-        ),
-        'grouping' => 'contact-fields',
-      ),
-      'civicrm_email' => array(
-        'dao' => 'CRM_Core_DAO_Email',
-        'fields' => array('email' => NULL),
-        'grouping' => 'contact-fields',
-      ),
-    );
-    $this->_groupFilter = TRUE;
-    $this->_tagFilter = TRUE;
-    parent::__construct();
-  }
+    protected $_customGroupExtends = [
+//        'Contact',
+        'Individual',
+//    'Contribution',
+    ];
 
-  function preProcess() {
-    $this->assign('reportTitle', E::ts('Membership Detail Report'));
-    parent::preProcess();
-  }
+    protected $groupConcatTested = TRUE;
 
-  function from() {
-    $this->_from = NULL;
+    protected $isTempTableBuilt = FALSE;
 
-    $this->_from = "
-         FROM  civicrm_contact {$this->_aliases['civicrm_contact']} {$this->_aclFrom}
-               INNER JOIN civicrm_membership {$this->_aliases['civicrm_membership']}
-                          ON {$this->_aliases['civicrm_contact']}.id =
-                             {$this->_aliases['civicrm_membership']}.contact_id AND {$this->_aliases['civicrm_membership']}.is_test = 0
-               LEFT  JOIN civicrm_membership_status {$this->_aliases['civicrm_membership_status']}
-                          ON {$this->_aliases['civicrm_membership_status']}.id =
-                             {$this->_aliases['civicrm_membership']}.status_id ";
+    /**
+     * Query mode.
+     *
+     * This can be 'Main' or 'SoftCredit' to denote which query we are building.
+     *
+     * @var string
+     */
+    protected $queryMode = 'Main';
 
+    /**
+     * Is this report being run on contributions as the base entity.
+     *
+     * The report structure is generally designed around a base entity but
+     * depending on input it can be run in a sort of hybrid way that causes a lot
+     * of complexity.
+     *
+     * If it is in isContributionsOnlyMode we can simplify.
+     *
+     * (arguably there should be 2 separate report templates, not one doing double duty.)
+     *
+     * @var bool
+     */
+//  protected $isContributionBaseMode = FALSE;
 
-    $this->joinAddressFromContact();
-    $this->joinEmailFromContact();
-  }
+    /**
+     * This report has been optimised for group filtering.
+     *
+     * @var bool
+     * @see https://issues.civicrm.org/jira/browse/CRM-19170
+     */
+    protected $groupFilterNotOptimised = FALSE;
 
-  /**
-   * Add field specific select alterations.
-   *
-   * @param string $tableName
-   * @param string $tableKey
-   * @param string $fieldName
-   * @param array $field
-   *
-   * @return string
-   */
-  function selectClause(&$tableName, $tableKey, &$fieldName, &$field) {
-    return parent::selectClause($tableName, $tableKey, $fieldName, $field);
-  }
-
-  /**
-   * Add field specific where alterations.
-   *
-   * This can be overridden in reports for special treatment of a field
-   *
-   * @param array $field Field specifications
-   * @param string $op Query operator (not an exact match to sql)
-   * @param mixed $value
-   * @param float $min
-   * @param float $max
-   *
-   * @return null|string
-   */
-  public function whereClause(&$field, $op, $value, $min, $max) {
-    return parent::whereClause($field, $op, $value, $min, $max);
-  }
-
-  function alterDisplay(&$rows) {
-    // custom code to alter rows
-    $entryFound = FALSE;
-    $checkList = array();
-    foreach ($rows as $rowNum => $row) {
-
-      if (!empty($this->_noRepeats) && $this->_outputMode != 'csv') {
-        // not repeat contact display names if it matches with the one
-        // in previous row
-        $repeatFound = FALSE;
-        foreach ($row as $colName => $colVal) {
-          if (CRM_Utils_Array::value($colName, $checkList) &&
-            is_array($checkList[$colName]) &&
-            in_array($colVal, $checkList[$colName])
-          ) {
-            $rows[$rowNum][$colName] = "";
-            $repeatFound = TRUE;
-          }
-          if (in_array($colName, $this->_noRepeats)) {
-            $checkList[$colName][] = $colVal;
-          }
-        }
-      }
-
-      if (array_key_exists('civicrm_membership_membership_type_id', $row)) {
-        if ($value = $row['civicrm_membership_membership_type_id']) {
-          $rows[$rowNum]['civicrm_membership_membership_type_id'] = CRM_Member_PseudoConstant::membershipType($value, FALSE);
-        }
-        $entryFound = TRUE;
-      }
-
-      if (array_key_exists('civicrm_address_state_province_id', $row)) {
-        if ($value = $row['civicrm_address_state_province_id']) {
-          $rows[$rowNum]['civicrm_address_state_province_id'] = CRM_Core_PseudoConstant::stateProvince($value, FALSE);
-        }
-        $entryFound = TRUE;
-      }
-
-      if (array_key_exists('civicrm_address_country_id', $row)) {
-        if ($value = $row['civicrm_address_country_id']) {
-          $rows[$rowNum]['civicrm_address_country_id'] = CRM_Core_PseudoConstant::country($value, FALSE);
-        }
-        $entryFound = TRUE;
-      }
-
-      if (array_key_exists('civicrm_contact_sort_name', $row) &&
-        $rows[$rowNum]['civicrm_contact_sort_name'] &&
-        array_key_exists('civicrm_contact_id', $row)
-      ) {
-        $url = CRM_Utils_System::url("civicrm/contact/view",
-          'reset=1&cid=' . $row['civicrm_contact_id'],
-          $this->_absoluteUrl
-        );
-        $rows[$rowNum]['civicrm_contact_sort_name_link'] = $url;
-        $rows[$rowNum]['civicrm_contact_sort_name_hover'] = E::ts("View Contact Summary for this Contact.");
-        $entryFound = TRUE;
-      }
-
-      if (!$entryFound) {
-        break;
-      }
+    /**
+     * Class constructor.
+     */
+    public function __construct()
+    {
+        $this->_autoIncludeIndexedFieldsAsOrderBys = 1;
+        $this->_columns = array_merge(
+            $this->getColumns('Contact', [
+                'order_bys_defaults' => ['sort_name' => 'ASC '],
+                'fields_defaults' => ['sort_name'],
+                'fields_excluded' => ['id'],
+                'fields_required' => ['id'],
+                'filters_defaults' => ['is_deleted' => 0],
+                'no_field_disambiguation' => TRUE,
+            ]),
+            [
+                'civicrm_email' => [
+                    'dao' => 'CRM_Core_DAO_Email',
+                    'fields' => [
+                        'email' => [
+                            'title' => ts('Contact Email'),
+                            'default' => TRUE,
+                        ],
+                    ],
+                    'grouping' => 'contact-fields',
+                ],
+//        'civicrm_line_item' => [
+//          'dao' => 'CRM_Price_DAO_LineItem',
+//        ],
+                'civicrm_phone' => [
+                    'dao' => 'CRM_Core_DAO_Phone',
+                    'fields' => [
+                        'phone' => [
+                            'title' => ts('Contact Phone'),
+                            'default' => TRUE,
+                            'no_repeat' => TRUE,
+                        ],
+                    ],
+                    'grouping' => 'contact-fields',
+                ],
+                'civicrm_o8_device_data' => [
+                    'dao' => 'CRM_Devices_DAO_DeviceData',
+                    'fields' => [
+                        'device_data_id' => [
+                            'name' => 'id',
+                            'no_display' => TRUE,
+                            'required' => TRUE,
+                        ],
+                        'date' => ['type' => CRM_Utils_Type::T_INT,
+//                            'required' => TRUE,
+                            'default' => TRUE,
+                        ],
+                        'device_id' => [
+                            'type' => CRM_Utils_Type::T_STRING,
+                            'title' => ts('Device'),
+//                            'required' => TRUE,
+                            'default' => TRUE,
+                        ],
+                        'sensor_id' => [
+                            'type' => CRM_Utils_Type::T_STRING,
+                            'title' => ts('Sensor'),
+//                            'required' => TRUE,
+                            'default' => TRUE,
+                        ],
+                        'sensor_value' => [
+                            'type' => CRM_Utils_Type::T_FLOAT,
+                            'title' => ts('Value'),
+//                            'required' => TRUE,
+                            'default' => TRUE,
+                        ],
+                    ],
+                    'filters' => [
+                        'date' => ['operatorType' => CRM_Report_Form::OP_DATE],
+                    ],
+                    'order_bys' => [
+                        'date' => ['title' => ts('Date')],
+                        'sensor_id' => ['title' => ts('Sensor')],
+                        'device_id' => ['title' => ts('Device')],
+                    ],
+                    'group_bys' => [
+                    ],
+                    'grouping' => 'contact-fields',
+                ],
+            ]);
+        // The tests test for this variation of the sort_name field. Don't argue with the tests :-).
+        $this->_columns['civicrm_contact']['fields']['sort_name']['title'] = ts('Contact Name');
+//        $this->_groupFilter = TRUE;
+//        $this->_tagFilter = TRUE;
+        // If we have campaigns enabled, add those elements to both the fields, filters and sorting
+        parent::__construct();
     }
-  }
+
+    /**
+     * Validate incompatible report settings.
+     *
+     * @return bool
+     *   true if no error found
+     */
+//  public function validate() {
+//    // If you're displaying Contributions Only, you can't group by soft credit.
+//    $contributionOrSoftVal = $this->getElementValue('contribution_or_soft_value');
+//    if ($contributionOrSoftVal[0] == 'contributions_only') {
+//      $groupBySoft = $this->getElementValue('group_bys');
+//      if (!empty($groupBySoft['soft_credit_id'])) {
+//        $this->setElementError('group_bys', ts('You cannot group by soft credit when displaying contributions only.  Please uncheck "Soft Credit" in the Grouping tab.'));
+//      }
+//    }
+//
+//    return parent::validate();
+//  }
+
+    /**
+     * Set the FROM clause for the report.
+     */
+    public function from()
+    {
+        $this->setFromBase('civicrm_contact');
+        $this->_from .= "
+      INNER JOIN civicrm_o8_device_data {$this->_aliases['civicrm_o8_device_data']}
+        ON {$this->_aliases['civicrm_contact']}.id = {$this->_aliases['civicrm_o8_device_data']}.contact_id
+        ";
+
+        $this->appendAdditionalFromJoins();
+    }
+
+    /**
+     * @param $rows
+     *
+     * @return array
+     * @throws \CRM_Core_Exception
+     */
+    public function statistics(&$rows)
+    {
+        $statistics = parent::statistics($rows);
+
+        return $statistics;
+    }
+
+    /**
+     * Build the report query.
+     *
+     * @param bool $applyLimit
+     *
+     * @return string
+     */
+    public function buildQuery($applyLimit = TRUE)
+    {
+        return parent::buildQuery($applyLimit);
+    }
+
+    /**
+     * Shared function for preliminary processing.
+     *
+     * This is called by the api / unit tests and the form layer and is
+     * the right place to do 'initial analysis of input'.
+     */
+    public function beginPostProcessCommon()
+    {
+
+        // 1. use main contribution query to build temp table 1
+        $sql = $this->buildQuery();
+        $this->createTemporaryTable('civireport_contribution_detail_temp1', $sql);
+        $this->limit();
+        $this->setPager();
+    }
+
+    /**
+     * Store group bys into array - so we can check elsewhere what is grouped.
+     *
+     * If we are generating a table of soft credits we need to group by them.
+     */
+//  protected function storeGroupByArray() {
+//    if ($this->queryMode === 'SoftCredit') {
+//      $this->_groupByArray = [$this->_aliases['civicrm_health_monitor_soft'] . '.id'];
+//    }
+//    else {
+//      parent::storeGroupByArray();
+//    }
+//  }
+
+    /**
+     * Alter display of rows.
+     *
+     * Iterate through the rows retrieved via SQL and make changes for display purposes,
+     * such as rendering contacts as links.
+     *
+     * @param array $rows
+     *   Rows generated by SQL, with an array for each row.
+     */
+    public function alterDisplay(&$rows)
+    {
+        $entryFound = FALSE;
+        $display_flag = $prev_cid = $cid = 0;
+        foreach ($rows as $rowNum => $row) {
+//            CRM_Core_Error::debug_var('rows', $rows);
+//            CRM_Core_Error::debug_var('rowNum', $rowNum);
+//            CRM_Core_Error::debug_var('row', $row);
+
+            if (!empty($this->_noRepeats) && $this->_outputMode != 'csv') {
+                // don't repeat contact details if its same as the previous row
+                if (array_key_exists('civicrm_contact_id', $row)) {
+                    if ($cid = $row['civicrm_contact_id']) {
+                        if ($rowNum == 0) {
+                            $prev_cid = $cid;
+                        } else {
+                            if ($prev_cid == $cid) {
+                                $display_flag = 1;
+                                $prev_cid = $cid;
+                            } else {
+                                $display_flag = 0;
+                                $prev_cid = $cid;
+                            }
+                        }
+
+                        if ($display_flag) {
+                            foreach ($row as $colName => $colVal) {
+                                // Hide repeats in no-repeat columns, but not if the field's a section header
+                                if (in_array($colName, $this->_noRepeats) &&
+                                    !array_key_exists($colName, $this->_sections)
+                                ) {
+                                    unset($rows[$rowNum][$colName]);
+                                }
+                            }
+                        }
+                        $entryFound = TRUE;
+                    }
+                }
+            }
+
+            // convert donor sort name to link
+            if (array_key_exists('civicrm_contact_sort_name', $row) &&
+                !empty($rows[$rowNum]['civicrm_contact_sort_name']) &&
+                array_key_exists('civicrm_contact_id', $row)
+            ) {
+                $url = CRM_Utils_System::url("civicrm/contact/view",
+                    'reset=1&cid=' . $row['civicrm_contact_id'],
+                    $this->_absoluteUrl
+                );
+                $rows[$rowNum]['civicrm_contact_sort_name_link'] = $url;
+                $rows[$rowNum]['civicrm_contact_sort_name_hover'] = ts("View Contact Summary for this Contact.");
+            }
+
+            if ($val = CRM_Utils_Array::value('civicrm_o8_device_data_sensor_id', $row)) {
+//                            CRM_Core_Error::debug_var('val', $val);
+                $val = intval($val);
+                $rows[$rowNum]['civicrm_o8_device_data_sensor_id']
+                    = CRM_Core_PseudoConstant::getLabel("CRM_Devices_BAO_AlarmRule", "sensor_id", $val);
+            }
+            if ($val = CRM_Utils_Array::value('civicrm_o8_device_data_date', $row)) {
+//                            CRM_Core_Error::debug_var('val', $val);
+                $rows[$rowNum]['civicrm_o8_device_data_date']
+                    = $val;
+            }
+            if ($val = CRM_Utils_Array::value('civicrm_o8_device_data_device_id', $row)) {
+                $val = intval($val);
+//                            CRM_Core_Error::debug_var('val', $val);
+                $device_sql = "SELECT civicrm_o8_device_device.code
+                           from civicrm_o8_device_device where civicrm_o8_device_device.id = {$val}";
+                $device_code = CRM_Core_DAO::singleValueQuery($device_sql);
+                $rows[$rowNum]['civicrm_o8_device_data_device_id']
+                    = $device_code;
+            }
+            $lastKey = $rowNum;
+        }
+    }
+
+    public function sectionTotals()
+    {
+
+        // Reports using order_bys with sections must populate $this->_selectAliases in select() method.
+        if (empty($this->_selectAliases)) {
+            return;
+        }
+
+        if (!empty($this->_sections)) {
+            // build the query with no LIMIT clause
+            $select = str_ireplace('SELECT SQL_CALC_FOUND_ROWS ', 'SELECT ', $this->_select);
+            $sql = "{$select} {$this->_from} {$this->_where} {$this->_groupBy} {$this->_having} {$this->_orderBy}";
+
+            // pull section aliases out of $this->_sections
+            $sectionAliases = array_keys($this->_sections);
+
+            $ifnulls = [];
+            foreach (array_merge($sectionAliases, $this->_selectAliases) as $alias) {
+                $ifnulls[] = "ifnull($alias, '') as $alias";
+            }
+            $this->_select = "SELECT " . implode(", ", $ifnulls);
+            $this->_select = CRM_Contact_BAO_Query::appendAnyValueToSelect($ifnulls, $sectionAliases);
+
+            /* Group (un-limited) report by all aliases and get counts. This might
+             * be done more efficiently when the contents of $sql are known, ie. by
+             * overriding this method in the report class.
+             */
+
+            $addtotals = '';
+
+            if (array_search("civicrm_o8_device_data_total_amount", $this->_selectAliases) !==
+                FALSE
+            ) {
+                $addtotals = ", sum(civicrm_o8_device_data_total_amount) as sumcontribs";
+                $showsumcontribs = TRUE;
+            }
+
+            $query = $this->_select .
+                "$addtotals, count(*) as ct from {$this->temporaryTables['civireport_contribution_detail_temp1']['name']} group by " .
+                implode(", ", $sectionAliases);
+            // initialize array of total counts
+            $sumcontribs = $totals = [];
+            $dao = CRM_Core_DAO::executeQuery($query);
+            $this->addToDeveloperTab($query);
+            while ($dao->fetch()) {
+
+                // let $this->_alterDisplay translate any integer ids to human-readable values.
+                $rows[0] = $dao->toArray();
+                $this->alterDisplay($rows);
+                $row = $rows[0];
+
+                // add totals for all permutations of section values
+                $values = [];
+                $i = 1;
+                $aliasCount = count($sectionAliases);
+                foreach ($sectionAliases as $alias) {
+                    $values[] = $row[$alias];
+                    $key = implode(CRM_Core_DAO::VALUE_SEPARATOR, $values);
+                    if ($i == $aliasCount) {
+                        // the last alias is the lowest-level section header; use count as-is
+                        $totals[$key] = $dao->ct;
+                        if ($showsumcontribs) {
+                            $sumcontribs[$key] = $dao->sumcontribs;
+                        }
+                    } else {
+                        // other aliases are higher level; roll count into their total
+                        $totals[$key] = (array_key_exists($key, $totals)) ? $totals[$key] + $dao->ct : $dao->ct;
+                        if ($showsumcontribs) {
+                            $sumcontribs[$key] = array_key_exists($key, $sumcontribs) ? $sumcontribs[$key] + $dao->sumcontribs : $dao->sumcontribs;
+                        }
+                    }
+                }
+            }
+            if ($showsumcontribs) {
+                $totalandsum = [];
+                // ts exception to avoid having ts("%1 %2: %3")
+                $title = '%1 contributions / soft-credits: %2';
+
+                if (CRM_Utils_Array::value('contribution_or_soft_value', $this->_params) ==
+                    'contributions_only'
+                ) {
+                    $title = '%1 contributions: %2';
+                } elseif (CRM_Utils_Array::value('contribution_or_soft_value', $this->_params) ==
+                    'soft_credits_only'
+                ) {
+                    $title = '%1 soft-credits: %2';
+                }
+                foreach ($totals as $key => $total) {
+                    $totalandsum[$key] = ts($title, [
+                        1 => $total,
+                        2 => CRM_Utils_Money::format($sumcontribs[$key]),
+                    ]);
+                }
+                $this->assign('sectionTotals', $totalandsum);
+            } else {
+                $this->assign('sectionTotals', $totals);
+            }
+        }
+    }
+
+    /**
+     * Generate the from clause as it relates to the soft credits.
+     */
+    public function softCreditFrom()
+    {
+
+        $this->appendAdditionalFromJoins();
+    }
+
+    /**
+     * Append the joins that are required regardless of context.
+     */
+    public function appendAdditionalFromJoins()
+    {
+        $this->joinPhoneFromContact();
+        $this->joinAddressFromContact();
+        $this->joinEmailFromContact();
+
+    }
+
 
 }
+
