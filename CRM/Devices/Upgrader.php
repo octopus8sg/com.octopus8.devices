@@ -188,7 +188,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
     public function postInstall()
     {
 
-        $this->createFor5Users();
+//        $this->createFor5Users();
 
     }
 
