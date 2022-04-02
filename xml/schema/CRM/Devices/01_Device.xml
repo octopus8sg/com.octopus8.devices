@@ -49,7 +49,6 @@
     <unique>true</unique>
   </index>
 
-
   <field>
     <name>device_type_id</name>
     <title>Device Type</title>
