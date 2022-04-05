@@ -193,7 +193,7 @@ function devices_civicrm_navigationMenu(&$menu)
     ));
     _devices_civix_navigationMenu($menu);
     _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
-        'label' => E::ts('Find Devices'),
+        'label' => E::ts('Search Devices'),
         'name' => 'o8_devices_devicessearch',
         'url' => 'civicrm/devices/search',
         'permission' => 'access CiviCRM',
@@ -211,7 +211,7 @@ function devices_civicrm_navigationMenu(&$menu)
     ));
     _devices_civix_navigationMenu($menu);
     _devices_civix_insert_navigation_menu($menu, 'o8_devices', array(
-        'label' => E::ts('Find Data'),
+        'label' => E::ts('Search Data'),
         'name' => 'o8_devices_devicedatasearch',
         'url' => 'civicrm/devices/searchdevicedata',
         'permission' => 'access CiviCRM',
