@@ -2,7 +2,7 @@
     <div class="crm-content-block">
         <div class="action-link">
             {*        {debug}*}
-            <a class="button add-device" href="{crmURL p="civicrm/devices/form" q="reset=1&action=add" }">
+            <a class="button add-device" href="{crmURL p="civicrm/devices/device" q="reset=1&action=add" }">
                 <i class="crm-i fa-plus-circle">&nbsp;</i>
                 {ts}Add Device{/ts}
             </a>
