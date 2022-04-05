@@ -89,17 +89,31 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
                     ]
                 ], TRUE);
                 $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE)->freeze();
-
             } else {
+//                $this->addEntityRef('device_id', E::ts('Device'), [
+//                    'entity' => 'device',
+//                    'placeholder' => ts('- Select Device -'),
+//                    'select' => ['minimumInputLength' => 0],
+//                    'api' => [
+//                        'extra' => ['device_id.device_type_id.title', 'contact_id.sort_name'],
+//                        'search_field' => 'code',
+//                        'label_field' => 'code',
+//                    ]
+//                ], TRUE);
                 $this->addEntityRef('device_id', E::ts('Device'), [
-                    'entity' => 'device',
-                    'placeholder' => ts('- Select Device -'),
-                    'select' => ['minimumInputLength' => 0],
                     'api' => [
-                        'extra' => ['device_id.device_type_id.title', 'contact_id.sort_name'],
-                        'search_field' => 'code',
-                        'label_field' => 'code',
-                    ]
+                        'search_fields' => ['code', 'device_type_id.label', 'contact_id.sort_name'],
+                        'label_field' => "code",
+                        'description_field' => [
+                            'id',
+                            'device_type_id.label',
+                            'contact_id.sort_name',
+                        ]
+                    ],
+                    'entity' => 'device',
+                    'select' => ['minimumInputLength' => 0],
+                    'class' => 'huge',
+                    'placeholder' => ts('- Select Device -'),
                 ], TRUE);
             }
             $this->add('text', 'sensor_value', E::ts('Value'), null, TRUE);
