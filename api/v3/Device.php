@@ -54,3 +54,16 @@ function civicrm_api3_device_delete($params) {
 function civicrm_api3_device_get($params) {
   return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params, TRUE, 'Device');
 }
+
+/**
+ * Get list parameters.
+ *
+ * @param array $request
+ * @see _civicrm_api3_generic_getlist_params
+ *
+ */
+function _civicrm_api3_device_getlist_params(&$request)
+{
+//    CRM_Core_Error::debug_var('request3', $request);
+    $request = CRM_Devices_BAO_Device::getListWithSeveralSearchFields($request);
+}
