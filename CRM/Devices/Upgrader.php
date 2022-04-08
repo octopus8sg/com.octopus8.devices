@@ -549,8 +549,8 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
      */
     public function enable()
     {
-//        CRM_Core_DAO::executeQuery('alter table civicrm_health_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
-//        CRM_Core_DAO::executeQuery('alter table civicrm_health_monitor modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+        CRM_Core_DAO::executeQuery('alter table civicrm_o8_device_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+        CRM_Core_DAO::executeQuery('alter table civicrm_o8_device_data modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
     }
 
     /**
