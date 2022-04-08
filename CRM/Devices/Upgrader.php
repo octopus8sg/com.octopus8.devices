@@ -533,7 +533,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
 //            CRM_Core_Error::debug_var('date', $date);
 //            CRM_Core_Error::debug_var('i', $i);
 
-            $result = civicrm_api3('HealthMonitor', 'create', [
+            $result = civicrm_api3('DeviceData', 'create', [
                 'date' => $date,
                 'sensor_value' => $sensor_value,
                 'device_code' => $device_name,
