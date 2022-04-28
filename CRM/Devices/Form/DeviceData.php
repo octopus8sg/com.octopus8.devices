@@ -151,7 +151,7 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
     {
         if ($this->_action == CRM_Core_Action::DELETE) {
             civicrm_api4('DeviceData', 'delete', ['where' => [['id', '=', $this->_id]]]);
-            CRM_Core_Session::setStatus(E::ts('Removed Device Data Value'), E::ts('Health Monitor'), 'success');
+            CRM_Core_Session::setStatus(E::ts('Removed Device Data Value'), E::ts('Device Data'), 'success');
         } else {
             $values = $this->controller->exportValues();
 //            CRM_Core_Error::debug_var('values', $values);

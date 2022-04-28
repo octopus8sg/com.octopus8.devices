@@ -533,7 +533,7 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
 //            CRM_Core_Error::debug_var('date', $date);
 //            CRM_Core_Error::debug_var('i', $i);
 
-            $result = civicrm_api3('HealthMonitor', 'create', [
+            $result = civicrm_api3('DeviceData', 'create', [
                 'date' => $date,
                 'sensor_value' => $sensor_value,
                 'device_code' => $device_name,
@@ -549,8 +549,8 @@ class CRM_Devices_Upgrader extends CRM_Devices_Upgrader_Base
      */
     public function enable()
     {
-//        CRM_Core_DAO::executeQuery('alter table civicrm_health_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
-//        CRM_Core_DAO::executeQuery('alter table civicrm_health_monitor modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+        CRM_Core_DAO::executeQuery('alter table civicrm_o8_device_alarm_rule modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
+        CRM_Core_DAO::executeQuery('alter table civicrm_o8_device_data modify sensor_value decimal(20,8) not null comment \'Sensor Value\'');
     }
 
     /**

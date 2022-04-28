@@ -140,7 +140,7 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
 
         if ($this->_action == CRM_Core_Action::DELETE) {
             civicrm_api4('Alarm', 'delete', ['where' => [['id', '=', $this->_id]]]);
-            CRM_Core_Session::setStatus(E::ts('Removed Device Alarm'), E::ts('Health Alarm'), 'success');
+            CRM_Core_Session::setStatus(E::ts('Removed Device Alarm'), E::ts('Device Alarm'), 'success');
         } else {
             $values = $this->controller->exportValues();
             $action = 'create';

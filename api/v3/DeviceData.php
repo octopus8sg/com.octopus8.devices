@@ -15,7 +15,8 @@ function _civicrm_api3_device_data_create_spec(&$spec) {
     unset($spec['sensor_id']);
     $spec['sensor_id'] = ['api.required' => 1];
     $spec['sensor_value']['api.required'] = 1;
-    $spec['date']['api.required'] = 1;
+    $spec['date']['api.required'] = 0;
+//    $spec['time']['api.required'] = 0;
 
 }
 
@@ -109,6 +110,9 @@ function civicrm_api3_device_data_create($params)
     }
     if (empty($params['device_id'])) {
         throw new API_Exception('device_code is not valid');
+    }
+    if (empty($params['date'])) {
+        $params['date'] = date('Y-m-d H:i:s');
     }
     $newparams = _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'DeviceData');
     $id = $newparams['id'];
