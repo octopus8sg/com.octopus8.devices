@@ -77,16 +77,16 @@ class CRM_Devices_Utils_Login {
      *  Sends response to user
      */
     private function sendResponse() {
-        $restPath = new CRM_CiviMobileAPI_Utils_RestPath();
+        $restPath = new CRM_Devices_Utils_RestPath();
         $this->responseData['values'] = [
             'api_key' => $this->getUserApiKey(),
             'key' => $this->getSiteKey(),
             'id' => $this->civiContact->id,
             'display_name' => $this->civiContact->display_name,
-            'cms' => CRM_CiviMobileAPI_Utils_CmsUser::getInstance()->getSystem(),
+            'cms' => CRM_Devices_Utils_CmsUser::getInstance()->getSystem(),
             'rest_path' => $restPath->get(),
             'absolute_rest_url' => $restPath->getAbsoluteUrl(),
-            'site_name' => CRM_CiviMobileAPI_Utils_Extension::getSiteName(),
+            'site_name' => CRM_Devices_Utils_CmsUser::getSiteName(),
         ];
 
         JsonResponse::sendSuccessResponse($this->responseData);
@@ -143,5 +143,9 @@ class CRM_Devices_Utils_Login {
         CRM_Utils_Hook::singleton()
             ->commonInvoke(4, $this->responseData, $this->emailOrUsername, $this->password, $this->civiContact->id, $nullObject, $nullObject, 'civimobile_auth_success', '');
     }
+
+
+
+
 
 }

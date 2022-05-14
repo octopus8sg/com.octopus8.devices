@@ -239,4 +239,38 @@ class CRM_Devices_Utils_CmsUser {
         return $this->system;
     }
 
+    /**
+     * Get site name from settings
+     *
+     * @return string|null
+     */
+    public static function getSiteName() {
+        if (Civi::settings()->get('civimobile_site_name_to_use') == 'custom_site_name') {
+            return Civi::settings()->get('civimobile_custom_site_name');
+        }
+
+        return CRM_Devices_Utils_CmsUser::getSiteNameCommon();
+    }
+
+    /**
+     * Returns site`s name in different CMS`
+     *
+     * @return string|null
+     */
+    public static function getSiteNameCommon() {
+        $currentCMS = CRM_Devices_Utils_CmsUser::getInstance()->getSystem();
+
+        if ($currentCMS == CRM_Devices_Utils_CmsUser::CMS_WORDPRESS) {
+            return get_bloginfo('name');
+        } elseif ($currentCMS == CRM_Devices_Utils_CmsUser::CMS_JOOMLA) {
+            return JFactory::getConfig()->get('sitename');
+        } elseif ($currentCMS == CRM_Devices_Utils_CmsUser::CMS_DRUPAL6 || $currentCMS == CRM_CiviMobileAPI_Utils_CmsUser::CMS_DRUPAL7) {
+            return variable_get('site_name', '');
+        }
+        elseif ($currentCMS == CRM_Devices_Utils_CmsUser::CMS_DRUPAL8) {
+            return \Drupal::config('system.site')->get("name");
+        }
+
+        return null;
+    }
 }
