@@ -1,135 +1,141 @@
 <?xml version="1.0"?>
 <menu>
-  <item>
-    <path>civicrm/devices/commonfilter</path>
-    <page_callback>CRM_Devices_Form_CommonFilter</page_callback>
-    <title>CommonFilter</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/search</path>
-    <page_callback>CRM_Devices_Page_SearchDevice</page_callback>
-    <title>Search Device</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/device</path>
-    <page_callback>CRM_Devices_Form_Device</page_callback>
-    <title>Device</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alertrule</path>
-    <page_callback>CRM_Devices_Form_AlertRule</page_callback>
-    <title>AlertRule</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alarmrule</path>
-    <page_callback>CRM_Devices_Form_AlarmRule</page_callback>
-    <title>AlarmRule</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alert</path>
-    <page_callback>CRM_Devices_Form_Alert</page_callback>
-    <title>Alert</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alarm</path>
-    <page_callback>CRM_Devices_Form_Alarm</page_callback>
-    <title>Alarm</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/devicedata</path>
-    <page_callback>CRM_Devices_Form_DeviceData</page_callback>
-    <title>DeviceData</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/contacttab</path>
-    <page_callback>CRM_Devices_Page_ContactTab</page_callback>
-    <title>ContactTab</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchdevicedata</path>
-    <page_callback>CRM_Devices_Page_SearchDeviceData</page_callback>
-    <title>SearchDeviceData</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <!--AJAX SEARCHES-->
-  <item>
-    <path>civicrm/devices/device_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchDevice::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/devicedata_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchDeviceData::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alarmrule_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchAlarmRule::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alarm_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchAlarm::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alertrule_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchAlertRule::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/alert_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchAlert::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/chart_ajax</path>
-    <page_callback>CRM_Devices_Page_SearchCharts::getAjax</page_callback>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/dashboard</path>
-    <page_callback>CRM_Devices_Page_DevicesDashboard</page_callback>
-    <title>DevicesDashboard</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchalarmrule</path>
-    <page_callback>CRM_Devices_Page_SearchAlarmRule</page_callback>
-    <title>SearchAlarmRule</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchalarm</path>
-    <page_callback>CRM_Devices_Page_SearchAlarm</page_callback>
-    <title>SearchAlarm</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchalert</path>
-    <page_callback>CRM_Devices_Page_SearchAlert</page_callback>
-    <title>SearchAlert</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchalertrule</path>
-    <page_callback>CRM_Devices_Page_SearchAlertRule</page_callback>
-    <title>SearchAlertRule</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
-  <item>
-    <path>civicrm/devices/searchcharts</path>
-    <page_callback>CRM_Devices_Page_SearchCharts</page_callback>
-    <title>SearchCharts</title>
-    <access_arguments>access CiviCRM</access_arguments>
-  </item>
+    <item>
+        <path>civicrm/devices/commonfilter</path>
+        <page_callback>CRM_Devices_Form_CommonFilter</page_callback>
+        <title>CommonFilter</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/search</path>
+        <page_callback>CRM_Devices_Page_SearchDevice</page_callback>
+        <title>Search Device</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/device</path>
+        <page_callback>CRM_Devices_Form_Device</page_callback>
+        <title>Device</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alertrule</path>
+        <page_callback>CRM_Devices_Form_AlertRule</page_callback>
+        <title>AlertRule</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alarmrule</path>
+        <page_callback>CRM_Devices_Form_AlarmRule</page_callback>
+        <title>AlarmRule</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alert</path>
+        <page_callback>CRM_Devices_Form_Alert</page_callback>
+        <title>Alert</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alarm</path>
+        <page_callback>CRM_Devices_Form_Alarm</page_callback>
+        <title>Alarm</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/devicedata</path>
+        <page_callback>CRM_Devices_Form_DeviceData</page_callback>
+        <title>DeviceData</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/contacttab</path>
+        <page_callback>CRM_Devices_Page_ContactTab</page_callback>
+        <title>ContactTab</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchdevicedata</path>
+        <page_callback>CRM_Devices_Page_SearchDeviceData</page_callback>
+        <title>SearchDeviceData</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <!--AJAX SEARCHES-->
+    <item>
+        <path>civicrm/devices/device_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchDevice::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/devicedata_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchDeviceData::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alarmrule_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchAlarmRule::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alarm_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchAlarm::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alertrule_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchAlertRule::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/alert_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchAlert::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/chart_ajax</path>
+        <page_callback>CRM_Devices_Page_SearchCharts::getAjax</page_callback>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/dashboard</path>
+        <page_callback>CRM_Devices_Page_DevicesDashboard</page_callback>
+        <title>DevicesDashboard</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchalarmrule</path>
+        <page_callback>CRM_Devices_Page_SearchAlarmRule</page_callback>
+        <title>SearchAlarmRule</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchalarm</path>
+        <page_callback>CRM_Devices_Page_SearchAlarm</page_callback>
+        <title>SearchAlarm</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchalert</path>
+        <page_callback>CRM_Devices_Page_SearchAlert</page_callback>
+        <title>SearchAlert</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchalertrule</path>
+        <page_callback>CRM_Devices_Page_SearchAlertRule</page_callback>
+        <title>SearchAlertRule</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/searchcharts</path>
+        <page_callback>CRM_Devices_Page_SearchCharts</page_callback>
+        <title>SearchCharts</title>
+        <access_arguments>access CiviCRM</access_arguments>
+    </item>
+    <item>
+        <path>civicrm/devices/auth</path>
+        <page_callback>CRM_Devices_Page_Auth</page_callback>
+        <title>Core</title>
+        <access_callback>1</access_callback>
+    </item>
 </menu>
