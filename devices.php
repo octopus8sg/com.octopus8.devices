@@ -259,12 +259,15 @@ function devices_civicrm_tabset($path, &$tabs, $context)
         // add a tab to the contact summary screen
         $contactId = $context['contact_id'];
         $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
-
+try{
         $myEntities = \Civi\Api4\Device::get()
             ->selectRowCount()
             ->addWhere('contact_id', '=', $contactId)
             ->execute();
-
+}catch (CRM_Core_Exception $e){
+    CRM_Core_Error::debug_var('some_error_in_devices_tab', $e->getMessage());
+    return;
+}
         $tabs[] = array(
             'id' => 'contact_devices',
             'url' => $url,
