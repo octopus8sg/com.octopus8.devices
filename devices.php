@@ -432,5 +432,19 @@ function _devices_civicrm_pre($op, $objectName, $id, &$params)
                 'access CiviCRM',
             ],
         ];
+        $permissions['DeviceData'] = [
+            'get' => [
+                'access CiviCRM',
+            ],
+            'delete' => [
+                'access CiviCRM',
+            ],
+            'create' => [
+                'access CiviCRM',
+            ],
+            'update' => [
+                'access CiviCRM',
+            ],
+        ];
     }
 }

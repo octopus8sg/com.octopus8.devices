@@ -41,4 +41,4 @@ cv en devices
 
 ## Known Issues
 
-0.1.14 - User rights changed
+1.0.1 - User rights changed
