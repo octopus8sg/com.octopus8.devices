@@ -45,7 +45,14 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
         $url = CRM_Utils_System::url('civicrm/devices/searchdevicedata', 'reset=1');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Device Data');
-            $entities = civicrm_api4('DeviceData', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('DeviceData',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [
+                        ['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             $this->_devicedata = false;
             if (!empty($entities)) {
                 $this->_devicedata = $entities[0];
@@ -150,7 +157,12 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
     function postProcess()
     {
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('DeviceData', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('DeviceData',
+                'delete',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]]
+                ]);
             CRM_Core_Session::setStatus(E::ts('Removed Device Data Value'), E::ts('Device Data'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -177,6 +189,7 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
                 $params['contact_id'] = $values['contact_id'];
             } else {
                 $devices = civicrm_api4('Device', 'get', [
+                    'checkPermissions' => FALSE,
                     'select' => [
                         'contact_id',
                     ],
@@ -190,7 +203,8 @@ class CRM_Devices_Form_DeviceData extends CRM_Core_Form
                     $params['contact_id'] = $contact_id;
                 }
             }
-            civicrm_api4('DeviceData', $action, ['values' => $params]);
+            civicrm_api4('DeviceData', $action, ['checkPermissions' => FALSE,
+                'values' => $params]);
         }
         $session = CRM_Core_Session::singleton();
         $url = CRM_Utils_System::url('civicrm/devices/searchdevicedata', 'reset=1');

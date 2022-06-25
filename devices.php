@@ -259,15 +259,21 @@ function devices_civicrm_tabset($path, &$tabs, $context)
         // add a tab to the contact summary screen
         $contactId = $context['contact_id'];
         $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
-try{
-        $myEntities = \Civi\Api4\Device::get()
-            ->selectRowCount()
-            ->addWhere('contact_id', '=', $contactId)
-            ->execute();
-}catch (CRM_Core_Exception $e){
-    CRM_Core_Error::debug_var('some_error_in_devices_tab', $e->getMessage());
-    return;
-}
+        try {
+            $contactType = CRM_Contact_BAO_Contact::getContactType($contactId);
+        } catch (CRM_Core_Exception $e) {
+            CRM_Core_Error::debug_var('some_error_in_funds_tab', $e->getMessage());
+            return;
+        }
+        try {
+            $myEntities = \Civi\Api4\Device::get()
+                ->selectRowCount()
+                ->addWhere('contact_id', '=', $contactId)
+                ->execute();
+        } catch (CRM_Core_Exception $e) {
+            CRM_Core_Error::debug_var('some_error_in_devices_tab', $e->getMessage());
+            return;
+        }
         $tabs[] = array(
             'id' => 'contact_devices',
             'url' => $url,
@@ -298,7 +304,6 @@ function devices_civicrm_pre($op, $objectName, $id, &$params)
 }
 
 
-
 /** Validation of a rule - no need to have two rules for the same thing
  * @param $formName
  * @param $fields
@@ -322,12 +327,14 @@ function devices_civicrm_validateForm($formName, &$fields, &$files, &$form, &$er
         $rule_id = $fields['rule_id'];
         $sensor_value = $fields['sensor_value'];
         $alarmrules = civicrm_api4('AlarmRule', 'get',
-            ['where' => [
-                ['contact_id', '=', $contact_id],
-                ['sensor_id', '=', $sensor_id],
-                ['rule_id', '=', $rule_id],
-                ['sensor_value', '=', $sensor_value],
-            ]])->jsonSerialize();
+            [
+                'checkPermissions' => FALSE,
+                'where' => [
+                    ['contact_id', '=', $contact_id],
+                    ['sensor_id', '=', $sensor_id],
+                    ['rule_id', '=', $rule_id],
+                    ['sensor_value', '=', $sensor_value],
+                ]])->jsonSerialize();
         if (sizeof($alarmrules) > 0) {
 //            CRM_Core_Error::debug_var('alarmrules', $alarmrules);
             $message = "Rule already exists";
@@ -409,4 +416,21 @@ function _devices_civicrm_pre($op, $objectName, $id, &$params)
 //            return "The field device_code and/or device_id and/or contact_id is mandatory";
 //        }
 //    }
+
+    function devices_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions) {
+        $permissions['civicrm_o8_device_data'] = [
+            'get' => [
+                'access CiviCRM',
+            ],
+            'delete' => [
+                'access CiviCRM',
+            ],
+            'create' => [
+                'access CiviCRM',
+            ],
+            'update' => [
+                'access CiviCRM',
+            ],
+        ];
+    }
 }

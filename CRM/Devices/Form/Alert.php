@@ -44,7 +44,13 @@ class CRM_Devices_Form_Alert extends CRM_Core_Form  {
         CRM_Utils_System::setTitle('Add Alert');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alert');
-            $entities = civicrm_api4('Alert', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('Alert',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             if(!empty($entities)){
                 $this->_alert = $entities[0];
             }
@@ -70,6 +76,7 @@ class CRM_Devices_Form_Alert extends CRM_Core_Form  {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $rules = [];
             $healthAlertRules = civicrm_api4('AlertRule', 'get', [
+                'checkPermissions' => FALSE,
                 'select' => [
                     'id',
                     'code',
@@ -125,7 +132,10 @@ class CRM_Devices_Form_Alert extends CRM_Core_Form  {
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('Alert', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('Alert', 'delete',
+                ['checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]]
+                ]);
             CRM_Core_Session::setStatus(E::ts('Removed Device Alert'), E::ts('Device Alert'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -139,7 +149,11 @@ class CRM_Devices_Form_Alert extends CRM_Core_Form  {
             $params['alert_rule_id'] = $values['alert_rule_id'];
             $params['device_data_id'] = $values['device_data_id'];
             // todo many-to-many device-client
-            civicrm_api4('Alert', $action, ['values' => $params]);
+            civicrm_api4('Alert', $action,
+                [
+                    'checkPermissions' => FALSE,
+                    'values' => $params
+                ]);
         }
         $url = CRM_Utils_System::url('civicrm/devoces/searchalert', 'reset=1');
         $session->pushUserContext($url);

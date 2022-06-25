@@ -59,7 +59,13 @@ class CRM_Devices_Form_AlarmRule extends CRM_Core_Form
         CRM_Utils_System::setTitle('Add Alarm Rule');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alarm Rule');
-            $entities = civicrm_api4('AlarmRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('AlarmRule',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             if (!empty($entities)) {
                 $this->_alarm_rule = $entities[0];
             }
@@ -147,7 +153,10 @@ class CRM_Devices_Form_AlarmRule extends CRM_Core_Form
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('AlarmRule', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('AlarmRule', 'delete', [
+                'checkPermissions' => FALSE,
+                'where' => [['id', '=', $this->_id]]
+            ]);
             CRM_Core_Session::setStatus(E::ts('Removed Alarm Rule'), E::ts('Alarm Rule'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -173,7 +182,11 @@ class CRM_Devices_Form_AlarmRule extends CRM_Core_Form
             $params['sensor_id'] = $sensor_id;
             $params['sensor_value'] = $sensor_value;
             $params['rule_id'] = $rule_id;
-            civicrm_api4('AlarmRule', $action, ['values' => $params]);
+            civicrm_api4('AlarmRule', $action,
+                [
+                    'checkPermissions' => FALSE,
+                    'values' => $params
+                ]);
         }
         $url = CRM_Utils_System::url('civicrm/devices/dashboard', 'reset=1');
         $session->pushUserContext($url);
