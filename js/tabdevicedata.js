@@ -18,7 +18,7 @@ CRM.$(function ($) {
         };
         devices_dtsettings.fnDrawCallback = function (oSettings) {
             // $("a.view-device").css('background','red');
-            $("a.view-devicedata").click(function (event) {
+            $("a.view-devicedata").off("click").click(function (event) {
                 event.preventDefault();
                 var href = $(this).attr('href');
                 // alert(href);
@@ -31,7 +31,7 @@ CRM.$(function ($) {
                 });
             });
             // $("a.update-device").css('background','blue');
-            $("a.edit-devicedata").click(function (event) {
+            $("a.edit-devicedata").off("click").click(function (event) {
                 event.preventDefault();
                 var href = $(this).attr('href');
                 // alert(href);
@@ -43,7 +43,7 @@ CRM.$(function ($) {
                     hm_table.draw();
                 });
             });
-            $("a.delete-devicedata").click(function (event) {
+            $("a.delete-devicedata").off("click").click(function (event) {
                 event.preventDefault();
                 var href = $(this).attr('href');
                 // alert(href);
