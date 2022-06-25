@@ -77,6 +77,7 @@ function civicrm_api3_device_data_create($params)
     //    hide contact_id in api3 return
     if (!isset($params['device_id']) and isset($params['device_code'])) {
         $devices = civicrm_api4('Device', 'get', [
+            'checkPermissions' => FALSE,
             'select' => [
                 'id',
             ],
@@ -92,6 +93,7 @@ function civicrm_api3_device_data_create($params)
     }
     if (!isset($params['contact_id']) and isset($params['device_id'])) {
         $devices = civicrm_api4('Device', 'get', [
+            'checkPermissions' => FALSE,
             'select' => [
                 'contact_id',
             ],

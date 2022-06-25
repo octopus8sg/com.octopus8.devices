@@ -52,7 +52,13 @@ class CRM_Devices_Form_Device extends CRM_Core_Form
         CRM_Utils_System::setTitle('Add Device');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Device');
-            $entities = civicrm_api4('Device', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('Device',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             if (!empty($entities)) {
                 $this->_device = $entities[0];
             }
@@ -88,11 +94,11 @@ class CRM_Devices_Form_Device extends CRM_Core_Form
                 ['class' => 'huge'], TRUE);
             $this->addRule('code', ts('Device Code already exists in Database.'),
                 'objectExists', [
-                'CRM_Devices_DAO_Device',
-                $this->_id,
-                'code',
-                CRM_Core_Config::domainID(),
-            ]);
+                    'CRM_Devices_DAO_Device',
+                    $this->_id,
+                    'code',
+                    CRM_Core_Config::domainID(),
+                ]);
             $this->addRule('code',
                 ts('Device Code should consist of numbers and letters'),
                 'alphanumeric', null, 'client');
@@ -140,7 +146,11 @@ class CRM_Devices_Form_Device extends CRM_Core_Form
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('Device', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('Device', 'delete',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]]
+                ]);
             CRM_Core_Session::setStatus(E::ts('Removed Device'), E::ts('Device'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -152,15 +162,18 @@ class CRM_Devices_Form_Device extends CRM_Core_Form
             $params['code'] = $values['code'];
 //            $params['default_client'] = boolval($values['default_client']);
             $contact_id = $this->contact_id;
-            if($contact_id){
+            if ($contact_id) {
                 $params['contact_id'] = $contact_id;
-            }else{
+            } else {
                 $params['contact_id'] = $values['contact_id'];
 
             }
             $params['device_type_id'] = $values['device_type_id'];
             // todo many-to-many device-client
-            civicrm_api4('Device', $action, ['values' => $params]);
+            civicrm_api4('Device', $action,
+                [
+                    'checkPermissions' => FALSE,
+                    'values' => $params]);
         }
         $url = CRM_Utils_System::url('civicrm/devices/search', 'reset=1');
         $session->pushUserContext($url);

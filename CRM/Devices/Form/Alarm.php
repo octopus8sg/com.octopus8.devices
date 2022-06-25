@@ -45,7 +45,13 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
         CRM_Utils_System::setTitle('Add Alarm');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alarm');
-            $entities = civicrm_api4('Alarm', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('Alarm',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             if(!empty($entities)){
                 $this->_alarm = $entities[0];
             }
@@ -71,6 +77,7 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
             $this->addEntityRef('contact_id', E::ts('Contact'), [], TRUE);
             $rules = [];
             $AlarmRules = civicrm_api4('AlarmRule', 'get', [
+                'checkPermissions' => FALSE,
                 'select' => [
                     'id',
                     'code',
@@ -84,6 +91,7 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
                 TRUE, ['class' => 'huge crm-select2']);
 
             $device_datas = civicrm_api4('DeviceData', 'get', [
+                'checkPermissions' => FALSE,
                 'select' => [
                     'id',
                     'contact_id',
@@ -139,7 +147,11 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('Alarm', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('Alarm', 'delete',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]]
+                ]);
             CRM_Core_Session::setStatus(E::ts('Removed Device Alarm'), E::ts('Device Alarm'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -152,7 +164,9 @@ class CRM_Devices_Form_Alarm extends CRM_Core_Form {
             $params['contact_id'] = $values['contact_id'];
             $params['alarm_rule_id'] = $values['alarm_rule_id'];
             $params['device_data_id'] = $values['device_data_id'];
-            civicrm_api4('Alarm', $action, ['values' => $params]);
+            civicrm_api4('Alarm', $action, [
+                'checkPermissions' => FALSE,
+                'values' => $params]);
         }
         $url = CRM_Utils_System::url('civicrm/devices/dashboard', 'reset=1');
         $session->pushUserContext($url);

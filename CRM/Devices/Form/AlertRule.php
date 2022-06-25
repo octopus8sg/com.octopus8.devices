@@ -58,7 +58,13 @@ class CRM_Devices_Form_AlertRule extends CRM_Core_Form
         CRM_Utils_System::setTitle('Add Alert Rule');
         if ($this->_id) {
             CRM_Utils_System::setTitle('Edit Alert Rule');
-            $entities = civicrm_api4('AlertRule', 'get', ['where' => [['id', '=', $this->_id]], 'limit' => 1]);
+            $entities = civicrm_api4('AlertRule',
+                'get',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]],
+                    'limit' => 1
+                ]);
             if (!empty($entities)) {
                 $this->_alert_rule = $entities[0];
             }
@@ -156,7 +162,11 @@ class CRM_Devices_Form_AlertRule extends CRM_Core_Form
         $session = CRM_Core_Session::singleton();
 
         if ($this->_action == CRM_Core_Action::DELETE) {
-            civicrm_api4('AlertRule', 'delete', ['where' => [['id', '=', $this->_id]]]);
+            civicrm_api4('AlertRule',
+                'delete',
+                [
+                    'checkPermissions' => FALSE,
+                    'where' => [['id', '=', $this->_id]]]);
             CRM_Core_Session::setStatus(E::ts('Removed Alert Rule'), E::ts('AlertRule'), 'success');
         } else {
             $values = $this->controller->exportValues();
@@ -188,7 +198,9 @@ class CRM_Devices_Form_AlertRule extends CRM_Core_Form
             $params['message'] = $message;
             $params['civicrm'] = $civicrm;
             $params['email'] = $email;
-            civicrm_api4('AlertRule', $action, ['values' => $params]);
+            civicrm_api4('AlertRule', $action, ['
+            checkPermissions' => FALSE,
+                'values' => $params]);
         }
         $url = CRM_Utils_System::url('civicrm/devices/dashboard', 'reset=1');
         $session->pushUserContext($url);
