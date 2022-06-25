@@ -41,4 +41,4 @@ cv en devices
 
 ## Known Issues
 
-(* FIXME *)
+0.1.14 - User rights changed
