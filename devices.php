@@ -171,7 +171,7 @@ function devices_civicrm_themes(&$themes)
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-function devices_civicrm_navigationMenu(&$menu)
+function _devices_civicrm_navigationMenu(&$menu)
 {
     _devices_civix_insert_navigation_menu($menu, '', array(
         'label' => E::ts('Devices'),
@@ -253,9 +253,10 @@ function devices_civicrm_navigationMenu(&$menu)
  * Implementation of hook_civicrm_tabset
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_tabset
  */
-function devices_civicrm_tabset($path, &$tabs, $context)
+function _devices_civicrm_tabset($path, &$tabs, $context)
 {
     if ($path === 'civicrm/contact/view') {
+        $devices_count = 0;
         // add a tab to the contact summary screen
         $contactId = $context['contact_id'];
         $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
@@ -266,10 +267,10 @@ function devices_civicrm_tabset($path, &$tabs, $context)
             return;
         }
         try {
-            $myEntities = \Civi\Api4\Device::get()
-                ->selectRowCount()
-                ->addWhere('contact_id', '=', $contactId)
-                ->execute();
+            $myEntities = civicrm_api3('FundTransaction', 'getcount', [
+                'contact_id_app' => $contactId
+            ]);
+            $devices_count = $myEntities;
         } catch (CRM_Core_Exception $e) {
             CRM_Core_Error::debug_var('some_error_in_devices_tab', $e->getMessage());
             return;
@@ -277,7 +278,7 @@ function devices_civicrm_tabset($path, &$tabs, $context)
         $tabs[] = array(
             'id' => 'contact_devices',
             'url' => $url,
-            'count' => $myEntities->count(),
+            'count' => $devices_count,
             'title' => E::ts('Devices'),
             'weight' => 310,
             'icon' => 'crm-i fa-heartbeat',
@@ -416,35 +417,36 @@ function _devices_civicrm_pre($op, $objectName, $id, &$params)
 //            return "The field device_code and/or device_id and/or contact_id is mandatory";
 //        }
 //    }
+}
 
-    function devices_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions) {
-        $permissions['civicrm_o8_device_data'] = [
-            'get' => [
-                'access CiviCRM',
-            ],
-            'delete' => [
-                'access CiviCRM',
-            ],
-            'create' => [
-                'access CiviCRM',
-            ],
-            'update' => [
-                'access CiviCRM',
-            ],
-        ];
-        $permissions['DeviceData'] = [
-            'get' => [
-                'access CiviCRM',
-            ],
-            'delete' => [
-                'access CiviCRM',
-            ],
-            'create' => [
-                'access CiviCRM',
-            ],
-            'update' => [
-                'access CiviCRM',
-            ],
-        ];
-    }
+function devices_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions)
+{
+    $permissions['civicrm_o8_device_data'] = [
+        'get' => [
+            'access CiviCRM',
+        ],
+        'delete' => [
+            'access CiviCRM',
+        ],
+        'create' => [
+            'access CiviCRM',
+        ],
+        'update' => [
+            'access CiviCRM',
+        ],
+    ];
+    $permissions['DeviceData'] = [
+        'get' => [
+            'access CiviCRM',
+        ],
+        'delete' => [
+            'access CiviCRM',
+        ],
+        'create' => [
+            'access CiviCRM',
+        ],
+        'update' => [
+            'access CiviCRM',
+        ],
+    ];
 }
