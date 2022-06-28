@@ -5,7 +5,7 @@
   <description>Receive and process data from IOT devices</description>
   <license>AGPL-3.0</license>
   <maintainer>
-    <author>Octopus8 (Maintainer; support@octopus8.com)</author>
+    <author>Octopus8</author>
     <email>support@octopus8.com</email>
   </maintainer>
   <urls>
@@ -15,10 +15,10 @@
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2022-06-28</releaseDate>
-  <version>1.0.1</version>
+  <version>1.0.3</version>
   <develStage>alpha</develStage>
   <compatibility>
-    <ver>5.72.2</ver>
+    <ver>5.47.2.</ver>
   </compatibility>
   <comments>This extension receives data from IOT devices via an API then analyze data, generate alarms and send alerts.</comments>
   <classloader>

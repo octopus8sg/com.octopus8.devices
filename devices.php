@@ -171,7 +171,7 @@ function devices_civicrm_themes(&$themes)
  *
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_navigationMenu
  */
-function _devices_civicrm_navigationMenu(&$menu)
+function devices_civicrm_navigationMenu(&$menu)
 {
     _devices_civix_insert_navigation_menu($menu, '', array(
         'label' => E::ts('Devices'),
@@ -253,7 +253,7 @@ function _devices_civicrm_navigationMenu(&$menu)
  * Implementation of hook_civicrm_tabset
  * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_tabset
  */
-function _devices_civicrm_tabset($path, &$tabs, $context)
+function devices_civicrm_tabset($path, &$tabs, $context)
 {
     if ($path === 'civicrm/contact/view') {
         $devices_count = 0;
