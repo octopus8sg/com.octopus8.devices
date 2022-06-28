@@ -5,7 +5,7 @@
   <description>Receive and process data from IOT devices</description>
   <license>AGPL-3.0</license>
   <maintainer>
-    <author>Octopus8 (Maintainer; support@octopus8.com)</author>
+    <author>Octopus8</author>
     <email>support@octopus8.com</email>
   </maintainer>
   <urls>
@@ -18,7 +18,7 @@
   <version>1.0.1</version>
   <develStage>alpha</develStage>
   <compatibility>
-    <ver>5.72.2</ver>
+   <ver>5.47.2.</ver>
   </compatibility>
   <comments>This extension receives data from IOT devices via an API then analyze data, generate alarms and send alerts.</comments>
   <classloader>
