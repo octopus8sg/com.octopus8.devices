@@ -419,34 +419,28 @@ function _devices_civicrm_pre($op, $objectName, $id, &$params)
 //    }
 }
 
+/*
+ * We hook here to disable permission checks
+ */
 function devices_civicrm_alterAPIPermissions($entity, $action, &$params, &$permissions)
 {
-    $permissions['civicrm_o8_device_data'] = [
-        'get' => [
-            'access CiviCRM',
-        ],
-        'delete' => [
-            'access CiviCRM',
-        ],
-        'create' => [
-            'access CiviCRM',
-        ],
-        'update' => [
-            'access CiviCRM',
-        ],
-    ];
-    $permissions['DeviceData'] = [
-        'get' => [
-            'access CiviCRM',
-        ],
-        'delete' => [
-            'access CiviCRM',
-        ],
-        'create' => [
-            'access CiviCRM',
-        ],
-        'update' => [
-            'access CiviCRM',
-        ],
-    ];
+//    CRM_Core_Error::debug_var('APIPermission_entity',$entity);
+//    CRM_Core_Error::debug_var('APIPermission_action',$action);
+//    CRM_Core_Error::debug_var('APIPermission_params',$params);
+//    CRM_Core_Error::debug_var('APIPermission_permissions',$permissions);
+    $params = disableCheckPermissionsCreateDeviceData($entity, $action, $params);
+}
+
+/**
+ * @param $entity
+ * @param $action
+ * @param $params
+ * @return mixed
+ */
+function disableCheckPermissionsCreateDeviceData($entity, $action, &$params)
+{
+    if ($entity == "device_data" and $action == 'create') {
+        $params['check_permissions'] = false;
+    }
+    return $params;
 }

@@ -9,5 +9,11 @@ namespace Civi\Api4;
  * @package Civi\Api4
  */
 class DeviceData extends Generic\DAOEntity {
+    public static function permissions() {
+        return [
+            'meta' => ['access CiviCRM'],
+            'default' => ['access CiviCRM'],
+        ];
+    }
 
 }
