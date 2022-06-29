@@ -267,7 +267,7 @@ function devices_civicrm_tabset($path, &$tabs, $context)
             return;
         }
         try {
-            $myEntities = civicrm_api3('FundTransaction', 'getcount', [
+            $myEntities = civicrm_api3('Device', 'getcount', [
                 'contact_id_app' => $contactId
             ]);
             $devices_count = $myEntities;

@@ -1,4 +1,5 @@
 <?php
+
 use CRM_Devices_ExtensionUtil as E;
 
 /**
@@ -9,8 +10,9 @@ use CRM_Devices_ExtensionUtil as E;
  *
  * @see https://docs.civicrm.org/dev/en/latest/framework/api-architecture/
  */
-function _civicrm_api3_device_create_spec(&$spec) {
-  // $spec['some_parameter']['api.required'] = 1;
+function _civicrm_api3_device_create_spec(&$spec)
+{
+    // $spec['some_parameter']['api.required'] = 1;
 }
 
 /**
@@ -23,8 +25,9 @@ function _civicrm_api3_device_create_spec(&$spec) {
  *
  * @throws API_Exception
  */
-function civicrm_api3_device_create($params) {
-  return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'Device');
+function civicrm_api3_device_create($params)
+{
+    return _civicrm_api3_basic_create(_civicrm_api3_get_BAO(__FUNCTION__), $params, 'Device');
 }
 
 /**
@@ -37,8 +40,9 @@ function civicrm_api3_device_create($params) {
  *
  * @throws API_Exception
  */
-function civicrm_api3_device_delete($params) {
-  return _civicrm_api3_basic_delete(_civicrm_api3_get_BAO(__FUNCTION__), $params);
+function civicrm_api3_device_delete($params)
+{
+    return _civicrm_api3_basic_delete(_civicrm_api3_get_BAO(__FUNCTION__), $params);
 }
 
 /**
@@ -51,8 +55,32 @@ function civicrm_api3_device_delete($params) {
  *
  * @throws API_Exception
  */
-function civicrm_api3_device_get($params) {
-  return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params, TRUE, 'Device');
+function civicrm_api3_device_get($params)
+{
+    return _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $params, TRUE, 'Device');
+}
+
+/**
+ * Device.getcount API.
+ *
+ * @param array $params
+ *
+ * @return array
+ *   API result descriptor
+ *
+ * @throws API_Exception
+ */
+function civicrm_api3_device_getcount($apiRequest)
+{
+    $apiRequest['params']['options']['is_count'] = TRUE;
+    $records = _civicrm_api3_basic_get(_civicrm_api3_get_BAO(__FUNCTION__), $apiRequest, TRUE, 'Device');
+    if (is_numeric(CRM_Utils_Array::value('values', $records))) {
+        return (int)$records['values'];
+    }
+        if (!isset($records['count'])) {
+        throw new API_Exception(ts('Unexpected result from getcount') . print_r($records, TRUE));
+    }
+    return (int) $records['count'];
 }
 
 /**
