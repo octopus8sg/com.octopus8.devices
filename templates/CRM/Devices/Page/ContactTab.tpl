@@ -1,4 +1,4 @@
-{crmScope extensionKey='devices'}
+{crmScope extensionKey='com.octopus8.devices'}
     <div class="devices-tab view-content">
         {*            <div class="action-link">*}
         {*                <a class="button" target="_blank" href="{crmURL p="civicrm/device/makedata" q="cid=$contactId"}">*}
