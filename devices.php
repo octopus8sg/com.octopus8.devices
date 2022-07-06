@@ -250,9 +250,12 @@ function devices_civicrm_navigationMenu(&$menu)
 
 
 /**
- * Implementation of hook_civicrm_tabset
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_tabset
+ * @param $path
+ * @param $tabs
+ * @param $context
+ * @throws CiviCRM_API3_Exception
  */
+
 function devices_civicrm_tabset($path, &$tabs, $context)
 {
     if ($path === 'civicrm/contact/view') {
@@ -261,16 +264,11 @@ function devices_civicrm_tabset($path, &$tabs, $context)
         $contactId = $context['contact_id'];
         $url = CRM_Utils_System::url('civicrm/devices/contacttab', ['cid' => $contactId]);
         try {
-            $contactType = CRM_Contact_BAO_Contact::getContactType($contactId);
-        } catch (CRM_Core_Exception $e) {
-            CRM_Core_Error::debug_var('some_error_in_funds_tab', $e->getMessage());
-            return;
-        }
-        try {
-            $myEntities = civicrm_api3('Device', 'getcount', [
-                'contact_id_app' => $contactId
+            $myEntities = civicrm_api3('Device', 'get', [
+                'contact_id' => $contactId,
+                'sequential' => 1,
             ]);
-            $devices_count = $myEntities;
+            $devices_count = $myEntities['count'];
         } catch (CRM_Core_Exception $e) {
             CRM_Core_Error::debug_var('some_error_in_devices_tab', $e->getMessage());
             return;
